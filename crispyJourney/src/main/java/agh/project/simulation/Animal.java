@@ -7,6 +7,8 @@ import java.util.Objects;
 public class Animal {
 
 //    -----Attributes------
+    // How old is the animal ???
+    // How many children animal has ???
     public final int id;
     private Vector2d position;
     private Direction direction;
