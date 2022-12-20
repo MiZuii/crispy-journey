@@ -10,9 +10,9 @@ public enum Rotation {
         * R - animal will trun 90 degrees clockwise
         Some combination of this values also have the meaning. Markers works the same way as the compass rose
 */
-    F,
-    FR,
-    R,
+    F,  //N
+    FR, //NE
+    R,  //E
     BR,
     B,
     BL,

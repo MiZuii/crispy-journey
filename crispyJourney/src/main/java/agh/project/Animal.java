@@ -62,7 +62,7 @@ public class Animal {
         if (!this.energy.enoughEnergy()); //Animal to delete (not implemented yet)
 
         this.direction = direction.changeDirection(gen.getNextRotation());
-        gen.actualiseGen();
+        gen.updateGen();
 
         Vector2d unitVector = direction.toVector2d();
         this.position = position.add(unitVector);

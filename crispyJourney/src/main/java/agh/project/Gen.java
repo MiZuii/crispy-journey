@@ -83,7 +83,7 @@ public class Gen {
         return this.gens.get(actualGen);
     }
 
-    public void actualiseGen(){
+    public void updateGen(){
 //        Change actual Gen to the next in the queue
         this.actualGen = (actualGen + 1)%(this.gens.size());
     }
