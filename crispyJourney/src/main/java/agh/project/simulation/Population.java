@@ -1,24 +1,24 @@
 package agh.project.simulation;
 
 public class Population {
-    private final int mapHeight;
-    private final int mapWidth;
-    private final int grassEnergyProfit;
-    private final int minEnergyCopulation;
-    private final int animalStartEnergy;
-    private final int dailyEnergyLost;
-    private final int animalStartSpawningNumber;
-    private final int grassPerDay;
-    private final int refreshment;
+    public int mapHeight;
+    public int mapWidth;
+    public int grassEnergyProfit;
+    public int minEnergyCopulation;
+    public int animalStartEnergy;
+    public int dailyEnergyLost;
+    public int animalStartSpawningNumber;
+    public int grassPerDay;
+    public int refreshment;
 
-    private final int energyPerCopulation;
-    private final int maxMutationNumber;
-    private final int genomLength;
+    public int energyPerCopulation;
+    public int maxMutationNumber;
+    public int genomLength;
 
-    private final boolean moveFlag; // How animals move
-    private final boolean mutationFlag; // How gens update
-    private final boolean mapFlag; // Type of map (hell or earth)
-    private final boolean grassFlag; // Where the grass should spawn
+    public boolean moveFlag; // How animals move
+    public boolean mutationFlag; // How gens update
+    public boolean mapFlag; // Type of map (hell or earth)
+    public boolean grassFlag; // Where the grass should spawn
 
 
     public Population(int mapHeight, int mapWidth, int grassEnergyProfit, int minEnergyCopulation,

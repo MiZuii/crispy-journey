@@ -5,8 +5,8 @@ import agh.project.enumerators.Direction;
 public class AnimalFactory {
 
 //    -----ATTRIBUTES------
-    private int actualIndex;
-    private int liveAnimal;
+    public int actualIndex;
+    public int liveAnimal;
 
 
 
