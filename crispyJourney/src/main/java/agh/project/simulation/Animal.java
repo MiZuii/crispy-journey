@@ -9,6 +9,8 @@ public class Animal {
 //    -----Attributes------
     // How old is the animal ???
     // How many children animal has ???
+    // How many grass it ate ???
+    // When it died
     public final int id;
     private Vector2d position;
     private Direction direction;
@@ -75,9 +77,6 @@ public class Animal {
  In addition, you will have to call up the methods responsible for breeding, eating and falling into hell.
  To implement them, you need a map that does not exist yet
   */
-
-
-
     }
 
 }
