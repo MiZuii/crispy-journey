@@ -1,4 +1,6 @@
-package agh.project;
+package agh.project.simulation;
+
+import agh.project.enumerators.Rotation;
 
 import java.util.ArrayList;
 import java.util.Random;

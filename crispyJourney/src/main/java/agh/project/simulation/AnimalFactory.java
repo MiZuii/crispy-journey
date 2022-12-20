@@ -1,4 +1,6 @@
-package agh.project;
+package agh.project.simulation;
+
+import agh.project.enumerators.Direction;
 
 public class AnimalFactory {
 

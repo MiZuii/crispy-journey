@@ -1,4 +1,4 @@
-package agh.project;
+package agh.project.enumerators;
 
 public enum Rotation {
 
