@@ -10,7 +10,7 @@ public class Gen {
 //    -----Attributes-----
     private ArrayList<Rotation> gens;
     private int actualGen;
-    public static int gensNumber = 10;
+    public static int gensNumber = 8;
     public static int mutationNumber = 5;
 
 //    -----Methods-----
