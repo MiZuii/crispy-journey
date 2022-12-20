@@ -19,7 +19,7 @@ public class App extends Application{
 
     }
 
-    private void artificialInit(){
+    private void artificialInit() {
         simulationManagers = new ArrayList<>();
         menuManager = new MenuManager();
         populationManager = new PopulationManager();
@@ -32,5 +32,10 @@ public class App extends Application{
 
         // run menu window
         menuManager.start();
+        simulationManagers.add(new SimulationManager());
+        simulationManagers.add(new SimulationManager());
+        for (SimulationManager s : simulationManagers) {
+            s.start();
+        }
     }
 }

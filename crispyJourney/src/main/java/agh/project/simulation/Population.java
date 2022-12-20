@@ -1,6 +1,7 @@
 package agh.project.simulation;
 
 public class Population {
+    public String name;
     private final int mapHeight;
     private final int mapWidth;
     private final int grassEnergyProfit;
@@ -21,10 +22,11 @@ public class Population {
     private final boolean grassFlag; // Where the grass should spawn
 
 
-    public Population(int mapHeight, int mapWidth, int grassEnergyProfit, int minEnergyCopulation,
+    public Population(String name, int mapHeight, int mapWidth, int grassEnergyProfit, int minEnergyCopulation,
                       int animalStartEnergy, int dailyEnergyLost, int animalStartSpawningNumber,
                       int grassPerDay, int refreshment, int energyPerCopulation, int maxMutationNumber,
                       int genomLength, boolean moveFlag, boolean mutationFlag, boolean mapFlag, boolean grassFlag) {
+        this.name = name;
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.grassEnergyProfit = grassEnergyProfit;

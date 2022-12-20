@@ -3,6 +3,7 @@ package agh.project.gui.menu;
 import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.StageCreator;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MenuStage implements StageCreator {
@@ -21,7 +22,14 @@ public class MenuStage implements StageCreator {
         // attach scene
         menuStage.setScene(menuScene);
 
-        menuStage.setTitle("Menu");
+        // change stage properties
+        configureStage();
+
         return menuStage;
+    }
+
+    private void configureStage(){
+        menuStage.setTitle("Menu");
+        menuStage.initModality(Modality.NONE);
     }
 }

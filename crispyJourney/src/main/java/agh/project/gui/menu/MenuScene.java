@@ -1,7 +1,11 @@
 package agh.project.gui.menu;
 
+import agh.project.gui.population.PopulationManager;
 import agh.project.interfaces.SceneCreator;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class MenuScene implements SceneCreator {
@@ -13,8 +17,20 @@ public class MenuScene implements SceneCreator {
 
     @Override
     public Scene createScene() {
+
+        Button tmpbt = new Button("new window");
         VBox root = new VBox();
-        menuScene = new Scene(root, 1000, 600);
+
+        root.getChildren().add(tmpbt);
+        tmpbt.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                PopulationManager nm = new PopulationManager();
+                nm.start();
+            }
+        });
+
+        menuScene = new Scene(root, 600, 600);
         return menuScene;
     }
 }
