@@ -16,6 +16,10 @@ public class App extends Application{
 
     @Override
     public void init() {
+
+    }
+
+    private void artificialInit(){
         simulationManagers = new ArrayList<>();
         menuManager = new MenuManager();
         populationManager = new PopulationManager();
@@ -23,6 +27,10 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // running artificial initiator
+        artificialInit();
+
+        // run menu window
         menuManager.start();
     }
 }

@@ -1,7 +1,7 @@
 package agh.project;
 
 
-import agh.project.App.App;
+import agh.project.App.*;
 import javafx.application.Application;
 
 public class World {
