@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'org.example'
@@ -8,6 +9,11 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "16"
+    modules = [ 'javafx.controls' ]
 }
 
 dependencies {
@@ -27,3 +33,13 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir(files("src/main/resources"))
+        }
+    }
+}
+
+tasks.withType(Copy).all { duplicatesStrategy = DuplicatesStrategy.INCLUDE }
