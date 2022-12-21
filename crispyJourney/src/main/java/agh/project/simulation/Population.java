@@ -1,18 +1,7 @@
 package agh.project.simulation;
 
 public class Population {
-<<<<<<< HEAD
     public String name;
-    private final int mapHeight;
-    private final int mapWidth;
-    private final int grassEnergyProfit;
-    private final int minEnergyCopulation;
-    private final int animalStartEnergy;
-    private final int dailyEnergyLost;
-    private final int animalStartSpawningNumber;
-    private final int grassPerDay;
-    private final int refreshment;
-=======
     public int mapHeight;
     public int mapWidth;
     public int grassEnergyProfit;
@@ -22,7 +11,6 @@ public class Population {
     public int animalStartSpawningNumber;
     public int grassPerDay;
     public int refreshment;
->>>>>>> 62399441921bab3593a4ac50c163889c4f17f54f
 
     public int energyPerCopulation;
     public int maxMutationNumber;
