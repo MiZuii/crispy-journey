@@ -7,10 +7,12 @@ import javafx.stage.Stage;
 public class MenuManager implements WindowManager {
 
     private Stage menuStage;
+    private PopulationsHolder populationsHolder;
 
     public MenuManager(){
         StageCreator stageCreator = new MenuStage();
         menuStage = stageCreator.createStage();
+        populationsHolder = new PopulationsHolder();
     }
 
     @Override

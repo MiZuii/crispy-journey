@@ -4,29 +4,58 @@ import agh.project.simulation.Population;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Set;
 
-
+/**
+ *
+ * Class responsible for holding Population objects
+ * and sharing utilities like getting or adding new populations
+ *
+ * @author Piotr
+ *
+ */
 public class PopulationsHolder {
 
     private ArrayList<Population> populationsList;
+    private Set<String> populationNames;
 
     public PopulationsHolder(){
         populationsList = new ArrayList<>();
         addPresavedPopulations();
     }
 
+    /**
+     * Getter for populations array.
+     *
+     * @return Array of populations
+     */
     public ArrayList<Population> getPopulationsList() {
         return populationsList;
     }
 
+    /**
+     * Methode adds a new population to population array.
+     *
+     * @param newPopulation Population to add.
+     */
     public void addPopulation(Population newPopulation){
         populationsList.add(newPopulation);
+        populationNames.add(newPopulation.name);
     }
 
+    /**
+     * Methode removes given population from list of populations
+     *
+     * @param toDelete Population to delete
+     */
     public void removePopulation(Population toDelete){
         populationsList.remove(toDelete);
+        populationNames.remove(toDelete.name);
     }
 
+    /**
+     * Methode adding saved to files populations to populations array.
+     */
     private void addPresavedPopulations() {
         File[] savedPopulations = findPopulations();
 
@@ -39,12 +68,21 @@ public class PopulationsHolder {
         }
     }
 
+    /**
+     * Methode creating population objects from given file.
+     *
+     * @param file File holding population content
+     *
+     * @return Population Object
+     *
+     * @throws IOException  Throws if file doesn't exist -> parseFileInput cant create FileReader
+     */
     private Population createPopulationFromFile(File file) throws IOException {
         ArrayList<Integer> args = parseFileInput(file);
 
-        String name = file.getName().split(".")[0];
+        String name = file.getName().split("\\.")[0];
 
-        int[] intArgs = new int[11];
+        int[] intArgs = new int[12];
         for (int i=0; i<intArgs.length; i++) {
             intArgs[i] = args.get(i);
         }
@@ -58,6 +96,18 @@ public class PopulationsHolder {
         return new Population(name, intArgs, booleanArgs);
     }
 
+    /**
+     * Methode responsible for parsing .pop files content. The content
+     *      is a single line string of ints separated by "/" each number
+     *      corresponds to single field in Population object. It only parses
+     *      content, doesn't create population objects.
+     *
+     * @param file File from which content of population is read.
+     *
+     * @return Returns Array of ints which are arguments needed for creating population object
+     *
+     * @throws IOException Exception is thrown when the file doesn't exist -> FileReader can't be created
+     */
     private ArrayList<Integer> parseFileInput(File file) throws IOException {
         FileReader fileReader = new FileReader(file);
 
@@ -67,12 +117,18 @@ public class PopulationsHolder {
         String[] slicedContent = sContent.split("/");
 
         ArrayList<Integer> args = new ArrayList<>();
-        for (String subString : slicedContent) {
-            args.add(Integer.parseInt(subString));
+        for (int i=0; i<slicedContent.length-1; i++) {
+            args.add(Integer.parseInt(slicedContent[i]));
         }
         return args;
     }
 
+    /**
+     * Methode responsible for finding all saved in file populations as files/
+     *
+     * @return List of File object corresponding to
+     *          populations.
+     */
     private File[] findPopulations(){
         // f is a directory of populations relative to different project directories
         File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\populations");
