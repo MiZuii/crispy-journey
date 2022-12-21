@@ -1,6 +1,5 @@
 package agh.project.gui.simulation;
 
-import agh.project.gui.menu.MenuStage;
 import agh.project.interfaces.StageCreator;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;

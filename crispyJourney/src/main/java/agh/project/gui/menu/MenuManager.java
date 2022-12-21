@@ -1,10 +1,7 @@
 package agh.project.gui.menu;
 
-import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.StageCreator;
 import agh.project.interfaces.WindowManager;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MenuManager implements WindowManager {
