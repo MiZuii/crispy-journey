@@ -34,3 +34,5 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+System.setProperty( "user.dir", project.projectDir.toString() )

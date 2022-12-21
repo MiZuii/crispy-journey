@@ -22,26 +22,26 @@ public class Population {
     public boolean grassFlag; // Where the grass should spawn
 
 
-    public Population(String name, int mapHeight, int mapWidth, int grassEnergyProfit, int minEnergyCopulation,
-                      int animalStartEnergy, int dailyEnergyLost, int animalStartSpawningNumber,
-                      int grassPerDay, int refreshment, int energyPerCopulation, int maxMutationNumber,
-                      int genomLength, boolean moveFlag, boolean mutationFlag, boolean mapFlag, boolean grassFlag) {
+    public Population(String name, int[] properties, boolean[] flags) {
+
         this.name = name;
-        this.mapHeight = mapHeight;
-        this.mapWidth = mapWidth;
-        this.grassEnergyProfit = grassEnergyProfit;
-        this.minEnergyCopulation = minEnergyCopulation;
-        this.animalStartEnergy = animalStartEnergy;
-        this.dailyEnergyLost = dailyEnergyLost;
-        this.animalStartSpawningNumber = animalStartSpawningNumber;
-        this.grassPerDay = grassPerDay;
-        this.refreshment = refreshment;
-        this.energyPerCopulation = energyPerCopulation;
-        this.maxMutationNumber = maxMutationNumber;
-        this.genomLength = genomLength;
-        this.moveFlag = moveFlag;
-        this.mutationFlag = mutationFlag;
-        this.mapFlag = mapFlag;
-        this.grassFlag = grassFlag;
+
+        this.mapHeight = properties[0];
+        this.mapWidth = properties[1];
+        this.grassEnergyProfit = properties[2];
+        this.minEnergyCopulation = properties[3];
+        this.animalStartEnergy = properties[4];
+        this.dailyEnergyLost = properties[5];
+        this.animalStartSpawningNumber = properties[6];
+        this.grassPerDay = properties[7];
+        this.refreshment = properties[8];
+        this.energyPerCopulation = properties[9];
+        this.maxMutationNumber = properties[10];
+        this.genomLength = properties[11];
+
+        this.moveFlag = flags[0];
+        this.mutationFlag = flags[1];
+        this.mapFlag = flags[2];
+        this.grassFlag = flags[3];
     }
 }

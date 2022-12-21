@@ -15,9 +15,7 @@ public class App extends Application{
     private PopulationManager populationManager;
 
     @Override
-    public void init() {
-
-    }
+    public void init() {}
 
     private void artificialInit() {
         simulationManagers = new ArrayList<>();

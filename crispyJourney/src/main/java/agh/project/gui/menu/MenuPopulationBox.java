@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 public class MenuPopulationBox extends HBox {
 
     public MenuPopulationBox(Population population) {
-
+        this.getChildren().add(populationName(population));
     }
 
     private Label populationName(Population population){

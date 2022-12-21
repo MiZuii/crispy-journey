@@ -2,6 +2,7 @@ package agh.project.gui.menu;
 
 import agh.project.gui.population.PopulationManager;
 import agh.project.interfaces.SceneCreator;
+import agh.project.simulation.Population;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -22,6 +23,8 @@ public class MenuScene implements SceneCreator {
         VBox root = new VBox();
 
         root.getChildren().add(tmpbt);
+
+        tmpbt.toFront();
         tmpbt.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
