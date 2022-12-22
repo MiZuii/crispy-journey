@@ -1,12 +1,14 @@
 package agh.project.gui.menu;
 
 import agh.project.App.App;
+import agh.project.gui.menu.events.addPopulationEvent;
 import agh.project.gui.population.PopulationManager;
 import agh.project.interfaces.SceneCreator;
 import agh.project.simulation.Population;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
@@ -38,7 +40,7 @@ public class MenuScene implements SceneCreator {
         }
 
         addPopulationButton = new Button("Add population");
-        addPopulationButton.setOnAction(app.menuManager.addPopulationButtonAction);
+        addPopulationButton.setOnAction(new addPopulationEvent(app, this));
         root.getChildren().add(addPopulationButton);
         addPopulationButton.toFront();
 
@@ -50,5 +52,13 @@ public class MenuScene implements SceneCreator {
         root.getChildren().add(new MenuPopulationBox(population, root, app));
         addPopulationButton.toFront();
         app.populationsHolder.addPopulation(population);
+    }
+
+    public boolean populationNameTaken(String name) {
+        return app.populationsHolder.getPopulationNames().contains(name);
+    }
+
+    public void savePopulationToFile(Population population) {
+        app.populationsHolder.createPopulationFile(population);
     }
 }

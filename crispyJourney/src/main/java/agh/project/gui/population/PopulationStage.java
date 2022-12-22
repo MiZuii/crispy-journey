@@ -1,5 +1,6 @@
 package agh.project.gui.population;
 
+import agh.project.gui.menu.MenuScene;
 import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.StageCreator;
 import javafx.scene.Scene;
@@ -8,19 +9,18 @@ import javafx.stage.Stage;
 
 public class PopulationStage implements StageCreator {
 
-    private Stage populationStage = new Stage();
-    private Scene populationScene;
+    private final Stage populationStage = new Stage();
+    private final PopulationScene populationScene;
 
-    public PopulationStage(){
-        SceneCreator sceneCreator = new PopulationScene();
-        populationScene = sceneCreator.createScene();
+    public PopulationStage(MenuScene menuScene){
+        populationScene = new PopulationScene(menuScene);
     }
 
     @Override
     public Stage createStage() {
 
         // attach scene
-        populationStage.setScene(populationScene);
+        populationStage.setScene(populationScene.createScene());
 
         // change stage properties
         configureStage();

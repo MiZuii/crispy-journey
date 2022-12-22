@@ -6,19 +6,21 @@ import javafx.scene.control.Label;
 
 public class InputRowBoolean extends InputRow<Boolean> {
 
+    CheckBox inputData;
+
     public InputRowBoolean(String inputText) {
         createBoxElements(inputText);
     }
 
     private void  createBoxElements(String inputText) {
         Label inputName = new Label(inputText);
-        CheckBox inputData = new CheckBox();
+        inputData = new CheckBox();
 
         this.getChildren().addAll(inputName, inputData);
     }
 
     @Override
     public Boolean getRowValue() {
-        return false;
+        return inputData.isSelected();
     }
 }

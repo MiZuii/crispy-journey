@@ -1,6 +1,7 @@
-package agh.project.gui.menu;
+package agh.project.gui.menu.events;
 
 import agh.project.App.App;
+import agh.project.gui.menu.MenuPopulationBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;

@@ -1,21 +1,22 @@
 package agh.project.gui.population;
 
 
+import agh.project.gui.menu.MenuScene;
 import agh.project.interfaces.StageCreator;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;
 
 public class PopulationManager implements WindowManager {
 
-    private Stage populationStage;
+    private PopulationStage populationStage;
 
-    public PopulationManager(){
-        StageCreator stageCreator = new PopulationStage();
-        populationStage = stageCreator.createStage();
+    public PopulationManager(MenuScene menuScene){
+        populationStage = new PopulationStage(menuScene);
     }
 
     @Override
     public void start() {
-        populationStage.show();
+        Stage populationStageFX = populationStage.createStage();
+        populationStageFX.show();
     }
 }

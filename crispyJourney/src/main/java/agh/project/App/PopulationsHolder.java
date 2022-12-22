@@ -36,6 +36,15 @@ public class PopulationsHolder {
     }
 
     /**
+     * Getter for populations names.
+     *
+     * @return Array of populations names.
+     */
+    public HashSet<String> getPopulationNames() {
+        return populationNames;
+    }
+
+    /**
      * Methode adds a new population to population array.
      *
      * @param newPopulation Population to add.
@@ -104,7 +113,7 @@ public class PopulationsHolder {
      *
      * @param population population to save
      */
-    private void createPopulationFile(Population population) {
+    public void createPopulationFile(Population population) {
         String filePath = System.getProperty("user.dir") +
                 "\\src\\main\\resources\\populations\\" +
                 population.name + ".pop";

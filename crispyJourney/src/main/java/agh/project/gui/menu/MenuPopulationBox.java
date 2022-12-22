@@ -1,6 +1,7 @@
 package agh.project.gui.menu;
 
 import agh.project.App.App;
+import agh.project.gui.menu.events.removePopulationEvent;
 import agh.project.simulation.Population;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

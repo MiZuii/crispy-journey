@@ -7,13 +7,15 @@ import javafx.scene.control.TextField;
 
 public class InputRowName extends InputRow<String> {
 
+    private TextField inputData;
+
     public InputRowName(String inputText) {
         createBoxElements(inputText);
     }
 
     private void  createBoxElements(String inputText) {
         Label inputName = new Label(inputText);
-        TextField inputData = new TextField();
+        inputData = new TextField();
         inputData.textProperty().addListener(new NameFilterChangeListener(inputData));
 
         this.getChildren().addAll(inputName, inputData);
@@ -21,6 +23,9 @@ public class InputRowName extends InputRow<String> {
 
     @Override
     public String getRowValue() {
-        return null;
+        if (inputData.getText().isBlank()) {
+            return null;
+        }
+        return inputData.getText();
     }
 }

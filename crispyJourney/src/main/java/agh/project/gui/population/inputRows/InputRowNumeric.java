@@ -7,13 +7,15 @@ import javafx.scene.control.TextField;
 
 public class InputRowNumeric extends InputRow<Integer> {
 
+    private TextField inputData;
+
     public InputRowNumeric(String inputText) {
         createBoxElements(inputText);
     }
 
     private void  createBoxElements(String inputText) {
         Label inputName = new Label(inputText);
-        TextField inputData = new TextField();
+        inputData = new TextField();
         inputData.textProperty().addListener(new NumbersOnlyChangeListener(inputData));
 
         this.getChildren().addAll(inputName, inputData);
@@ -21,6 +23,9 @@ public class InputRowNumeric extends InputRow<Integer> {
 
     @Override
     public Integer getRowValue() {
-        return null;
+        if (inputData.getText().isBlank()) {
+            return null;
+        }
+        return Integer.valueOf(inputData.getText());
     }
 }
