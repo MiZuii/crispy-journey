@@ -1,12 +1,11 @@
 package agh.project.gui.menu;
 
+import agh.project.App.App;
 import agh.project.simulation.Population;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 /**
  *
@@ -23,11 +22,20 @@ public class MenuPopulationBox extends HBox {
 
     private Population population;
     private Pane parentNode;
+    private App app;
 
-    public MenuPopulationBox(Population population, Pane parent) {
+    public MenuPopulationBox(Population population, Pane parent, App app) {
+        this.app = app;
         this.parentNode = parent;
         this.population = population;
         createBox();
+    }
+
+    /**
+     * Population getter
+     */
+    public Population getPopulation() {
+        return population;
     }
 
     /**
@@ -38,7 +46,7 @@ public class MenuPopulationBox extends HBox {
         // nodes creation
         Label populationNameLabel = new Label(population.name);
         Button deletePopulationButton = new Button("X");
-        deletePopulationButton.setOnAction(new removePopulationEvent(this, parentNode));
+        deletePopulationButton.setOnAction(new removePopulationEvent(this, parentNode, app));
         Button saveButton = new Button("S");
         Button startPopulationSimulationButton = new Button(">");
 

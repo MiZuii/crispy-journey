@@ -34,7 +34,7 @@ public class MenuScene implements SceneCreator {
         root = new VBox();
 
         for (Population p : app.populationsHolder.getPopulationsList()) {
-            root.getChildren().add(new MenuPopulationBox(p, root));
+            root.getChildren().add(new MenuPopulationBox(p, root, app));
         }
 
         addPopulationButton = new Button("Add population");
@@ -42,12 +42,13 @@ public class MenuScene implements SceneCreator {
         root.getChildren().add(addPopulationButton);
         addPopulationButton.toFront();
 
-
         menuScene = new Scene(root, 600, 600);
         return menuScene;
     }
 
-    public void updateScene() {
-
+    public void addNewPopulation(Population population) {
+        root.getChildren().add(new MenuPopulationBox(population, root, app));
+        addPopulationButton.toFront();
+        app.populationsHolder.addPopulation(population);
     }
 }

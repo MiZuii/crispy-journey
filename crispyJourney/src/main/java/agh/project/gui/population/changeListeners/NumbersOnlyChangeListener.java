@@ -1,4 +1,4 @@
-package agh.project.gui.population;
+package agh.project.gui.population.changeListeners;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

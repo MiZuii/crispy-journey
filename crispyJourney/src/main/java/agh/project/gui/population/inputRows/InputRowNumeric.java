@@ -1,10 +1,11 @@
-package agh.project.gui.population;
+package agh.project.gui.population.inputRows;
 
+import agh.project.gui.population.changeListeners.NumbersOnlyChangeListener;
+import agh.project.gui.population.inputRows.abstractRow.InputRow;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 
-public class InputRowNumeric extends HBox {
+public class InputRowNumeric extends InputRow<Integer> {
 
     public InputRowNumeric(String inputText) {
         createBoxElements(inputText);
@@ -18,4 +19,8 @@ public class InputRowNumeric extends HBox {
         this.getChildren().addAll(inputName, inputData);
     }
 
+    @Override
+    public Integer getRowValue() {
+        return null;
+    }
 }

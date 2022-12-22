@@ -1,7 +1,13 @@
 package agh.project.gui.population;
 
+import agh.project.gui.population.inputRows.InputRowBoolean;
+import agh.project.gui.population.inputRows.InputRowName;
+import agh.project.gui.population.inputRows.InputRowNumeric;
 import agh.project.interfaces.SceneCreator;
+import agh.project.simulation.Population;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -22,14 +28,27 @@ public class PopulationScene implements SceneCreator {
     public Scene createScene() {
         root = new VBox();
 
+        InputRowName populationNameInput = new InputRowName("Population name");
+        root.getChildren().add(populationNameInput);
+
         createNumericInputs();
         root.getChildren().addAll(numericInputs);
 
         createBolleanInputs();
         root.getChildren().addAll(booleanInputs);
 
+        HBox saveButtonsBox = new HBox();
+        Button saveToFile = new Button("Save to file");
+        Button save = new Button("Save");
+        saveButtonsBox.getChildren().addAll(save, saveToFile);
+        root.getChildren().add(saveButtonsBox);
+
         populationScene = new Scene(root, 400, 700);
         return populationScene;
+    }
+
+    public Population getNewPopulationFromInputs() {
+        return null;
     }
 
     private void createBolleanInputs() {

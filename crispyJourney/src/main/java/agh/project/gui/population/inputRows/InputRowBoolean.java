@@ -1,11 +1,10 @@
-package agh.project.gui.population;
+package agh.project.gui.population.inputRows;
 
+import agh.project.gui.population.inputRows.abstractRow.InputRow;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 
-public class InputRowBoolean extends HBox {
+public class InputRowBoolean extends InputRow<Boolean> {
 
     public InputRowBoolean(String inputText) {
         createBoxElements(inputText);
@@ -18,4 +17,8 @@ public class InputRowBoolean extends HBox {
         this.getChildren().addAll(inputName, inputData);
     }
 
+    @Override
+    public Boolean getRowValue() {
+        return false;
+    }
 }
