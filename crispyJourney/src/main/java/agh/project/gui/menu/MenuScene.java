@@ -10,10 +10,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
+/**
+ * MenuScene is responsible for creating menu javafx scene of the menu
+ *
+ * @author Piotr
+ *
+ */
 public class MenuScene implements SceneCreator {
 
     Scene menuScene;
     private VBox root;
+    private Button addPopulationButton;
     private App app;
 
     public MenuScene(App app) {
@@ -27,10 +34,10 @@ public class MenuScene implements SceneCreator {
         root = new VBox();
 
         for (Population p : app.populationsHolder.getPopulationsList()) {
-            root.getChildren().add(new MenuPopulationBox(p));
+            root.getChildren().add(new MenuPopulationBox(p, root));
         }
 
-        Button addPopulationButton = new Button("Add population");
+        addPopulationButton = new Button("Add population");
         addPopulationButton.setOnAction(app.menuManager.addPopulationButtonAction);
         root.getChildren().add(addPopulationButton);
         addPopulationButton.toFront();
@@ -38,5 +45,9 @@ public class MenuScene implements SceneCreator {
 
         menuScene = new Scene(root, 600, 600);
         return menuScene;
+    }
+
+    public void updateScene() {
+
     }
 }

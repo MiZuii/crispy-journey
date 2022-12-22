@@ -6,8 +6,6 @@ import agh.project.gui.simulation.SimulationManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class App extends Application{
 
     public PopulationsHolder populationsHolder;

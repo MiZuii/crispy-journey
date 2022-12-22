@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * MenuStage is responsible for creating menu javafx Stage object.
+ */
 public class MenuStage implements StageCreator {
 
     private App app;
@@ -20,6 +23,11 @@ public class MenuStage implements StageCreator {
         menuScene = new MenuScene(app);
     }
 
+    /**
+     * Creates menu Stage object.
+     *
+     * @return Created javafx Stage of menu.
+     */
     @Override
     public Stage createStage() {
 
@@ -33,6 +41,9 @@ public class MenuStage implements StageCreator {
         return menuStageFX;
     }
 
+    /**
+     * Configures Stage elements.
+     */
     private void configureStage(){
         menuStageFX.setTitle("Menu");
         menuStageFX.initModality(Modality.NONE);

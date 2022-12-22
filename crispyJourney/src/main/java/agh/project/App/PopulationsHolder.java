@@ -99,6 +99,36 @@ public class PopulationsHolder {
     }
 
     /**
+     * Methode creating File with pop extension from population file.
+     * The files are saved to path of user.dir\src\main\resources\populations
+     *
+     * @param population population to save
+     */
+    private void createPopulationFile(Population population) {
+        String filePath = System.getProperty("user.dir") +
+                "\\src\\main\\resources\\populations\\" +
+                population.name + ".pop";
+        File popFile = new File(filePath);
+
+        // if there is a file with specified name the IOException is thrown
+        try {
+            popFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // write file content / if there was exception while creating file
+        // the file writer won't work
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            writer.write(population.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Methode responsible for parsing .pop files content. The content
      *      is a single line string of ints separated by "/" each number
      *      corresponds to single field in Population object. It only parses

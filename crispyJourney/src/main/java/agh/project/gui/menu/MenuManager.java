@@ -4,6 +4,14 @@ import agh.project.App.App;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;
 
+/**
+ *
+ * Class MenuManager is a class responsible for creating and managing
+ * menu window.
+ *
+ * @author Piotr
+ *
+ */
 public class MenuManager implements WindowManager {
 
     private App app;
@@ -17,6 +25,11 @@ public class MenuManager implements WindowManager {
         menuStage = new MenuStage(app);
     }
 
+    /**
+     *
+     * Methode responsible for creating window stage and showing it
+     *
+     */
     @Override
     public void start() {
         menuStageFX = menuStage.createStage();

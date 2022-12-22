@@ -44,4 +44,67 @@ public class Population {
         this.mapFlag = flags[2];
         this.grassFlag = flags[3];
     }
+
+    @Override
+    public String toString() {
+        StringBuilder ans = new StringBuilder();
+        ans.append(this.mapHeight);
+        ans.append("/");
+        ans.append(this.mapWidth);
+        ans.append("/");
+        ans.append(this.grassEnergyProfit);
+        ans.append("/");
+        ans.append(this.minEnergyCopulation);
+        ans.append("/");
+        ans.append(this.animalStartEnergy);
+        ans.append("/");
+        ans.append(this.dailyEnergyLost);
+        ans.append("/");
+        ans.append(this.animalStartSpawningNumber);
+        ans.append("/");
+        ans.append(this.grassPerDay);
+        ans.append("/");
+        ans.append(this.refreshment);
+        ans.append("/");
+        ans.append(this.energyPerCopulation);
+        ans.append("/");
+        ans.append(this.maxMutationNumber);
+        ans.append("/");
+        ans.append(this.genomLength);
+        ans.append("/");
+
+        if (moveFlag) {
+            ans.append(1);
+        }
+        else {
+            ans.append(0);
+        }
+        ans.append("/");
+
+        if (mutationFlag) {
+            ans.append(1);
+        }
+        else {
+            ans.append(0);
+        }
+        ans.append("/");
+
+        if (mapFlag) {
+            ans.append(1);
+        }
+        else {
+            ans.append(0);
+        }
+        ans.append("/");
+
+        if (grassFlag) {
+            ans.append(1);
+        }
+        else {
+            ans.append(0);
+        }
+        ans.append("/");
+
+        return ans.toString();
+    }
 }
