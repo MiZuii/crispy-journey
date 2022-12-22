@@ -1,5 +1,6 @@
 package agh.project.gui.menu;
 
+import agh.project.App.App;
 import agh.project.gui.population.PopulationManager;
 import agh.project.interfaces.SceneCreator;
 import agh.project.simulation.Population;
@@ -12,26 +13,28 @@ import javafx.scene.layout.VBox;
 public class MenuScene implements SceneCreator {
 
     Scene menuScene;
+    private VBox root;
+    private App app;
 
-    public MenuScene(){
+    public MenuScene(App app) {
+        this.app = app;
     }
 
     @Override
     public Scene createScene() {
 
-        Button tmpbt = new Button("new window");
-        VBox root = new VBox();
+        // nodes creation
+        root = new VBox();
 
-        root.getChildren().add(tmpbt);
+        for (Population p : app.populationsHolder.getPopulationsList()) {
+            root.getChildren().add(new MenuPopulationBox(p));
+        }
 
-        tmpbt.toFront();
-        tmpbt.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                PopulationManager nm = new PopulationManager();
-                nm.start();
-            }
-        });
+        Button addPopulationButton = new Button("Add population");
+        addPopulationButton.setOnAction(app.menuManager.addPopulationButtonAction);
+        root.getChildren().add(addPopulationButton);
+        addPopulationButton.toFront();
+
 
         menuScene = new Scene(root, 600, 600);
         return menuScene;

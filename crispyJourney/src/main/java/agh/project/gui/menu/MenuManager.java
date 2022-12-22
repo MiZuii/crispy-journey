@@ -1,22 +1,25 @@
 package agh.project.gui.menu;
 
-import agh.project.interfaces.StageCreator;
+import agh.project.App.App;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;
 
 public class MenuManager implements WindowManager {
 
-    private Stage menuStage;
-    private PopulationsHolder populationsHolder;
+    private App app;
+    private Stage menuStageFX;
+    public addPopulationEvent addPopulationButtonAction;
+    public MenuStage menuStage;
 
-    public MenuManager(){
-        StageCreator stageCreator = new MenuStage();
-        menuStage = stageCreator.createStage();
-        populationsHolder = new PopulationsHolder();
+    public MenuManager(App app){
+        this.app = app;
+        addPopulationButtonAction = new addPopulationEvent(app);
+        menuStage = new MenuStage(app);
     }
 
     @Override
     public void start() {
-        menuStage.show();
+        menuStageFX = menuStage.createStage();
+        menuStageFX.show();
     }
 }

@@ -1,5 +1,6 @@
 package agh.project.gui.menu;
 
+import agh.project.App.App;
 import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.StageCreator;
 import javafx.scene.Scene;
@@ -8,28 +9,32 @@ import javafx.stage.Stage;
 
 public class MenuStage implements StageCreator {
 
-    private Stage menuStage = new Stage();
-    private Scene menuScene;
+    private App app;
+    private Stage menuStageFX;
+    private Scene menuSceneFX;
+    public MenuScene menuScene;
 
-    public MenuStage(){
-        SceneCreator sceneCreator = new MenuScene();
-        menuScene = sceneCreator.createScene();
+    public MenuStage(App app){
+        this.app = app;
+        menuStageFX = new Stage();
+        menuScene = new MenuScene(app);
     }
 
     @Override
     public Stage createStage() {
 
         // attach scene
-        menuStage.setScene(menuScene);
+        menuSceneFX = menuScene.createScene();
+        menuStageFX.setScene(menuSceneFX);
 
         // change stage properties
         configureStage();
 
-        return menuStage;
+        return menuStageFX;
     }
 
     private void configureStage(){
-        menuStage.setTitle("Menu");
-        menuStage.initModality(Modality.NONE);
+        menuStageFX.setTitle("Menu");
+        menuStageFX.initModality(Modality.NONE);
     }
 }

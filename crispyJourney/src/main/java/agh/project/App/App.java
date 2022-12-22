@@ -10,17 +10,15 @@ import java.util.ArrayList;
 
 public class App extends Application{
 
-    private ArrayList<SimulationManager> simulationManagers;
-    private MenuManager menuManager;
-    private PopulationManager populationManager;
+    public PopulationsHolder populationsHolder;
+    public MenuManager menuManager;
 
     @Override
     public void init() {}
 
     private void artificialInit() {
-        simulationManagers = new ArrayList<>();
-        menuManager = new MenuManager();
-        populationManager = new PopulationManager();
+        populationsHolder = new PopulationsHolder();
+        menuManager = new MenuManager(this);
     }
 
     @Override
@@ -30,10 +28,5 @@ public class App extends Application{
 
         // run menu window
         menuManager.start();
-        simulationManagers.add(new SimulationManager());
-        simulationManagers.add(new SimulationManager());
-        for (SimulationManager s : simulationManagers) {
-            s.start();
-        }
     }
 }

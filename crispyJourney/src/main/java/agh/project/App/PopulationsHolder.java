@@ -1,9 +1,10 @@
-package agh.project.gui.menu;
+package agh.project.App;
 
 import agh.project.simulation.Population;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,10 +18,11 @@ import java.util.Set;
 public class PopulationsHolder {
 
     private ArrayList<Population> populationsList;
-    private Set<String> populationNames;
+    private HashSet<String> populationNames;
 
     public PopulationsHolder(){
         populationsList = new ArrayList<>();
+        populationNames = new HashSet<>();
         addPresavedPopulations();
     }
 
