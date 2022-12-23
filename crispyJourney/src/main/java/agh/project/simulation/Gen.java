@@ -97,7 +97,4 @@ public class Gen {
     public void randomUpdateGen(){
         this.actualGen = ThreadLocalRandom.current().nextInt(0, this.gens.size());
     }
-
-
-
 }

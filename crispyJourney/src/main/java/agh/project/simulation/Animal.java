@@ -14,7 +14,7 @@ public class Animal implements WorldElement {
     public final int id;
     public int age = 0;
     public int children = 0;
-    public int grassesAte = 0;
+    public int grassEaten = 0;
     private Vector2d position;
     private Direction direction;
     private Energy energy;
@@ -106,6 +106,4 @@ public class Animal implements WorldElement {
     public void changePosition(Vector2d newPosition){
         this.position = newPosition;
     }
-
-
 }
