@@ -2,6 +2,7 @@ package agh.project.gui.menu;
 
 import agh.project.App.App;
 import agh.project.gui.menu.events.removePopulationEvent;
+import agh.project.gui.menu.events.savePopulationEvent;
 import agh.project.simulation.Population;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,10 +11,10 @@ import javafx.scene.layout.Pane;
 
 /**
  *
- * MenuPopulationBox is a class extenging Hbox. It is
- * a class that contains population and creates Hbox
+ * MenuPopulationBox is a class extending HBox. It is
+ * a class that contains population and creates HBox
  * which displays information of the populations and
- * creates buttons responsible for deleteing and starting
+ * creates buttons responsible for deleting and starting
  * simulation.
  *
  * @author Piotr
@@ -21,9 +22,9 @@ import javafx.scene.layout.Pane;
  */
 public class MenuPopulationBox extends HBox {
 
-    private Population population;
-    private Pane parentNode;
-    private App app;
+    private final Population population;
+    private final Pane parentNode;
+    private final App app;
 
     public MenuPopulationBox(Population population, Pane parent, App app) {
         this.app = app;
@@ -49,9 +50,10 @@ public class MenuPopulationBox extends HBox {
         Button deletePopulationButton = new Button("X");
         deletePopulationButton.setOnAction(new removePopulationEvent(this, parentNode, app));
         Button saveButton = new Button("S");
+        saveButton.setOnAction(new savePopulationEvent(this, app));
         Button startPopulationSimulationButton = new Button(">");
 
-        // node placeing
+        // node placing
         this.getChildren().addAll(populationNameLabel, saveButton, deletePopulationButton, startPopulationSimulationButton);
     }
 }

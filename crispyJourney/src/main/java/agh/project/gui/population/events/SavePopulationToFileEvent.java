@@ -2,10 +2,11 @@ package agh.project.gui.population.events;
 
 import agh.project.gui.menu.MenuScene;
 import agh.project.gui.population.PopulationScene;
+import agh.project.gui.population.events.alerts.duplicateNameAlert;
+import agh.project.gui.population.events.alerts.unfilledPropertiesAlert;
 import agh.project.simulation.Population;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 
 public class SavePopulationToFileEvent implements EventHandler<ActionEvent> {
 
@@ -20,21 +21,18 @@ public class SavePopulationToFileEvent implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         if(populationScene.anyEmptyInputs()) {
-            Alert emptyFields = new Alert(Alert.AlertType.WARNING);
-            emptyFields.setContentText("There are blank fields in the form. These must be completed before proceeding.");
-            emptyFields.show();
+            new unfilledPropertiesAlert().show();
             return;
         }
 
         if (menuScene.populationNameTaken(populationScene.getPopulationName())) {
-            Alert nameTaken = new Alert(Alert.AlertType.WARNING);
-            nameTaken.setContentText("Population name is alredy taken.");
-            nameTaken.show();
+            new duplicateNameAlert().show();
             return;
         }
 
         Population newPopulation = populationScene.getNewPopulationFromInputs();
         menuScene.addNewPopulation(newPopulation);
+        menuScene.addSavedPopulationToHolder(newPopulation);
         menuScene.savePopulationToFile(newPopulation);
         populationScene.closePopulationWindow();
     }

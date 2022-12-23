@@ -1,6 +1,5 @@
 package agh.project.gui.menu.events;
 
-import agh.project.App.App;
 import agh.project.gui.menu.MenuScene;
 import agh.project.gui.population.PopulationManager;
 import javafx.event.ActionEvent;
@@ -16,11 +15,9 @@ import javafx.event.EventHandler;
  */
 public class addPopulationEvent implements EventHandler<ActionEvent> {
 
-    private App app;
-    private MenuScene menuScene;
+    private final MenuScene menuScene;
 
-    public addPopulationEvent(App app, MenuScene menuScene){
-        this.app = app;
+    public addPopulationEvent(MenuScene menuScene){
         this.menuScene = menuScene;
     }
 

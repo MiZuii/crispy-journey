@@ -2,6 +2,7 @@ package agh.project.simulation;
 
 public class Population {
     public String name;
+    public boolean isDefault;
     public int mapHeight;
     public int mapWidth;
     public int grassEnergyProfit;
@@ -22,9 +23,10 @@ public class Population {
     public boolean grassFlag; // Where the grass should spawn
 
 
-    public Population(String name, int[] properties, boolean[] flags) {
+    public Population(String name, boolean isDefault, int[] properties, boolean[] flags) {
 
         this.name = name;
+        this.isDefault = isDefault;
 
         this.mapHeight = properties[0];
         this.mapWidth = properties[1];
@@ -48,6 +50,9 @@ public class Population {
     @Override
     public String toString() {
         StringBuilder ans = new StringBuilder();
+        if (this.isDefault) ans.append(1);
+        else ans.append(0);
+        ans.append("/");
         ans.append(this.mapHeight);
         ans.append("/");
         ans.append(this.mapWidth);

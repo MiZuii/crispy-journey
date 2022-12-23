@@ -5,7 +5,6 @@ import agh.project.simulation.Population;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -17,12 +16,17 @@ import java.util.Set;
  */
 public class PopulationsHolder {
 
-    private ArrayList<Population> populationsList;
-    private HashSet<String> populationNames;
+    private final ArrayList<Population> populationsList;
+    private final HashSet<String> populationsNames;
+    private final ArrayList<Population> savedPopulationsList;
+    private final HashSet<String> savedPopulationsNames;
+
 
     public PopulationsHolder(){
         populationsList = new ArrayList<>();
-        populationNames = new HashSet<>();
+        populationsNames = new HashSet<>();
+        savedPopulationsList = new ArrayList<>();
+        savedPopulationsNames = new HashSet<>();
         addPresavedPopulations();
     }
 
@@ -36,12 +40,30 @@ public class PopulationsHolder {
     }
 
     /**
+     * Getter for saved populations array.
+     *
+     * @return Array of saved populations
+     */
+    public ArrayList<Population> getSavedPopulationsList() {
+        return savedPopulationsList;
+    }
+
+    /**
      * Getter for populations names.
      *
      * @return Array of populations names.
      */
-    public HashSet<String> getPopulationNames() {
-        return populationNames;
+    public HashSet<String> getPopulationsNames() {
+        return populationsNames;
+    }
+
+    /**
+     * Getter for saved populations names.
+     *
+     * @return Array of saved populations names.
+     */
+    public HashSet<String> getSavedPopulationsNames() {
+        return savedPopulationsNames;
     }
 
     /**
@@ -51,7 +73,35 @@ public class PopulationsHolder {
      */
     public void addPopulation(Population newPopulation){
         populationsList.add(newPopulation);
-        populationNames.add(newPopulation.name);
+        populationsNames.add(newPopulation.name);
+    }
+
+    /**
+     * Adds populations and population name to corresponding structures.
+     * Should be only used for reservation that are saved on disk.
+     *
+     * @param newPopulation Population to add.
+     */
+    public void addSavedPopulation(Population newPopulation) {
+        savedPopulationsList.add(newPopulation);
+        savedPopulationsNames.add(newPopulation.name);
+    }
+
+    /**
+     * Remove saved population, and it's name from saved populations list.
+     *
+     * @param populationToRemove Population to remove
+     */
+    public void removeSavedPopulation(Population populationToRemove) {
+        File popToDelete = new File(System.getProperty("user.dir") +
+                "\\src\\main\\resources\\populations\\" +
+                populationToRemove.name + ".pop");
+
+        // if delete operation failed -> stop deleting
+        if (!popToDelete.delete()) {return;}
+
+        savedPopulationsList.remove(populationToRemove);
+        savedPopulationsNames.remove(populationToRemove.name);
     }
 
     /**
@@ -61,7 +111,7 @@ public class PopulationsHolder {
      */
     public void removePopulation(Population toDelete){
         populationsList.remove(toDelete);
-        populationNames.remove(toDelete.name);
+        populationsNames.remove(toDelete.name);
     }
 
     /**
@@ -72,9 +122,11 @@ public class PopulationsHolder {
 
         for (File population : savedPopulations) {
             try {
-                addPopulation(createPopulationFromFile(population));
+                Population pop = createPopulationFromFile(population);
+                addPopulation(pop);
+                addSavedPopulation(pop);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -92,19 +144,19 @@ public class PopulationsHolder {
         ArrayList<Integer> args = parseFileInput(file);
 
         String name = file.getName().split("\\.")[0];
+        boolean isDefault = args.get(0) == 1;
 
         int[] intArgs = new int[12];
         for (int i=0; i<intArgs.length; i++) {
-            intArgs[i] = args.get(i);
+            intArgs[i] = args.get(i+1);
         }
 
         boolean[] booleanArgs = new boolean[4];
         for (int i=0; i<booleanArgs.length; i++) {
-            if (args.get(i + 12) != 0) {booleanArgs[i] = true;}
-            else {booleanArgs[i] = false;}
+            booleanArgs[i] = args.get(i + 12) != 0;
         }
 
-        return new Population(name, intArgs, booleanArgs);
+        return new Population(name, isDefault, intArgs, booleanArgs);
     }
 
     /**
@@ -121,7 +173,7 @@ public class PopulationsHolder {
 
         // if there is a file with specified name the IOException is thrown
         try {
-            popFile.createNewFile();
+            if (!popFile.createNewFile()) {throw new IOException("File creation failed.");}
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,8 +204,10 @@ public class PopulationsHolder {
     private ArrayList<Integer> parseFileInput(File file) throws IOException {
         FileReader fileReader = new FileReader(file);
 
-        char[] content = new char[100];
-        fileReader.read(content);
+        char[] content = new char[1000];
+        if (fileReader.read(content) > 999) {
+            throw new IOException("File " + file + " is too large to parse or is corrupted.");
+        }
         String sContent = new String(content);
         String[] slicedContent = sContent.split("/");
 
@@ -174,12 +228,6 @@ public class PopulationsHolder {
         // f is a directory of populations relative to different project directories
         File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\populations");
 
-        File[] matchingFiles = f.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".pop");
-            }
-        });
-
-        return matchingFiles;
+        return f.listFiles((dir, name) -> name.endsWith(".pop"));
     }
 }
