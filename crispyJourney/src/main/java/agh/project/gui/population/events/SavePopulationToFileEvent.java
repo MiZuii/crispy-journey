@@ -35,6 +35,7 @@ public class SavePopulationToFileEvent implements EventHandler<ActionEvent> {
 
         Population newPopulation = populationScene.getNewPopulationFromInputs();
         menuScene.addNewPopulation(newPopulation);
+        menuScene.addSavedPopulationToHolder(newPopulation);
         menuScene.savePopulationToFile(newPopulation);
         populationScene.closePopulationWindow();
     }

@@ -90,7 +90,7 @@ public class PopulationScene implements SceneCreator {
             bargs[i] = booleanArgs.get(i);
         }
 
-        return new Population(populationNameInput.getRowValue(), iargs, bargs);
+        return new Population(populationNameInput.getRowValue(), false, iargs, bargs);
     }
 
     private void createBolleanInputs() {
