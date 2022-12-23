@@ -10,7 +10,9 @@ public class Energy {
 
 
 //    ------Methods-----
-
+    public Energy(int energy){
+        this.energy = energy;
+    }
     public void oneDay(){
 //      Changes current status of energy by oneDayLost variable
         this.energy = this.energy - Energy.oneDayLost;
@@ -36,5 +38,13 @@ public class Energy {
     public boolean enoughEnergy(){
         return this.energy >= 1;
     }
+
+    /**
+     * Lose energy by going to hell (it is the same amount of energy as during breeding)
+     */
+    public void hellLoss(){
+        this.energy -= reproduceEnergy;
+    }
+
 
 }

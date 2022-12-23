@@ -19,6 +19,10 @@ public class Gen {
         this.gens = gens;
         this.actualGen = 0;
     }
+    public Gen(ArrayList<Rotation> gens, int start){
+        this.gens = gens;
+        this.actualGen = start;
+    }
 
     public ArrayList<Rotation> getGensList() {
         return gens;
@@ -90,6 +94,9 @@ public class Gen {
         this.actualGen = (actualGen + 1)%(this.gens.size());
     }
 
+    public void randomUpdateGen(){
+        this.actualGen = ThreadLocalRandom.current().nextInt(0, this.gens.size());
+    }
 
 
 

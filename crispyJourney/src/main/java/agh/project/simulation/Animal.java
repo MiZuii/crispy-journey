@@ -1,32 +1,44 @@
 package agh.project.simulation;
 
 import agh.project.enumerators.Direction;
+import agh.project.interfaces.MapObserver;
+import agh.project.interfaces.WorldElement;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements WorldElement {
 
 //    -----Attributes------
-    // How old is the animal ???
-    // How many children animal has ???
-    // How many grass it ate ???
-    // When it died
+
+
     public final int id;
+    public int age = 0;
+    public int children = 0;
+    public int grassesAte = 0;
     private Vector2d position;
     private Direction direction;
     private Energy energy;
 
     private Gen gen;
+    private  static MapObserver mapObserver;
+    private static GrassMap grassMapObserver;
+
+    private static AnimalFactory animalFactory;
 
 
 //    ------Methods------
 
-    public Animal(int id, Vector2d position, Direction direction, Energy energy, Gen gen){
+    public Animal(int id, Vector2d position, Direction direction, Energy energy, Gen gen,
+                  MapObserver animalMapObserver, GrassMap grassMapObserver,
+                  AnimalFactory animalFactory){
         this.id = id;
         this.position = position;
         this.direction = direction;
         this.energy = energy;
         this.gen = gen;
+        Animal.mapObserver = animalMapObserver;
+        Animal.grassMapObserver = grassMapObserver;
+        Animal.animalFactory = animalFactory;
     }
 
 
@@ -64,19 +76,36 @@ public class Animal {
 
 
     public void move(){
-//        Moves Animal to the next position according to his genes
-        if (!this.energy.enoughEnergy()); //Animal to delete (not implemented yet)
+//      Moves Animal to the next position according to his genes
+        if (!this.energy.enoughEnergy()){
+            animalFactory.deleteAnimal(this);
 
+            //Remove from the map
+            mapObserver.changePosition(this.position, null, this);
+        }
+
+        Vector2d oldPosition = this.position;
+
+//        Getting older
+        this.age += 1;
+
+//        Moving and updating Gen
         this.direction = direction.changeDirection(gen.getNextRotation());
         gen.updateGen();
-
         Vector2d unitVector = direction.toVector2d();
         this.position = position.add(unitVector);
 
-/**
- In addition, you will have to call up the methods responsible for breeding, eating and falling into hell.
- To implement them, you need a map that does not exist yet
-  */
+        mapObserver.changePosition(oldPosition, this.position, this);
     }
+
+    public void toHell(){
+        //Change the energy of the Animal
+        this.energy.hellLoss();
+    }
+
+    public void changePosition(Vector2d newPosition){
+        this.position = newPosition;
+    }
+
 
 }
