@@ -35,4 +35,6 @@ java {
     }
 }
 
+sourceSets.main.resources.srcDirs = [ "src/main/resources/" ]
+
 System.setProperty( "user.dir", project.projectDir.toString() )
