@@ -18,8 +18,8 @@ public class PopulationsHolder {
 
     private final ArrayList<Population> populationsList;
     private final HashSet<String> populationsNames;
-    private ArrayList<Population> savedPopulationsList;
-    private HashSet<String> savedPopulationsNames;
+    private final ArrayList<Population> savedPopulationsList;
+    private final HashSet<String> savedPopulationsNames;
 
 
     public PopulationsHolder(){
@@ -80,7 +80,7 @@ public class PopulationsHolder {
      * Adds populations and population name to corresponding structures.
      * Should be only used for reservation that are saved on disk.
      *
-     * @param newPopulation
+     * @param newPopulation Population to add.
      */
     public void addSavedPopulation(Population newPopulation) {
         savedPopulationsList.add(newPopulation);
@@ -96,7 +96,9 @@ public class PopulationsHolder {
         File popToDelete = new File(System.getProperty("user.dir") +
                 "\\src\\main\\resources\\populations\\" +
                 populationToRemove.name + ".pop");
-        popToDelete.delete();
+
+        // if delete operation failed -> stop deleting
+        if (!popToDelete.delete()) {return;}
 
         savedPopulationsList.remove(populationToRemove);
         savedPopulationsNames.remove(populationToRemove.name);
@@ -171,7 +173,7 @@ public class PopulationsHolder {
 
         // if there is a file with specified name the IOException is thrown
         try {
-            popFile.createNewFile();
+            if (!popFile.createNewFile()) {throw new IOException("File creation failed.");}
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -202,8 +204,10 @@ public class PopulationsHolder {
     private ArrayList<Integer> parseFileInput(File file) throws IOException {
         FileReader fileReader = new FileReader(file);
 
-        char[] content = new char[100];
-        fileReader.read(content);
+        char[] content = new char[1000];
+        if (fileReader.read(content) > 999) {
+            throw new IOException("File " + file + " is too large to parse or is corrupted.");
+        }
         String sContent = new String(content);
         String[] slicedContent = sContent.split("/");
 
@@ -224,12 +228,6 @@ public class PopulationsHolder {
         // f is a directory of populations relative to different project directories
         File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\populations");
 
-        File[] matchingFiles = f.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".pop");
-            }
-        });
-
-        return matchingFiles;
+        return f.listFiles((dir, name) -> name.endsWith(".pop"));
     }
 }

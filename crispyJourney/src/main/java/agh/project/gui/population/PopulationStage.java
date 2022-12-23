@@ -1,9 +1,7 @@
 package agh.project.gui.population;
 
 import agh.project.gui.menu.MenuScene;
-import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.StageCreator;
-import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 

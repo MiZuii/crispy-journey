@@ -19,7 +19,7 @@ public class MenuScene implements SceneCreator {
     Scene menuScene;
     private VBox root;
     private Button addPopulationButton;
-    private App app;
+    private final App app;
 
     public MenuScene(App app) {
         this.app = app;
@@ -36,7 +36,7 @@ public class MenuScene implements SceneCreator {
         }
 
         addPopulationButton = new Button("Add population");
-        addPopulationButton.setOnAction(new addPopulationEvent(app, this));
+        addPopulationButton.setOnAction(new addPopulationEvent(this));
         root.getChildren().add(addPopulationButton);
         addPopulationButton.toFront();
 

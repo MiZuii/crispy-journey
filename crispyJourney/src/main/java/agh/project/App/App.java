@@ -1,8 +1,6 @@
 package agh.project.App;
 
 import agh.project.gui.menu.MenuManager;
-import agh.project.gui.population.PopulationManager;
-import agh.project.gui.simulation.SimulationManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -10,7 +10,6 @@ import agh.project.interfaces.SceneCreator;
 import agh.project.simulation.Population;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,7 +22,7 @@ public class PopulationScene implements SceneCreator {
     private InputRowName populationNameInput;
     private final ArrayList<InputRowNumeric> numericInputs;
     private final ArrayList<InputRowBoolean> booleanInputs;
-    private MenuScene menuScene;
+    private final MenuScene menuScene;
 
     public PopulationScene(MenuScene menuScene){
         this.menuScene = menuScene;
@@ -41,7 +40,7 @@ public class PopulationScene implements SceneCreator {
         createNumericInputs();
         root.getChildren().addAll(numericInputs);
 
-        createBolleanInputs();
+        createBooleanInputs();
         root.getChildren().addAll(booleanInputs);
 
         HBox saveButtonsBox = new HBox();
@@ -93,7 +92,7 @@ public class PopulationScene implements SceneCreator {
         return new Population(populationNameInput.getRowValue(), false, iargs, bargs);
     }
 
-    private void createBolleanInputs() {
+    private void createBooleanInputs() {
         InputRowBoolean row1 = new InputRowBoolean("example data 1");
         booleanInputs.add(row1);
         InputRowBoolean row2 = new InputRowBoolean("example data 2");

@@ -1,7 +1,6 @@
 package agh.project.gui.menu;
 
 import agh.project.App.App;
-import agh.project.gui.menu.events.addPopulationEvent;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;
 
