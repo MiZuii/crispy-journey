@@ -7,21 +7,23 @@ import java.util.Objects;
 public class Animal {
 
 //    -----Attributes------
-    // How old is the animal ???
-    // How many children animal has ???
-    // How many grass it ate ???
-    // When it died
+    private int age;        // How old is the animal
+    private int children;   // How many children animal has
+    private int grassEaten; // How many grass it ate
+    private int deathDay;   // Day it died
     public final int id;
     private Vector2d position;
     private Direction direction;
     private Energy energy;
-
     private Gen gen;
 
 
 //    ------Methods------
 
     public Animal(int id, Vector2d position, Direction direction, Energy energy, Gen gen){
+        this.age = 0;
+        this.children = 0;
+        this.grassEaten = 0;
         this.id = id;
         this.position = position;
         this.direction = direction;
