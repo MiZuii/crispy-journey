@@ -1,8 +1,13 @@
-package agh.project.simulation;
+package agh.project.simulation.creations;
 
 import agh.project.enumerators.Direction;
-import agh.project.interfaces.MapObserver;
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.creations.attributes.Energy;
+import agh.project.simulation.creations.attributes.Gen;
+import agh.project.simulation.creations.attributes.Vector2d;
+import agh.project.simulation.factories.AnimalFactory;
+import agh.project.simulation.maps.AnimalMap;
+import agh.project.simulation.maps.GrassMap;
 
 import java.util.Objects;
 
@@ -20,7 +25,7 @@ public class Animal implements WorldElement {
     private Energy energy;
 
     private Gen gen;
-    private  static MapObserver mapObserver;
+    private  static AnimalMap mapObserver;
     private static GrassMap grassMapObserver;
 
     private static AnimalFactory animalFactory;
@@ -29,7 +34,7 @@ public class Animal implements WorldElement {
 //    ------Methods------
 
     public Animal(int id, Vector2d position, Direction direction, Energy energy, Gen gen,
-                  MapObserver animalMapObserver, GrassMap grassMapObserver,
+                  AnimalMap animalMapObserver, GrassMap grassMapObserver,
                   AnimalFactory animalFactory){
         this.id = id;
         this.position = position;

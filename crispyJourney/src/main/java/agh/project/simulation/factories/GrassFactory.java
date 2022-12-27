@@ -1,4 +1,9 @@
-package agh.project.simulation;
+package agh.project.simulation.factories;
+
+import agh.project.simulation.maps.GrassMap;
+import agh.project.simulation.creations.Grass;
+import agh.project.simulation.creations.attributes.Energy;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 public class GrassFactory {
 
@@ -13,7 +18,7 @@ public class GrassFactory {
         this.grassId = 0;
     }
 
-    public Grass createGrass(Vector2d position,Energy energy, GrassMap grassMapObserver){
+    public Grass createGrass(Vector2d position, Energy energy, GrassMap grassMapObserver){
         this.liveGrass += 1;
         this.grassId += 1;
         return new Grass(this.grassId,position,energy, grassMapObserver);

@@ -1,4 +1,4 @@
-package agh.project.simulation;
+package agh.project.simulation.creations.attributes;
 
 public class Energy {
 

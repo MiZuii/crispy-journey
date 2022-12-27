@@ -1,6 +1,7 @@
-package agh.project.simulation;
+package agh.project.simulation.creations.attributes;
 
 import agh.project.enumerators.Rotation;
+import agh.project.simulation.creations.Animal;
 
 import java.util.ArrayList;
 import java.util.Random;
