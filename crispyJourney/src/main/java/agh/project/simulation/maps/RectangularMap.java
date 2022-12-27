@@ -1,8 +1,8 @@
-package agh.project.simulation;
+package agh.project.simulation.maps;
 
-import agh.project.interfaces.MapObserver;
 import agh.project.interfaces.WorldElement;
 import agh.project.interfaces.WorldMapBoundary;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 import java.util.ArrayList;
 import java.util.HashMap;

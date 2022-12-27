@@ -1,6 +1,6 @@
 package agh.project.enumerators;
 
-import agh.project.simulation.Vector2d;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 public enum Direction {
 

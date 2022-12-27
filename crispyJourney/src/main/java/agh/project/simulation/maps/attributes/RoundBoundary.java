@@ -1,6 +1,8 @@
-package agh.project.simulation;
+package agh.project.simulation.maps.attributes;
 
 import agh.project.interfaces.WorldMapBoundary;
+import agh.project.simulation.creations.Animal;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 public class RoundBoundary implements WorldMapBoundary {
 

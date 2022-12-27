@@ -1,10 +1,6 @@
-package agh.project.simulation;
+package agh.project.simulation.maps;
 
-import agh.project.interfaces.MapObserver;
-import agh.project.interfaces.WorldElement;
 import agh.project.interfaces.WorldMapBoundary;
-
-import java.util.ArrayList;
 
 public class GrassMap extends RectangularMap {
 

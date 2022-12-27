@@ -1,6 +1,9 @@
-package agh.project.simulation;
+package agh.project.simulation.creations;
 
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.maps.GrassMap;
+import agh.project.simulation.creations.attributes.Vector2d;
+import agh.project.simulation.creations.attributes.Energy;
 
 import java.util.Objects;
 

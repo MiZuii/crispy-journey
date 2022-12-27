@@ -1,7 +1,7 @@
 package agh.project.interfaces;
 
-import agh.project.simulation.Animal;
-import agh.project.simulation.Vector2d;
+import agh.project.simulation.creations.Animal;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 public interface WorldMapBoundary {
     public Vector2d moveAnimal(Vector2d newPosition, Animal animal);

@@ -1,8 +1,12 @@
-package agh.project.simulation;
+package agh.project.simulation.factories;
 
 import agh.project.enumerators.Direction;
-import agh.project.enumerators.Rotation;
-import agh.project.interfaces.MapObserver;
+import agh.project.simulation.maps.AnimalMap;
+import agh.project.simulation.maps.GrassMap;
+import agh.project.simulation.creations.Animal;
+import agh.project.simulation.creations.attributes.Gen;
+import agh.project.simulation.creations.attributes.Energy;
+import agh.project.simulation.creations.attributes.Vector2d;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,14 +28,14 @@ public class AnimalFactory {
     }
 
     public Animal createAnimal(Vector2d position, Direction direction, Energy energy, Gen gen,
-                               MapObserver mapObserver, GrassMap grassMapObserver){
+                               AnimalMap mapObserver, GrassMap grassMapObserver){
         this.liveAnimal += 1;
         this.actualIndex += 1;
         this.animals.add(new Animal(actualIndex,position,direction,energy,gen, mapObserver, grassMapObserver, this));
         return animals.get(animals.size() - 1);
     }
 
-    public Animal createChild(Vector2d position, Energy energy, Gen gen, MapObserver mapObserver, GrassMap grassMapObserver){
+    public Animal createChild(Vector2d position, Energy energy, Gen gen, AnimalMap mapObserver, GrassMap grassMapObserver){
         this.liveAnimal += 1;
         this.actualIndex += 1;
 
