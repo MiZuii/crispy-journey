@@ -3,9 +3,9 @@ package agh.project.simulation;
 public class Energy {
 
 //    -----ATTRIBUTES-----
-    public static int oneDayLost = 1;
-    public static int reproduceEnergy = 5;
-    public static int reproduceBoundary = 10;
+    public static int oneDayLost;
+    public static int reproduceEnergy;
+    public static int reproduceBoundary;
     private int energy;
 
 
@@ -46,5 +46,16 @@ public class Energy {
         this.energy -= reproduceEnergy;
     }
 
+    public void setOneDayLost(int oneDayLost){
+        Energy.oneDayLost = oneDayLost;
+    }
+
+    public void setReproduceEnergy(int reproduceEnergy){
+        Energy.reproduceEnergy = reproduceEnergy;
+    }
+
+    public void setReproduceBoundary(int reproduceBoundary){
+        Energy.reproduceBoundary = reproduceBoundary;
+    }
 
 }
