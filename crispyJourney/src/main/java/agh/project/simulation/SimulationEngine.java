@@ -4,11 +4,17 @@ import agh.project.enumerators.Direction;
 import agh.project.enumerators.Rotation;
 import agh.project.interfaces.IEngine;
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.creations.Animal;
+import agh.project.simulation.creations.Grass;
+import agh.project.simulation.creations.attributes.Energy;
+import agh.project.simulation.creations.attributes.Gen;
+import agh.project.simulation.creations.attributes.Vector2d;
+import agh.project.simulation.factories.AnimalFactory;
+import agh.project.simulation.factories.GrassFactory;
+import agh.project.simulation.maps.AnimalMap;
+import agh.project.simulation.maps.GrassMap;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 
 public class SimulationEngine implements IEngine {
 
@@ -23,16 +29,18 @@ public class SimulationEngine implements IEngine {
     private int grassPerDay;
     private int width;
     private int height;
-    private int energy;
-    private int energyFromGrass;
+    private Energy energy;
+    private Energy energyFromGrass;
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
     private void spawnAnimals(int sizeAnimals, int sizeGrass, int genSize){
         //loop for creating animals
         for(int i=0;i<sizeAnimals;i++){
-            Gen gen = new Gen(genSize);
-            AnimalFactory animal = new AnimalFactory();
+
+//            Create Random Gen for starting Animals
+            Gen randomGen = Gen.getRandomGen();
+            AnimalFactory animalFactory = new AnimalFactory();
 
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
@@ -42,19 +50,21 @@ public class SimulationEngine implements IEngine {
             Direction randomDirection = Direction.values()[pick];
 
             pick = new Random().nextInt(Rotation.values().length);
-            Rotation randomGen = Rotation.values()[pick];
 
-            animal.createAnimal(randomPosition, randomDirection, energy, randomGen, , )
+            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, energy, randomGen,
+                    this.animalMap,this.grassMap);
+
+            this.animalMap.place((WorldElement) animal);
         }
 
         //loop for creating grass
         for(int i=0;i<grassPerDay;i++){
-            GrassFactory grass = new GrassFactory();
+            GrassFactory grassFactory = new GrassFactory();
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
             Vector2d randomPosition = new Vector2d(randomX,randomY);
-            grass.createGrass(randomPosition, energyFromGrass, )
-
+            Grass grass = grassFactory.createGrass(randomPosition, energyFromGrass, this.grassMap);
+            this.grassMap.place((WorldElement) grass);
 
         }
     }
@@ -65,9 +75,11 @@ public class SimulationEngine implements IEngine {
         this.grassPerDay = grassPerDay;
         this.height = mapHeight;
         this.width = mapWidth;
-        this.energy = animalStartEnergy;
+        this.energy = new Energy(animalStartEnergy);
         spawnAnimals(animalStartSpawningNumber, grassPerDay, genomLength);
-        this.energyFromGrass = grassEnergyProfit;
+        this.energyFromGrass = new Energy(grassEnergyProfit);
+
+//        Set all static variables in Gen and Energy
 
     }
 
