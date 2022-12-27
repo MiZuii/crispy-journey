@@ -4,7 +4,7 @@ import agh.project.interfaces.WorldElement;
 
 import java.util.Objects;
 
-public class Grass implements WorldElement {
+public class  Grass implements WorldElement {
 
     //    -----ATTRIBUTES-----
     private final int id;
