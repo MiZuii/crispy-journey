@@ -31,6 +31,7 @@ public class savePopulationEvent implements EventHandler<ActionEvent> {
             return;
         }
 
+        populationBox.changeSaveIcon();
         app.populationsHolder.addSavedPopulation(populationBox.getPopulation());
         app.populationsHolder.createPopulationFile(populationBox.getPopulation());
     }

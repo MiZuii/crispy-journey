@@ -43,5 +43,7 @@ public class MenuStage implements StageCreator {
     private void configureStage(){
         menuStageFX.setTitle("Menu");
         menuStageFX.initModality(Modality.NONE);
+        menuStageFX.setMinWidth(500);
+        menuStageFX.setMinHeight(500);
     }
 }

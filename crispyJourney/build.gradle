@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'org.example'
+group 'agh.project'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -34,5 +34,7 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+sourceSets.main.resources.srcDirs = [ "src/main/resources/" ]
 
 System.setProperty( "user.dir", project.projectDir.toString() )
