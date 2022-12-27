@@ -21,24 +21,49 @@ public class SimulationEngine implements IEngine {
     private AnimalMap animalMap;
     private GrassMap grassMap;
     private int dayOfSimulation = 0;
-
-    //set initial positions of animals
-    //set initial positions of grass
-
-    private int animalStartSpawningNumber;
+    private final double equator = 0.2;    //How much of height does equator take
     private int grassPerDay;
-    private int width;
-    private int height;
-    private Energy energy;
-    private Energy energyFromGrass;
-    public int getRandomNumber(int min, int max) {
+
+    private final int width;
+    private final int height;
+    private final Energy animalStartEnergy;
+    private final Energy grassEnergyProfit;
+    private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-    private void spawnAnimals(int sizeAnimals, int sizeGrass, int genSize){
+
+    private int getRandomY(){
+        //equator
+        if(getRandomNumber(0, 5)!=0)
+            return getRandomNumber((height/2-(int)(equator*(height/2))),(height/2+(int)(equator*(height/2)))+1);
+        //not equator
+        else{
+            //upper part
+            if(getRandomNumber(0,2)==1)
+                return getRandomNumber((height/2+(int)(equator*(height/2)))+1, height);
+            //lower part
+            else
+                return getRandomNumber(0, (height/2-(int)(equator*(height/2))));
+        }
+    }
+
+    private void spawnGrass(int sizeGrass){
+        //loop for creating grass
+        for(int i=0;i<sizeGrass;i++){
+            GrassFactory grassFactory = new GrassFactory();
+
+            int randomX = getRandomNumber(0, width);
+            int randomY = getRandomY();
+
+            Vector2d randomPosition = new Vector2d(randomX,randomY);
+            Grass grass = grassFactory.createGrass(randomPosition, grassEnergyProfit, this.grassMap);
+            this.grassMap.place((WorldElement) grass);
+        }
+    }
+    private void spawnAnimals(int sizeAnimals){
         //loop for creating animals
         for(int i=0;i<sizeAnimals;i++){
-
-//            Create Random Gen for starting Animals
+//          Create Random Gen for starting Animals
             Gen randomGen = Gen.getRandomGen();
             AnimalFactory animalFactory = new AnimalFactory();
 
@@ -49,45 +74,52 @@ public class SimulationEngine implements IEngine {
             int pick = new Random().nextInt(Direction.values().length);
             Direction randomDirection = Direction.values()[pick];
 
-            pick = new Random().nextInt(Rotation.values().length);
-
-            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, energy, randomGen,
+            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen,
                     this.animalMap,this.grassMap);
 
             this.animalMap.place((WorldElement) animal);
         }
-
-        //loop for creating grass
-        for(int i=0;i<grassPerDay;i++){
-            GrassFactory grassFactory = new GrassFactory();
-            int randomX = getRandomNumber(0, width);
-            int randomY = getRandomNumber(0, height);
-            Vector2d randomPosition = new Vector2d(randomX,randomY);
-            Grass grass = grassFactory.createGrass(randomPosition, energyFromGrass, this.grassMap);
-            this.grassMap.place((WorldElement) grass);
-
-        }
     }
-    public SimulationEngine(int animalStartSpawningNumber, int grassPerDay,
-                            int mapHeight, int mapWidth, int grassEnergyProfit,
-                            int minEnergyCopulation, int animalStartEnergy, int genomLength){
-        this.animalStartSpawningNumber = animalStartSpawningNumber;
-        this.grassPerDay = grassPerDay;
+    public SimulationEngine(int mapHeight, int mapWidth, int grassEnergyProfit,
+                            int minEnergyCopulation, int animalStartEnergy, int dailyEnergyLost,
+                            int animalStartSpawningNumber, int grassPerDay, int refreshment,
+                            int energyPerCopulation, int maxMutationNumber, int genomLength,
+                            boolean mutationFlag){
+
         this.height = mapHeight;
         this.width = mapWidth;
-        this.energy = new Energy(animalStartEnergy);
-        spawnAnimals(animalStartSpawningNumber, grassPerDay, genomLength);
-        this.energyFromGrass = new Energy(grassEnergyProfit);
+        this.grassPerDay = grassPerDay;
+        this.animalStartEnergy = new Energy(animalStartEnergy);
+        this.grassEnergyProfit = new Energy(grassEnergyProfit);
 
-//        Set all static variables in Gen and Energy
+        //Set all static variables in Gen and Energy
+        Energy.setReproduceBoundary(minEnergyCopulation);
+        Energy.setReproduceEnergy(energyPerCopulation);
+        Energy.setOneDayLost(dailyEnergyLost);
+
+        Gen.setGensNumber(genomLength);
+        Gen.setMutationNumber(maxMutationNumber);
+        Gen.setChaoticGen(mutationFlag);
+
+        //setting initial positions
+        spawnAnimals(animalStartSpawningNumber);
+        spawnGrass(grassPerDay);
+
+        //starting simulation
+        run();
 
     }
+
 
     @Override
     public void run() {
-        //call move on every animal, pass dayOfSimulation
-        //determine which animals eat grass
-        //determine which animals copulate
-        //spawn new grass
+        while(true){
+            //TODO
+            //call move on every animal, pass dayOfSimulation to set deathDay
+            //determine which animals eat grass
+            //determine which animals copulate
+            spawnGrass(grassPerDay);
+            dayOfSimulation += 1;
+        }
     }
 }

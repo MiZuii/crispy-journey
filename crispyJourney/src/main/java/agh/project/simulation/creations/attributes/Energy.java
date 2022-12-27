@@ -46,15 +46,15 @@ public class Energy {
         this.energy -= reproduceEnergy;
     }
 
-    public void setOneDayLost(int oneDayLost){
+    public static void setOneDayLost(int oneDayLost){
         Energy.oneDayLost = oneDayLost;
     }
 
-    public void setReproduceEnergy(int reproduceEnergy){
+    public static void setReproduceEnergy(int reproduceEnergy){
         Energy.reproduceEnergy = reproduceEnergy;
     }
 
-    public void setReproduceBoundary(int reproduceBoundary){
+    public static void setReproduceBoundary(int reproduceBoundary){
         Energy.reproduceBoundary = reproduceBoundary;
     }
 

@@ -110,15 +110,15 @@ public class Gen {
         this.actualGen = ThreadLocalRandom.current().nextInt(0, this.gens.size());
     }
 
-    public void setGensNumber(int gensNumber) {
+    public static void setGensNumber(int gensNumber) {
         Gen.gensNumber = gensNumber;
     }
 
-    public void setMutationNumber(int mutationNumber) {
+    public static void setMutationNumber(int mutationNumber) {
         Gen.mutationNumber = mutationNumber;
     }
 
-    public void setChaoticGen(boolean chaoticGen) {
+    public static void setChaoticGen(boolean chaoticGen) {
         Gen.chaoticGen = chaoticGen;
     }
 
