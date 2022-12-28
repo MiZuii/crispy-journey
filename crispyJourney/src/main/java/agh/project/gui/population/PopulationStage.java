@@ -29,5 +29,6 @@ public class PopulationStage implements StageCreator {
     private void configureStage(){
         populationStage.setTitle("Population Creator");
         populationStage.initModality(Modality.APPLICATION_MODAL);
+        populationStage.setResizable(false);
     }
 }
