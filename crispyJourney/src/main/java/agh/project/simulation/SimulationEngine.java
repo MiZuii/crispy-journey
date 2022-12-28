@@ -74,8 +74,7 @@ public class SimulationEngine implements IEngine {
             int pick = new Random().nextInt(Direction.values().length);
             Direction randomDirection = Direction.values()[pick];
 
-            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen,
-                    this.animalMap,this.grassMap);
+            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen);
 
             this.animalMap.place((WorldElement) animal);
         }

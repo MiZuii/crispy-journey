@@ -19,8 +19,7 @@ public class Hell implements WorldMapBoundary {
      * Check if animal is going to be out of the Map
      */
     public boolean outOfBoundary(Vector2d position){
-        return position.x <= width && position.y <= height &&
-                position.x >= 0 && position.y >= 0;
+        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width, height));
     }
 
     /**
@@ -29,10 +28,8 @@ public class Hell implements WorldMapBoundary {
     @Override
     public Vector2d moveAnimal(Vector2d newPosition, Animal animal) {
         animal.toHell();
-        Vector2d outOfHellPosition = new Vector2d(ThreadLocalRandom.current().nextInt(0, width + 1),
-                    ThreadLocalRandom.current().nextInt(0,height + 1));
-        animal.changePosition(outOfHellPosition);
 
-        return outOfHellPosition;
+        return new Vector2d(ThreadLocalRandom.current().nextInt(0, width + 1),
+                    ThreadLocalRandom.current().nextInt(0,height + 1));
     }
 }

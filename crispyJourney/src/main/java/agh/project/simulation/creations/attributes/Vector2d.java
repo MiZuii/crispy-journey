@@ -59,4 +59,11 @@ public class Vector2d {
         return Objects.hash(this.x, this.y);
     }
 
+    @Override
+    public String toString() {
+        return "Vector2d{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
