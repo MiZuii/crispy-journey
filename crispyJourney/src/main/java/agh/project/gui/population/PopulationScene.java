@@ -12,13 +12,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class PopulationScene implements SceneCreator {
+
+    private static final double SCENE_WIDTH = 400;
+    private static final double SCENE_HEIGHT = 580;
 
     private Scene populationScene;
     private VBox root;
@@ -29,7 +32,6 @@ public class PopulationScene implements SceneCreator {
     private final ArrayList<InputRowNumeric> numericInputs;
     private final ArrayList<InputRowBoolean> booleanInputs;
     private final MenuScene menuScene;
-    private static final double sceneWidth = 400;
 
     public PopulationScene(MenuScene menuScene){
         this.menuScene = menuScene;
@@ -43,14 +45,14 @@ public class PopulationScene implements SceneCreator {
         root = new VBox();
 
         // create input rows
-        populationNameInput = new InputRowName("Population name", sceneWidth);
+        populationNameInput = new InputRowName("Population name", SCENE_WIDTH);
         createNumericInputs();
         createBooleanInputs();
 
         // create buttons
         saveButtonsBox = new HBox();
         saveToFile = new Button("Save to file");
-        save = new Button("Save");
+        save = new Button("      Save     ");
 
         // add functionalities to buttons
         saveToFile.setOnAction(new SavePopulationToFileEvent(menuScene, this));
@@ -64,10 +66,10 @@ public class PopulationScene implements SceneCreator {
         root.getChildren().add(saveButtonsBox);
 
         // create scene
-        populationScene = new Scene(root, sceneWidth, 700);
+        populationScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
-        addProperties();
         addStyles();
+        addProperties();
 
         return populationScene;
     }
@@ -77,8 +79,8 @@ public class PopulationScene implements SceneCreator {
             root.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/styles/PopulationSceneStyle.css")).toExternalForm());
             root.getStyleClass().add("root");
             saveButtonsBox.getStyleClass().add("save-buttons-box");
-            saveToFile.getStyleClass().add("save-button");
-            save.getStyleClass().add("save-button");
+            saveToFile.getStyleClass().add("button");
+            save.getStyleClass().add("button");
         }
         catch (NullPointerException e) {
             System.out.println("Menu scene style sheet couldn't have been loaded.");
@@ -94,6 +96,13 @@ public class PopulationScene implements SceneCreator {
 
         // button box
         saveButtonsBox.setAlignment(Pos.CENTER);
+        HBox.setHgrow(saveButtonsBox, Priority.ALWAYS);
+
+        // buttons
+        save.setMaxWidth(Double.MAX_VALUE);
+        saveToFile.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(save, Priority.ALWAYS);
+        HBox.setHgrow(saveToFile, Priority.ALWAYS);
     }
 
     public String getPopulationName() {
@@ -134,42 +143,42 @@ public class PopulationScene implements SceneCreator {
     }
 
     private void createBooleanInputs() {
-        InputRowBoolean row1 = new InputRowBoolean("example data 1", sceneWidth);
+        InputRowBoolean row1 = new InputRowBoolean("example data 1", SCENE_WIDTH);
         booleanInputs.add(row1);
-        InputRowBoolean row2 = new InputRowBoolean("example data 2", sceneWidth);
+        InputRowBoolean row2 = new InputRowBoolean("example data 2", SCENE_WIDTH);
         booleanInputs.add(row2);
-        InputRowBoolean row3 = new InputRowBoolean("example data 3", sceneWidth);
+        InputRowBoolean row3 = new InputRowBoolean("example data 3", SCENE_WIDTH);
         booleanInputs.add(row3);
-        InputRowBoolean row4 = new InputRowBoolean("example data 4", sceneWidth);
+        InputRowBoolean row4 = new InputRowBoolean("example data 4", SCENE_WIDTH);
         booleanInputs.add(row4);
     }
 
     private void createNumericInputs() {
-        InputRowNumeric row1 = new InputRowNumeric("example data 1", sceneWidth);
+        InputRowNumeric row1 = new InputRowNumeric("example data 1", SCENE_WIDTH);
         numericInputs.add(row1);
-        InputRowNumeric row2 = new InputRowNumeric("example data 2", sceneWidth);
+        InputRowNumeric row2 = new InputRowNumeric("example data 2", SCENE_WIDTH);
         numericInputs.add(row2);
-        InputRowNumeric row3 = new InputRowNumeric("example data 3", sceneWidth);
+        InputRowNumeric row3 = new InputRowNumeric("example data 3", SCENE_WIDTH);
         numericInputs.add(row3);
-        InputRowNumeric row4 = new InputRowNumeric("example data 4", sceneWidth);
+        InputRowNumeric row4 = new InputRowNumeric("example data 4", SCENE_WIDTH);
         numericInputs.add(row4);
-        InputRowNumeric row5 = new InputRowNumeric("example data 5", sceneWidth);
+        InputRowNumeric row5 = new InputRowNumeric("example data 5", SCENE_WIDTH);
         numericInputs.add(row5);
-        InputRowNumeric row6 = new InputRowNumeric("example data 6", sceneWidth);
+        InputRowNumeric row6 = new InputRowNumeric("example data 6", SCENE_WIDTH);
         numericInputs.add(row6);
-        InputRowNumeric row7 = new InputRowNumeric("example data 7", sceneWidth);
+        InputRowNumeric row7 = new InputRowNumeric("example data 7", SCENE_WIDTH);
         numericInputs.add(row7);
-        InputRowNumeric row8 = new InputRowNumeric("example data 8", sceneWidth);
+        InputRowNumeric row8 = new InputRowNumeric("example data 8", SCENE_WIDTH);
         numericInputs.add(row8);
-        InputRowNumeric row9 = new InputRowNumeric("example data 9", sceneWidth);
+        InputRowNumeric row9 = new InputRowNumeric("example data 9", SCENE_WIDTH);
         numericInputs.add(row9);
-        InputRowNumeric row10 = new InputRowNumeric("example data 10", sceneWidth);
+        InputRowNumeric row10 = new InputRowNumeric("example data 10", SCENE_WIDTH);
         numericInputs.add(row10);
-        InputRowNumeric row11 = new InputRowNumeric("example data 11", sceneWidth);
+        InputRowNumeric row11 = new InputRowNumeric("example data 11", SCENE_WIDTH);
         numericInputs.add(row11);
-        InputRowNumeric row12 = new InputRowNumeric("example data 12", sceneWidth);
+        InputRowNumeric row12 = new InputRowNumeric("example data 12", SCENE_WIDTH);
         numericInputs.add(row12);
-        InputRowNumeric row13 = new InputRowNumeric("example data 13", sceneWidth);
+        InputRowNumeric row13 = new InputRowNumeric("example data 13", SCENE_WIDTH);
         numericInputs.add(row13);
     }
 

@@ -13,12 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.util.Enumeration;
 import java.util.Objects;
 
 /**
@@ -32,17 +28,18 @@ import java.util.Objects;
  * @author Piotr
  *
  */
-public class MenuPopulationBox extends HBox {
+public class MenuPopulationBox extends VBox {
 
     private final Population population;
     private final Pane parentNode;
     private final App app;
     // Box elements
-    private HBox filler;
     private Button deletePopulationButton;
     private Label populationNameLabel;
     private Button saveButton;
     private Button startPopulationSimulationButton;
+    private HBox buttonsContainer;
+    private HBox populationNameLabelWrapper;
 
     public MenuPopulationBox(Population population, Pane parent, App app) {
         this.app = app;
@@ -77,30 +74,33 @@ public class MenuPopulationBox extends HBox {
     private void createBox(){
 
         // nodes creation
-        filler = new HBox();
+        buttonsContainer = new HBox();
+        populationNameLabelWrapper = new HBox();
         populationNameLabel = new Label(population.name);
 
         // delete button
-        deletePopulationButton = saveCreateButton("", "delete", "X");
+        deletePopulationButton = saveCreateButton("Delete", "delete", "X");
         deletePopulationButton.setOnAction(new removePopulationEvent(this, parentNode, app));
 
         // save button
         if (app.populationsHolder.getSavedPopulationsNames().contains(population.name)) {
-            saveButton = saveCreateButton("", "save", "S");
+            saveButton = saveCreateButton("Save", "save", "S");
         }
         else {
-            saveButton = saveCreateButton("", "save-not", "S");
+            saveButton = saveCreateButton("Save", "save-not", "S");
         }
         saveButton.setOnAction(new savePopulationEvent(this, app));
 
         // start button
-        startPopulationSimulationButton = saveCreateButton("", "play", ">");
+        startPopulationSimulationButton = saveCreateButton("Play", "play", ">");
 
         addStyles();
         addProperties();
 
         // node placing
-        this.getChildren().addAll(populationNameLabel, filler, saveButton, deletePopulationButton, startPopulationSimulationButton);
+        populationNameLabelWrapper.getChildren().add(populationNameLabel);
+        buttonsContainer.getChildren().addAll(saveButton, deletePopulationButton, startPopulationSimulationButton);
+        this.getChildren().addAll(populationNameLabelWrapper, buttonsContainer);
     }
 
     private void addStyles(){
@@ -108,6 +108,9 @@ public class MenuPopulationBox extends HBox {
             this.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/styles/MenuPopulationBoxStyle.css")).toExternalForm());
             this.getStyleClass().add("menu-population-box");
             populationNameLabel.getStyleClass().add("population-name-label");
+            saveButton.getStyleClass().add("button");
+            deletePopulationButton.getStyleClass().add("button");
+            startPopulationSimulationButton.getStyleClass().add("button");
         }
         catch (NullPointerException e) {
             e.printStackTrace();
@@ -115,11 +118,28 @@ public class MenuPopulationBox extends HBox {
     }
 
     private void addProperties() {
-        this.setAlignment(Pos.CENTER_RIGHT);
-        this.setPadding(new Insets(15, 0, 5, 0));
+        // this box
+        this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(8, 0, 8, 0));
+
+        // buttons container
+        buttonsContainer.setAlignment(Pos.CENTER);
+        buttonsContainer.prefWidthProperty().bind(parentNode.widthProperty());
+        buttonsContainer.setPadding(new Insets(0, 10, 0, 10));
+
+        // buttons
+        deletePopulationButton.setMaxWidth(Double.MAX_VALUE);
+        startPopulationSimulationButton.setMaxWidth(Double.MAX_VALUE);
+        saveButton.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(deletePopulationButton, Priority.ALWAYS);
+        HBox.setHgrow(startPopulationSimulationButton, Priority.ALWAYS);
+        HBox.setHgrow(saveButton, Priority.ALWAYS);
+
+        // population Label with wrapper
         populationNameLabel.setPadding(new Insets(5, 30, 5, 30));
         populationNameLabel.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(filler, Priority.ALWAYS);
+        populationNameLabelWrapper.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(populationNameLabelWrapper, Priority.ALWAYS);
     }
 
     private Button saveCreateButton(String content, String imgName, String safetyContent) {
@@ -137,8 +157,8 @@ public class MenuPopulationBox extends HBox {
     private ImageView getImageViewFromString(String imageName) throws NullPointerException{
         Image img = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/" + imageName + ".png")));
         ImageView imgView = new ImageView(img);
-        imgView.setFitHeight(30);
-        imgView.setFitWidth(30);
+        imgView.setFitHeight(18);
+        imgView.setFitWidth(18);
         return imgView;
     }
 }
