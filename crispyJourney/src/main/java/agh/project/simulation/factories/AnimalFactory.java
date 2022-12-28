@@ -27,15 +27,14 @@ public class AnimalFactory {
         this.animals = new ArrayList<Animal>();
     }
 
-    public Animal createAnimal(Vector2d position, Direction direction, Energy energy, Gen gen,
-                               AnimalMap mapObserver, GrassMap grassMapObserver){
+    public Animal createAnimal(Vector2d position, Direction direction, Energy energy, Gen gen){
         this.liveAnimal += 1;
         this.actualIndex += 1;
-        this.animals.add(new Animal(actualIndex,position,direction,energy,gen, mapObserver, grassMapObserver, this));
+        this.animals.add(new Animal(actualIndex,position,direction,energy,gen));
         return animals.get(animals.size() - 1);
     }
 
-    public Animal createChild(Vector2d position, Energy energy, Gen gen, AnimalMap mapObserver, GrassMap grassMapObserver){
+    public Animal createChild(Animal parent1, Animal parent2){
         this.liveAnimal += 1;
         this.actualIndex += 1;
 
@@ -44,9 +43,10 @@ public class AnimalFactory {
         Direction direction = Direction.values()[pick];
 
 //        The child Gen starts from random
+        Gen gen = Gen.newGens(parent1, parent2);
         gen.randomUpdateGen();
 
-        this.animals.add(new Animal(actualIndex,position,direction,energy,gen, mapObserver, grassMapObserver, this));
+        this.animals.add(new Animal(actualIndex,parent1.getPosition(),direction,new Energy(Energy.reproduceEnergy * 2),gen));
         return animals.get(animals.size() - 1);
     }
 

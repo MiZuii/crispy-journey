@@ -33,11 +33,11 @@ public class Gen {
     }
 
     private static void fillGen(Gen unfilled, Gen parent, int start, int end) {
-//        Filled the gen Array at positions [start, end]
+//        Filled the gen Array at positions [start, end)
 
         ArrayList<Rotation> parentGens = parent.getGensList();
         ArrayList<Rotation> childGen = unfilled.getGensList();
-        for (int i = start; i <= end; i++) {
+        for (int i = start; i < end; i++) {
             childGen.add(i, parentGens.get(i));
         }
     }
@@ -47,7 +47,7 @@ public class Gen {
 
         ArrayList<Rotation> genList = gen.getGensList();
 
-        for (int i = 0; i <= mutationNumber; i++) {
+        for (int i = 0; i < mutationNumber; i++) {
             int pick = new Random().nextInt(Rotation.values().length);
             Rotation newGen = Rotation.values()[pick];
 
@@ -75,10 +75,10 @@ public class Gen {
         if (rd.nextBoolean()) {
 //            Start from left side
             fillGen(childGen, parent1.getGen(), 0, n1);
-            fillGen(childGen, parent2.getGen(), n1 + 1, Gen.gensNumber - 1);
+            fillGen(childGen, parent2.getGen(), n1, Gen.gensNumber);
         } else {
-            fillGen(childGen, parent2.getGen(), 0, Gen.gensNumber - n1 - 1);
-            fillGen(childGen, parent1.getGen(), Gen.gensNumber - n1, Gen.gensNumber - 1);
+            fillGen(childGen, parent2.getGen(), 0, Gen.gensNumber - n1);
+            fillGen(childGen, parent1.getGen(), Gen.gensNumber - n1, Gen.gensNumber);
         }
 
 //        Random mutation

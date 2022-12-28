@@ -5,7 +5,6 @@ import agh.project.simulation.creations.Animal;
 import agh.project.simulation.creations.attributes.Vector2d;
 
 public class RoundBoundary implements WorldMapBoundary {
-
     public final int width;
     public final int height;
 
@@ -15,13 +14,11 @@ public class RoundBoundary implements WorldMapBoundary {
     }
     @Override
     public Vector2d moveAnimal(Vector2d newPosition, Animal animal) {
-        Vector2d roundPosition = new Vector2d(newPosition.x % width, newPosition.y % height);
-        animal.changePosition(roundPosition);
-        return animal.getPosition();
+        return new Vector2d((newPosition.x + width + 1) % (width + 1), (newPosition.y + height + 1) % (height + 1));
     }
 
     @Override
     public boolean outOfBoundary(Vector2d position) {
-        return position.x <= width && position.y <= height && position.x >= 0 && position.y >= 0;
+        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width, height));
     }
 }

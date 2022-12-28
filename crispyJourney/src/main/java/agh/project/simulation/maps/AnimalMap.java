@@ -18,14 +18,20 @@ public class AnimalMap extends RectangularMap {
 
     public void changePosition(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
         remove((WorldElement) animal);
-        if (newPosition != null) {
 
-            if (this.boundary.outOfBoundary(newPosition)) {
-                //Move animal
-                Vector2d position = boundary.moveAnimal(newPosition, animal);
-            }
-            //Place the Animal on the Map
-            place((WorldElement) animal);
+        if (this.boundary.outOfBoundary(newPosition)) {
+            //Move animal
+            Vector2d position = boundary.moveAnimal(newPosition, animal);
+            animal.changePosition(position);
         }
+        else{
+            animal.changePosition(newPosition);
+        }
+        //Place the Animal on the Map
+        place((WorldElement) animal);
+
+
+
+
     }
 }

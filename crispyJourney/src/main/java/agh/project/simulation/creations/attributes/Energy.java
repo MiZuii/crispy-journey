@@ -1,5 +1,7 @@
 package agh.project.simulation.creations.attributes;
 
+import java.util.Objects;
+
 public class Energy {
 
 //    -----ATTRIBUTES-----
@@ -58,4 +60,15 @@ public class Energy {
         Energy.reproduceBoundary = reproduceBoundary;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Energy energy1)) return false;
+        return energy == energy1.energy;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(energy);
+    }
 }
