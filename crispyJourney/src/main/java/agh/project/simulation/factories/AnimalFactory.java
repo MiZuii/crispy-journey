@@ -16,7 +16,6 @@ public class AnimalFactory {
 //    -----ATTRIBUTES------
     public int actualIndex;
     public int liveAnimal;
-
     public ArrayList<Animal> animals;
 
 
@@ -35,7 +34,7 @@ public class AnimalFactory {
     }
 
     public Animal createChild(Animal parent1, Animal parent2){
-        if (!Energy.reproduceEvent(parent1.getEnergy(),parent2.getEnergy())) return null;
+        if (!Energy.reproduceEvent(new Energy(parent1.getEnergy()),new Energy(parent2.getEnergy()))) return null;
 
         this.liveAnimal += 1;
         this.actualIndex += 1;

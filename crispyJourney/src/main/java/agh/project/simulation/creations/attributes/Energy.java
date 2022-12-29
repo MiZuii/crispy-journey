@@ -8,7 +8,7 @@ public class Energy {
     public static int oneDayLost;
     public static int reproduceEnergy;
     public static int reproduceBoundary;
-    private int energy;
+    public int energy;
 
 
 //    ------Methods-----
@@ -70,5 +70,9 @@ public class Energy {
     @Override
     public int hashCode() {
         return Objects.hash(energy);
+    }
+
+    public void addEnergy(int addingEnergy){
+        this.energy += addingEnergy;
     }
 }

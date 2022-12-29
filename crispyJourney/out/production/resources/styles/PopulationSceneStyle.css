@@ -1,0 +1,31 @@
+.root {
+    -fx-background-color: red;
+}
+
+.save-buttons-box {
+    -fx-background-color: blue;
+}
+
+.save-button {
+    -fx-background-color: green;
+}
+
+.row {
+    -fx-background-color: yellow;
+}
+
+.row-label {
+    -fx-background-color: orange;
+}
+
+.row-numeric-data {
+    -fx-background-color: cyan;
+}
+
+.row-boolean-data {
+    -fx-background-color: lightblue;
+}
+
+.row-name-data {
+    -fx-background-color: purple;
+}

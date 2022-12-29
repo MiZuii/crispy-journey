@@ -11,10 +11,14 @@ import javafx.stage.Stage;
  */
 public class MenuStage implements StageCreator {
 
+    private static final double STAGE_MIN_WIDTH = 500;
+    private static final double STAGE_MIN_HEIGHT = 500;
     private final Stage menuStageFX;
+    private final App app;
     public MenuScene menuScene;
 
     public MenuStage(App app){
+        this.app = app;
         menuStageFX = new Stage();
         menuScene = new MenuScene(app);
     }
@@ -43,7 +47,10 @@ public class MenuStage implements StageCreator {
     private void configureStage(){
         menuStageFX.setTitle("Menu");
         menuStageFX.initModality(Modality.NONE);
-        menuStageFX.setMinWidth(500);
-        menuStageFX.setMinHeight(500);
+        menuStageFX.setMinWidth(STAGE_MIN_WIDTH);
+        menuStageFX.setMinHeight(STAGE_MIN_HEIGHT);
+
+        // add appDisassembler event to stage close request
+        menuStageFX.setOnCloseRequest(app.appDisassembler);
     }
 }

@@ -6,9 +6,11 @@ import agh.project.interfaces.SceneCreator;
 import agh.project.simulation.Population;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -27,6 +29,8 @@ public class MenuScene implements SceneCreator {
 
     private Scene menuScene;
     private VBox root;
+    private ScrollPane scrollContainer;
+    private VBox contentContainer;
     private VBox populationsContainer;
     private Label header;
     private HBox headerBox;
@@ -46,8 +50,10 @@ public class MenuScene implements SceneCreator {
     public Scene createScene() {
 
         // nodes creation
-        populationsContainer = new VBox();
         root = new VBox();
+        populationsContainer = new VBox();
+        scrollContainer = new ScrollPane();
+        contentContainer = new VBox();
         header = new Label("Populations Simulator");
         headerBox = new HBox(header);
         addPopulationButton = saveCreateButton("", "plus", "+");
@@ -60,7 +66,9 @@ public class MenuScene implements SceneCreator {
 
         // adding buttons
         populationsContainer.getChildren().add(addPopulationButtonBox);
-        root.getChildren().addAll(headerBox, populationsContainer);
+        contentContainer.getChildren().addAll(populationsContainer);
+        scrollContainer.setContent(contentContainer);
+        root.getChildren().addAll(headerBox, scrollContainer);
 
         // create scene
         menuScene = new Scene(root, 600, 600);
@@ -74,7 +82,7 @@ public class MenuScene implements SceneCreator {
     private void addStyles() {
         try {
             root.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/styles/MenuSceneStyle.css")).toExternalForm());
-            root.getStyleClass().add("root");
+            contentContainer.getStyleClass().add("root");
             header.getStyleClass().add("header-label");
             headerBox.getStyleClass().add("header-box");
             populationsContainer.getStyleClass().add("populations-container");
@@ -87,10 +95,21 @@ public class MenuScene implements SceneCreator {
     }
 
     private void addProperties() {
-        // root properties
+        // root container properties
         root.prefWidthProperty().bind(menuScene.widthProperty());
         root.prefHeightProperty().bind(menuScene.heightProperty());
-        root.setAlignment(Pos.TOP_CENTER);
+
+        // content container properties
+        contentContainer.setAlignment(Pos.TOP_CENTER);
+
+        // scroll container properties
+        HBox.setHgrow(scrollContainer, Priority.ALWAYS);
+        VBox.setVgrow(scrollContainer, Priority.ALWAYS);
+        scrollContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollContainer.setFitToHeight(true);
+        scrollContainer.setFitToWidth(true);
+
 
         // population container
         populationsContainer.setMaxWidth(600);
@@ -107,6 +126,7 @@ public class MenuScene implements SceneCreator {
         // header
         HBox.setHgrow(headerBox, Priority.ALWAYS);
         headerBox.setPadding(new Insets(10, 0, 10, 20));
+        headerBox.setAlignment(Pos.CENTER);
     }
 
     private Button saveCreateButton(String content, String imgName, String safetyContent) {
@@ -137,6 +157,16 @@ public class MenuScene implements SceneCreator {
         populationsContainer.getChildren().add(new MenuPopulationBox(population, populationsContainer, app));
         addPopulationButtonBox.toFront();
         app.populationsHolder.addPopulation(population);
+    }
+
+    public void changePopulationBoxSaveIcon(String populationName) {
+        if (!populationNameTaken(populationName)) {return;}
+
+        for (Node box : populationsContainer.getChildren()) {
+            if ( box instanceof MenuPopulationBox && ((MenuPopulationBox) box).getPopulation().name.equals(populationName)) {
+                ((MenuPopulationBox) box).changeSaveIcon();
+            }
+        }
     }
 
     public void addSavedPopulationToHolder(Population population) {
