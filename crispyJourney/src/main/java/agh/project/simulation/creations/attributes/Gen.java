@@ -59,9 +59,8 @@ public class Gen {
 
     public static Gen newGens(Animal parent1, Animal parent2) {
 //        Returns Gen of new Animal
-
-        Energy energy1 = parent1.getEnergy();
-        Energy energy2 = parent2.getEnergy();
+        Energy energy1 = new Energy(parent1.getEnergy());
+        Energy energy2 = new Energy(parent2.getEnergy());
 
         ArrayList<Rotation> genList = new ArrayList<>(gensNumber);
         Gen childGen = new Gen(genList);

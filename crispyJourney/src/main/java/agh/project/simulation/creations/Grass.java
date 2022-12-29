@@ -18,6 +18,11 @@ public class  Grass implements WorldElement {
 
 
     //    -----METHODS-----
+    @Override
+    public int compareTo(Object o) {
+        // We do not sort grass but there has to be this method
+        return 0;
+    }
     public Grass(int id, Vector2d position, Energy energy, GrassMap grassMapObserver) {
         this.id = id;
         this.position = position;
@@ -27,6 +32,11 @@ public class  Grass implements WorldElement {
 
     public Vector2d getPosition() {
         return position;
+    }
+
+    @Override
+    public int getEnergy() {
+        return energy.energy;
     }
 
     @Override

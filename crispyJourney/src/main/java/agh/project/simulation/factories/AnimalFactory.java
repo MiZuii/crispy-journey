@@ -16,7 +16,6 @@ public class AnimalFactory {
 //    -----ATTRIBUTES------
     public int actualIndex;
     public int liveAnimal;
-
     public ArrayList<Animal> animals;
 
 
