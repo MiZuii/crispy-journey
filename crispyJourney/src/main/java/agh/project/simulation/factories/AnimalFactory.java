@@ -35,6 +35,8 @@ public class AnimalFactory {
     }
 
     public Animal createChild(Animal parent1, Animal parent2){
+        if (!Energy.reproduceEvent(parent1.getEnergy(),parent2.getEnergy())) return null;
+
         this.liveAnimal += 1;
         this.actualIndex += 1;
 

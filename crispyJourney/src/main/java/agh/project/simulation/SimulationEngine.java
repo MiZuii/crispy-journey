@@ -1,5 +1,6 @@
 package agh.project.simulation;
 
+import agh.project.World;
 import agh.project.enumerators.Direction;
 import agh.project.enumerators.Rotation;
 import agh.project.interfaces.IEngine;
@@ -14,7 +15,7 @@ import agh.project.simulation.factories.GrassFactory;
 import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
 
-import java.util.Random;
+import java.util.*;
 
 public class SimulationEngine implements IEngine {
 
