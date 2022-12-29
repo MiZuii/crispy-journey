@@ -27,7 +27,7 @@ public class SimulationManager implements WindowManager {
         this.population = populationToSimulate;
         this.saveToCSV = saveToCSV;
 
-        simulationStage = new SimulationStage();
+        simulationStage = new SimulationStage(app, this);
     }
 
     /**

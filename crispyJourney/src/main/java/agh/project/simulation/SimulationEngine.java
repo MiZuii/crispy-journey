@@ -15,6 +15,7 @@ import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimulationEngine extends Thread implements IEngine {
 
@@ -106,9 +107,17 @@ public class SimulationEngine extends Thread implements IEngine {
 
         //starting simulation
         run();
-
     }
 
+    public synchronized DataStorage getData() {
+        // this is only an example
+        // don't pass references to object because the
+        // objects are not synchronized
+        // only basic types can be passed otherwise it can
+        // cause memory access problems
+
+        return new DataStorage(5);
+    }
 
     @Override
     public void run() {
