@@ -21,9 +21,7 @@ public class MenuManager implements WindowManager {
     }
 
     /**
-     *
      * Methode responsible for creating window stage and showing it
-     *
      */
     @Override
     public void start() {

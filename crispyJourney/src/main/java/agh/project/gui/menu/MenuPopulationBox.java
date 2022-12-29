@@ -1,6 +1,8 @@
 package agh.project.gui.menu;
 
 import agh.project.App.App;
+import agh.project.gui.menu.events.playPopulationEvent;
+import agh.project.gui.menu.events.playWithSavePopulationEvent;
 import agh.project.gui.menu.events.removePopulationEvent;
 import agh.project.gui.menu.events.savePopulationEvent;
 import agh.project.simulation.Population;
@@ -38,6 +40,7 @@ public class MenuPopulationBox extends VBox {
     private Label populationNameLabel;
     private Button saveButton;
     private Button startPopulationSimulationButton;
+    private Button startWithSavePopulationSimulationButton;
     private HBox buttonsContainer;
     private HBox populationNameLabelWrapper;
 
@@ -93,13 +96,16 @@ public class MenuPopulationBox extends VBox {
 
         // start button
         startPopulationSimulationButton = saveCreateButton("Play", "play", ">");
+        startPopulationSimulationButton.setOnAction(new playPopulationEvent(population, app));
+        startWithSavePopulationSimulationButton = saveCreateButton("Play and save", "play", ">");
+        startWithSavePopulationSimulationButton.setOnAction(new playWithSavePopulationEvent(population, app));
 
         addStyles();
         addProperties();
 
         // node placing
         populationNameLabelWrapper.getChildren().add(populationNameLabel);
-        buttonsContainer.getChildren().addAll(saveButton, deletePopulationButton, startPopulationSimulationButton);
+        buttonsContainer.getChildren().addAll(saveButton, deletePopulationButton, startPopulationSimulationButton, startWithSavePopulationSimulationButton);
         this.getChildren().addAll(populationNameLabelWrapper, buttonsContainer);
     }
 
@@ -111,6 +117,7 @@ public class MenuPopulationBox extends VBox {
             saveButton.getStyleClass().add("button");
             deletePopulationButton.getStyleClass().add("button");
             startPopulationSimulationButton.getStyleClass().add("button");
+            startWithSavePopulationSimulationButton.getStyleClass().add("button");
         }
         catch (NullPointerException e) {
             e.printStackTrace();
@@ -130,9 +137,11 @@ public class MenuPopulationBox extends VBox {
         // buttons
         deletePopulationButton.setMaxWidth(Double.MAX_VALUE);
         startPopulationSimulationButton.setMaxWidth(Double.MAX_VALUE);
+        startWithSavePopulationSimulationButton.setMaxWidth(Double.MAX_VALUE);
         saveButton.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(deletePopulationButton, Priority.ALWAYS);
         HBox.setHgrow(startPopulationSimulationButton, Priority.ALWAYS);
+        HBox.setHgrow(startWithSavePopulationSimulationButton, Priority.ALWAYS);
         HBox.setHgrow(saveButton, Priority.ALWAYS);
 
         // population Label with wrapper

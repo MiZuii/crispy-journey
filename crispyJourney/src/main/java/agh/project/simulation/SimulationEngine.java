@@ -16,7 +16,7 @@ import agh.project.simulation.maps.GrassMap;
 
 import java.util.Random;
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine extends Thread implements IEngine {
 
     private AnimalMap animalMap;
     private GrassMap grassMap;
