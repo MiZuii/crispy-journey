@@ -8,6 +8,7 @@ public class App extends Application{
 
     public PopulationsHolder populationsHolder;
     public MenuManager menuManager;
+    public AppDisassembler appDisassembler;
 
     @Override
     public void init() {}
@@ -15,6 +16,7 @@ public class App extends Application{
     private void artificialInit() {
         populationsHolder = new PopulationsHolder();
         menuManager = new MenuManager(this);
+        appDisassembler = new AppDisassembler();
     }
 
     @Override

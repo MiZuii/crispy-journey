@@ -1,0 +1,23 @@
+.root {
+    -fx-background-color: red;
+}
+
+.menu-box {
+    -fx-background-color: blue;
+}
+
+.left-box {
+    -fx-background-color: yellow;
+}
+
+.right-box {
+    -fx-background-color: purple;
+}
+
+.map-box {
+    -fx-background-color: green;
+}
+
+.graph-box {
+    -fx-background-color: grey;
+}

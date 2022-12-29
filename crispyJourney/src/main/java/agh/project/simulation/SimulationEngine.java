@@ -13,10 +13,15 @@ import agh.project.simulation.factories.GrassFactory;
 import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
 
+<<<<<<< HEAD
 import java.util.*;
 
+=======
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+>>>>>>> origin/main
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine extends Thread implements IEngine {
 
     private AnimalMap animalMap;
     private GrassMap grassMap;
@@ -109,9 +114,17 @@ public class SimulationEngine implements IEngine {
 
         //starting simulation
         run();
-
     }
 
+    public synchronized DataStorage getData() {
+        // this is only an example
+        // don't pass references to object because the
+        // objects are not synchronized
+        // only basic types can be passed otherwise it can
+        // cause memory access problems
+
+        return new DataStorage(5);
+    }
 
     @Override
     public void run() {

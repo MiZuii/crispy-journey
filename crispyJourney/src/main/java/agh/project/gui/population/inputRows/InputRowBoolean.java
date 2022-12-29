@@ -1,26 +1,24 @@
 package agh.project.gui.population.inputRows;
 
 import agh.project.gui.population.inputRows.abstractRow.InputRow;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 
 import java.util.Objects;
 
 public class InputRowBoolean extends InputRow<Boolean> {
 
     CheckBox inputData;
-    Label inputName;
 
     public InputRowBoolean(String inputText, double parentPrefWidth) {
-        super(parentPrefWidth);
-        createBoxElements(inputText);
+        super(inputText, parentPrefWidth);
+        createBoxElements();
     }
 
-    private void  createBoxElements(String inputText) {
-        inputName = new Label(inputText);
+    private void  createBoxElements() {
         inputData = new CheckBox();
 
-        this.getChildren().addAll(inputName, inputData);
+        this.getChildren().addAll(inputName, filler, inputData);
 
         addStyles();
         addProperties();
@@ -43,6 +41,8 @@ public class InputRowBoolean extends InputRow<Boolean> {
         super.addProperties();
         inputData.setPrefWidth(parentPrefWidth/2);
         inputName.setPrefWidth(parentPrefWidth/2);
+
+        inputName.setAlignment(Pos.CENTER_RIGHT);
     }
 
     @Override
