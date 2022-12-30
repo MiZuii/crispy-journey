@@ -20,7 +20,7 @@ public class SimulationStage implements StageCreator {
         this.app = app;
         this.simulationManager = simulationManager;
         simulationStageFX = new Stage();
-        simulationScene = new SimulationScene();
+        simulationScene = new SimulationScene(simulationManager);
     }
 
     @Override

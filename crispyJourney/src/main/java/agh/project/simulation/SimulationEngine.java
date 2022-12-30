@@ -2,6 +2,8 @@ package agh.project.simulation;
 
 import agh.project.enumerators.Direction;
 import agh.project.enumerators.Rotation;
+import agh.project.gui.simulation.CSVCreator;
+import agh.project.gui.simulation.SimulationManager;
 import agh.project.interfaces.IEngine;
 import agh.project.interfaces.WorldElement;
 import agh.project.simulation.creations.Animal;
@@ -16,8 +18,12 @@ import agh.project.simulation.maps.GrassMap;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SimulationEngine extends Thread implements IEngine {
+
+    public AtomicBoolean newDataToReceive = new AtomicBoolean(false);
+    public AtomicInteger simulationSpeed = new AtomicInteger(50);
 
     private AnimalMap animalMap;
     private GrassMap grassMap;
@@ -25,10 +31,10 @@ public class SimulationEngine extends Thread implements IEngine {
     private final double equator = 0.2;    //How much of height does equator take
     private int grassPerDay;
 
-    private final int width;
-    private final int height;
-    private final Energy animalStartEnergy;
-    private final Energy grassEnergyProfit;
+    private int width;
+    private int height;
+    private Energy animalStartEnergy;
+    private Energy grassEnergyProfit;
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -80,6 +86,12 @@ public class SimulationEngine extends Thread implements IEngine {
             this.animalMap.place((WorldElement) animal);
         }
     }
+
+    public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
+        // this is the tight structure of constructor
+        // if the csvCreator is not null the method addData should be called here after each day
+        // to add data to the csv file
+    }
     public SimulationEngine(int mapHeight, int mapWidth, int grassEnergyProfit,
                             int minEnergyCopulation, int animalStartEnergy, int dailyEnergyLost,
                             int animalStartSpawningNumber, int grassPerDay, int refreshment,
@@ -104,9 +116,6 @@ public class SimulationEngine extends Thread implements IEngine {
         //setting initial positions
         spawnAnimals(animalStartSpawningNumber);
         spawnGrass(grassPerDay);
-
-        //starting simulation
-        run();
     }
 
     public synchronized DataStorage getData() {
@@ -128,6 +137,18 @@ public class SimulationEngine extends Thread implements IEngine {
             //determine which animals copulate
             spawnGrass(grassPerDay);
             dayOfSimulation += 1;
+
+            // a day has passed so new data should be generated
+            // gui uses this boolean to determine if it should
+            // get new data using this.getData()
+            newDataToReceive.set(true);
+
+            // interval speed can be adjusted from gui level -> simulation speed is atomic
+            try {
+                sleep(simulationSpeed.get());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

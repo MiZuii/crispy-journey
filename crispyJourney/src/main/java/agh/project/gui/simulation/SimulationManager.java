@@ -21,6 +21,7 @@ public class SimulationManager implements WindowManager {
     private final App app;
     private final Population population;
     private final boolean saveToCSV;
+    private CSVCreator csvCreator;
 
     public SimulationManager(App app, Population populationToSimulate, boolean saveToCSV){
         this.app = app;
@@ -36,7 +37,10 @@ public class SimulationManager implements WindowManager {
     @Override
     public void start() {
         Stage simulationStageFX = simulationStage.createStage();
-//        simulationEngine = new SimulationEngine(population);
+        if (saveToCSV) {
+            csvCreator = new CSVCreator();
+        }
+        simulationEngine = new SimulationEngine(population, this, csvCreator);
 //        simulationEngine.run();
         // turned off for now because of wrong constructor
         simulationStageFX.show();

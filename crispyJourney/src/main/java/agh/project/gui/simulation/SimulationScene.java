@@ -1,20 +1,30 @@
 package agh.project.gui.simulation;
 
+import agh.project.gui.simulation.animalDisplay.AnimalDisplay;
+import agh.project.gui.simulation.graphDisplay.GraphDisplay;
+import agh.project.gui.simulation.mapDisplay.MapDisplay;
+import agh.project.gui.simulation.populationDisplay.PopulationDisplay;
 import agh.project.interfaces.SceneCreator;
+import agh.project.interfaces.Updateable;
+import agh.project.simulation.DataStorage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import static java.lang.Thread.sleep;
 
 public class SimulationScene implements SceneCreator {
 
     private static final double MENU_BOX_HEIGHT = 20;
     private static final double LEFT_BOX_WIDTH = 300;
     private static final double RIGHT_BOX_WIDTH = 300;
-    private static final double GRAPH_BOX_MIN_HEIGHT = 200;
+    private static final double GRAPH_BOX_HEIGHT = 200;
+    private static final int FPS = 60;
 
     private Scene simulationScene;
     private VBox root;
@@ -25,8 +35,16 @@ public class SimulationScene implements SceneCreator {
     private VBox middleBox;
     private VBox mapBox;
     private VBox graphBox;
+    private AnimalDisplay animalDisplay;
+    private GraphDisplay graphDisplay;
+    private MapDisplay mapDisplay;
+    private PopulationDisplay populationDisplay;
+    private ArrayList<Updateable> updateableDisplays = new ArrayList<>();
+    private DataStorage data;
+    private final SimulationManager simulationManager;
 
-    public SimulationScene() {
+    public SimulationScene(SimulationManager simulationManager) {
+        this.simulationManager = simulationManager;
     }
 
     @Override
@@ -36,7 +54,14 @@ public class SimulationScene implements SceneCreator {
         //   Content elements   //
         // -------------------- //
 
-
+        animalDisplay = new AnimalDisplay();
+        graphDisplay = new GraphDisplay();
+        mapDisplay = new MapDisplay();
+        populationDisplay = new PopulationDisplay();
+        updateableDisplays.add(animalDisplay);
+        updateableDisplays.add(graphDisplay);
+        updateableDisplays.add(mapDisplay);
+        updateableDisplays.add(populationDisplay);
 
 
         // -------------------- //
@@ -44,13 +69,13 @@ public class SimulationScene implements SceneCreator {
         // -------------------- //
 
         // sub-boxes
-        mapBox = new VBox();
-        graphBox = new VBox();
+        mapBox = new VBox(mapDisplay);
+        graphBox = new VBox(graphDisplay);
 
         // main boxes setup
-        leftBox = new VBox();
+        leftBox = new VBox(populationDisplay);
         middleBox = new VBox(mapBox, graphBox);
-        rightBox = new VBox();
+        rightBox = new VBox(animalDisplay);
 
         // menu boxes
         menuBox = new HBox();
@@ -117,12 +142,39 @@ public class SimulationScene implements SceneCreator {
         VBox.setVgrow(rightBox, Priority.ALWAYS);
 
         // map box
-        HBox.setHgrow(mapBox, Priority.SOMETIMES);
-        mapBox.prefHeightProperty().bind(mapBox.widthProperty());
+        HBox.setHgrow(mapBox, Priority.ALWAYS);
+        VBox.setVgrow(mapBox, Priority.ALWAYS);
 
         // graph box
-        graphBox.setMinHeight(GRAPH_BOX_MIN_HEIGHT);
+        graphBox.setMinHeight(GRAPH_BOX_HEIGHT);
+        graphBox.setMaxHeight(GRAPH_BOX_HEIGHT);
+        graphBox.setPrefHeight(GRAPH_BOX_HEIGHT);
         HBox.setHgrow(graphBox, Priority.ALWAYS);
-        VBox.setVgrow(graphBox, Priority.ALWAYS);
+    }
+
+    private void updateScene() {
+
+        // update stuff
+
+        // update displays
+        for (Updateable display : updateableDisplays) {
+            display.update();
+        }
+    }
+
+    public void startRefereshing() {
+        try {
+            refresh();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void refresh() throws InterruptedException {
+        sleep((1000/FPS));
+        if (simulationManager.getSimulationEngine().newDataToReceive.get()) {
+            data = simulationManager.getSimulationEngine().getData();
+            updateScene();
+        }
     }
 }
