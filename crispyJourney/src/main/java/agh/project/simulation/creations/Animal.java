@@ -11,7 +11,7 @@ import agh.project.simulation.maps.GrassMap;
 
 import java.util.Objects;
 
-public class Animal implements WorldElement {
+public class Animal implements WorldElement, Comparable<Object> {
 
 //    -----Attributes------
 
@@ -20,6 +20,7 @@ public class Animal implements WorldElement {
     public int age = 0;
     public int children = 0;
     public int grassEaten = 0;
+    public int deathDay = -1;
     private Vector2d position;
     private Direction direction;
     private Energy energy;
@@ -32,7 +33,15 @@ public class Animal implements WorldElement {
 
 
 //    ------Methods------
+@Override
+public int compareTo(Object o) {
+    Animal other = (Animal) o;
+    if(this.getEnergy() - other.getEnergy() != 0) return other.getEnergy() - this.getEnergy();
 
+    if(this.age - other.age != 0) return other.age - this.age;
+
+    return other.children - this.children;
+}
     public Animal(int id, Vector2d position, Direction direction, Energy energy, Gen gen){
         this.id = id;
         this.position = position;
@@ -47,8 +56,8 @@ public class Animal implements WorldElement {
         return gen;
     }
 
-    public Energy getEnergy(){
-        return this.energy;
+    public int getEnergy(){
+        return this.energy.energy;
     }
 
     public Vector2d getPosition(){
@@ -118,5 +127,10 @@ public class Animal implements WorldElement {
 
     public void changePosition(Vector2d newPosition){
         this.position = newPosition;
+    }
+
+    public void eat(int e){
+        this.energy.addEnergy(e);
+        this.grassEaten++;
     }
 }

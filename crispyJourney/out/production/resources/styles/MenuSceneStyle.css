@@ -1,0 +1,25 @@
+.root {
+    -fx-background-color: #FEFCFD;
+}
+
+.header-label {
+    -fx-text-fill: #000505;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 35;
+    -fx-font-weight: bolder;
+    -fx-font-style: italic;
+}
+
+.header-box {
+    -fx-background-color: #7F5A83;
+    -fx-effect: dropshadow(gaussian, #170e00, 8, 0.0, 0, 2);
+}
+
+.populations-container {
+    -fx-background-color: #F1DABF;
+    -fx-effect: dropshadow(gaussian, #170e00, 8, 0.0, 0, 8);
+}
+
+.add-population-button {
+
+}
