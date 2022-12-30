@@ -40,6 +40,7 @@ public class SimulationEngine extends Thread implements IEngine {
     private int height;
     private Energy animalStartEnergy;
     private Energy grassEnergyProfit;
+    private AnimalFactory animalFactory;
 
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
@@ -89,6 +90,7 @@ public class SimulationEngine extends Thread implements IEngine {
             Direction randomDirection = Direction.values()[pick];
 
             Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen);
+            this.animalFactory = animalFactory;
 
             this.animalMap.place((WorldElement) animal);
         }
@@ -98,32 +100,27 @@ public class SimulationEngine extends Thread implements IEngine {
         // this is the tight structure of constructor
         // if the csvCreator is not null the method addData should be called here after each day
         // to add data to the csv file
-    }
-
-    public SimulationEngine(int mapHeight, int mapWidth, int grassEnergyProfit,
-                            int minEnergyCopulation, int animalStartEnergy, int dailyEnergyLost,
-                            int animalStartSpawningNumber, int grassPerDay, int refreshment,
-                            int energyPerCopulation, int maxMutationNumber, int genomLength,
-                            boolean mutationFlag) {
-
-        this.height = mapHeight;
-        this.width = mapWidth;
-        this.grassPerDay = grassPerDay;
-        this.animalStartEnergy = new Energy(animalStartEnergy);
-        this.grassEnergyProfit = new Energy(grassEnergyProfit);
+        this.height = population.mapHeight;
+        this.width = population.mapWidth;
+        this.grassPerDay = population.grassPerDay;
+        this.animalStartEnergy = new Energy(population.animalStartEnergy);
+        this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
 
         //Set all static variables in Gen and Energy
-        Energy.setReproduceBoundary(minEnergyCopulation);
-        Energy.setReproduceEnergy(energyPerCopulation);
-        Energy.setOneDayLost(dailyEnergyLost);
+        Energy.setReproduceBoundary(population.minEnergyCopulation);
+        Energy.setReproduceEnergy(population.energyPerCopulation);
+        Energy.setOneDayLost(population.dailyEnergyLost);
 
-        Gen.setGensNumber(genomLength);
-        Gen.setMutationNumber(maxMutationNumber);
-        Gen.setChaoticGen(mutationFlag);
+        Gen.setGensNumber(population.genomLength);
+        Gen.setMutationNumber(population.maxMutationNumber);
+        Gen.setChaoticGen(population.mutationFlag);
 
         //setting initial positions
-        spawnAnimals(animalStartSpawningNumber);
+        spawnAnimals(population.animalStartSpawningNumber);
         spawnGrass(grassPerDay);
+
+        //starting simulation
+        run();
     }
 
     public synchronized DataStorage getData() {
@@ -149,17 +146,20 @@ public class SimulationEngine extends Thread implements IEngine {
             }
 
             for (ArrayList<WorldElement> animals : this.animalMap.occupiedPosition.values()) {
-                Collections.sort(animals);
+                Collections.sort(animals); //sort by energy, age, children
 
-
+                //eating
                 Animal animalToEat = (Animal) animals.get(0);
                 if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition()))
                     animalToEat.eat(grassEnergyProfit.energy);
 
-                for (int i = 0; i < animals.size() / 2; i++) {
-
+                //copulating
+                for (int i = 0; i < animals.size() / 2; i+=2) {
+                    if(i+1>=animals.size())
+                        break;
+                    this.animalMap.place((WorldElement)animalFactory.createAnimal(animals.get(i), animals.get(i+1)) );
                 }
-
+                //TODO deathDay
                 spawnGrass(grassPerDay);
                 dayOfSimulation += 1;
             }

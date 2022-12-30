@@ -7,8 +7,8 @@ public enum Rotation {
         * F - animal will not turn
         * L - animal will turn 90 degrees non-clockwise
         * B - animal will turn 180 degrees
-        * R - animal will trun 90 degrees clockwise
-        Some combination of this values also have the meaning. Markers works the same way as the compass rose
+        * R - animal will turn 90 degrees clockwise
+        Some combination of these values also have the meaning. Markers work the same way as the compass rose
 */
     F,  //N
     FR, //NE

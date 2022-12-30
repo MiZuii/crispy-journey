@@ -17,22 +17,26 @@ public class Statistics {
 
     public double getAverageEnergy() {
         int avg = 0;
-        for(WorldElement animal : animalFactory.animals)
+        int cnt = 0;
+        for(WorldElement animal : animalFactory.animals){
             avg+=animal.getEnergy();
-        return avg;
+            cnt++;
+
+        }
+        return (double)avg/cnt;
     }
 
     public double getAverageLifeTime(){
         int cnt = 0;
-        int avg;
+        int avg = 0;
         for(WorldElement animal : animalFactory.animals){
             if(animal.deathDay != -1){
                 cnt++;
-                avg +=
+//                avg +=
             }
         }
         if(cnt != 0)
-            return avg/cnt;
+            return (double)avg/cnt;
         return -1;
     }
 }
