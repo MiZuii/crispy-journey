@@ -118,9 +118,6 @@ public class SimulationEngine extends Thread implements IEngine {
         //setting initial positions
         spawnAnimals(population.animalStartSpawningNumber);
         spawnGrass(grassPerDay);
-
-        //starting simulation
-        run();
     }
 
     public synchronized DataStorage getData() {
