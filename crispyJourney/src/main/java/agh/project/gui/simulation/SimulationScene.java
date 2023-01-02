@@ -21,9 +21,9 @@ import static java.lang.Thread.sleep;
 public class SimulationScene implements SceneCreator {
 
     private static final double MENU_BOX_HEIGHT = 20;
-    private static final double LEFT_BOX_WIDTH = 300;
-    private static final double RIGHT_BOX_WIDTH = 300;
-    private static final double GRAPH_BOX_HEIGHT = 200;
+    private static final double LEFT_BOX_WIDTH = 250;
+    private static final double RIGHT_BOX_WIDTH = 250;
+    private static final double GRAPH_BOX_HEIGHT = 300;
     private static final int FPS = 60;
 
     private Scene simulationScene;

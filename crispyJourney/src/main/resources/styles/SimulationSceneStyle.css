@@ -1,23 +1,28 @@
 .root {
-    -fx-background-color: red;
+
 }
 
 .menu-box {
-    -fx-background-color: blue;
+    -fx-background-color: #151818;
+    -fx-border-color: #282a2d;
 }
 
 .left-box {
-    -fx-background-color: yellow;
+    -fx-background-color: #121415;
+    -fx-border-color: #282a2d;
 }
 
 .right-box {
-    -fx-background-color: purple;
+    -fx-background-color: #121415;
+    -fx-border-color: #282a2d;
 }
 
 .map-box {
-    -fx-background-color: green;
+    -fx-background-color: #1c1f20;
+    -fx-border-color: #282a2d;
 }
 
 .graph-box {
-    -fx-background-color: grey;
+    -fx-background-color: #1c1f20;
+    -fx-border-color: #282a2d;
 }

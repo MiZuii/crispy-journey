@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: #121415;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-border-color: #282a2d;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-font-weight: 900;
+}
+
+.info {
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+
+.data {
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
