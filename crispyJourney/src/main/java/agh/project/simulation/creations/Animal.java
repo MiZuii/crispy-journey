@@ -2,6 +2,7 @@ package agh.project.simulation.creations;
 
 import agh.project.enumerators.Direction;
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.DataStorage;
 import agh.project.simulation.creations.attributes.Energy;
 import agh.project.simulation.creations.attributes.Gen;
 import agh.project.simulation.creations.attributes.Vector2d;
@@ -138,5 +139,10 @@ public int compareTo(Object o) {
         this.energy.addEnergy(grass.getEnergy());
 
         this.grassEaten++;
+    }
+
+    public DataStorage toDataStorage(){
+        return new DataStorage(this.gen, this.gen.getActualGen(), this.energy, this.grassEaten, this.age,
+                this.deathDay);
     }
 }

@@ -65,7 +65,7 @@ public class AnimalFactory {
 
     public void deleteAnimal(Animal animal){
         this.liveAnimal -= 1;
-        this.animals.remove(animal);
+//        this.animals.remove(animal);
         this.deathAnimals.add(animal);
         animal.deathDay = simulationEngine.getDayOfSimulation();
     }

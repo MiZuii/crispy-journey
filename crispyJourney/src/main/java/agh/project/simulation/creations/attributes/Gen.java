@@ -130,4 +130,8 @@ public class Gen {
         }
         return new Gen(randomGens);
     }
+
+    public int getActualGen() {
+        return actualGen;
+    }
 }

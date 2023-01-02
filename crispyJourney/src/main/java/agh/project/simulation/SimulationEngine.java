@@ -48,6 +48,51 @@ public class SimulationEngine extends Thread implements IEngine {
 
     private Statistics statistics;
 
+    private int highlightedAnimalId = -2;
+
+    public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
+        // this is the tight structure of constructor
+        // if the csvCreator is not null the method addData should be called here after each day
+        // to add data to the csv file
+        this.height = population.mapHeight;
+        this.width = population.mapWidth;
+        this.grassPerDay = population.grassPerDay;
+        this.animalStartEnergy = new Energy(population.animalStartEnergy);
+        this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
+
+        //Set all static variables in Gen and Energy
+        Energy.setReproduceBoundary(population.minEnergyCopulation);
+        Energy.setReproduceEnergy(population.energyPerCopulation);
+        Energy.setOneDayLost(population.dailyEnergyLost);
+
+        Gen.setGensNumber(population.genomLength);
+        Gen.setMutationNumber(population.maxMutationNumber);
+        Gen.setChaoticGen(population.mutationFlag);
+
+        //setting factories
+        this.grassFactory = new GrassFactory();
+        this.animalFactory = new AnimalFactory(this);
+
+        //setting initial positions
+        spawnAnimals(population.animalStartSpawningNumber);
+        spawnGrass(grassPerDay);
+
+        //seting maps
+        WorldMapBoundary worldMapBoundary;
+        if (population.mapFlag){ // Hell
+            worldMapBoundary = new Hell(population.mapHeight, population.mapWidth);
+        }
+        else {
+            worldMapBoundary = new RoundBoundary(population.mapHeight, population.mapWidth);
+        }
+        this.animalMap = new AnimalMap(worldMapBoundary);
+        this.grassMap = new GrassMap(worldMapBoundary);
+
+        //setting statistics
+        this.statistics = new Statistics(this.animalFactory, this.grassFactory);
+    }
+
+
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -101,48 +146,6 @@ public class SimulationEngine extends Thread implements IEngine {
         }
     }
 
-    public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
-        // this is the tight structure of constructor
-        // if the csvCreator is not null the method addData should be called here after each day
-        // to add data to the csv file
-        this.height = population.mapHeight;
-        this.width = population.mapWidth;
-        this.grassPerDay = population.grassPerDay;
-        this.animalStartEnergy = new Energy(population.animalStartEnergy);
-        this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
-
-        //Set all static variables in Gen and Energy
-        Energy.setReproduceBoundary(population.minEnergyCopulation);
-        Energy.setReproduceEnergy(population.energyPerCopulation);
-        Energy.setOneDayLost(population.dailyEnergyLost);
-
-        Gen.setGensNumber(population.genomLength);
-        Gen.setMutationNumber(population.maxMutationNumber);
-        Gen.setChaoticGen(population.mutationFlag);
-
-        //setting factories
-        this.grassFactory = new GrassFactory();
-        this.animalFactory = new AnimalFactory(this);
-
-        //setting initial positions
-        spawnAnimals(population.animalStartSpawningNumber);
-        spawnGrass(grassPerDay);
-
-        //seting maps
-        WorldMapBoundary worldMapBoundary;
-        if (population.mapFlag){ // Hell
-            worldMapBoundary = new Hell(population.mapHeight, population.mapWidth);
-        }
-        else {
-            worldMapBoundary = new RoundBoundary(population.mapHeight, population.mapWidth);
-        }
-        this.animalMap = new AnimalMap(worldMapBoundary);
-        this.grassMap = new GrassMap(worldMapBoundary);
-
-        //setting statistics
-        this.statistics = new Statistics(this.animalFactory, this.grassFactory);
-    }
-
     public int getDayOfSimulation() {
         return dayOfSimulation;
     }
@@ -150,13 +153,19 @@ public class SimulationEngine extends Thread implements IEngine {
     public synchronized DataStorage getData() {
 
         return new DataStorage(this.animalFactory.liveAnimal,this.grassFactory.liveGrass, this.animalMap,
-                this.grassMap, this.height, this.width);
+                this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLiftTimeDeath());
     }
+
+    public synchronized DataStorage getAnimalData(int id){
+        Animal animal = this.animalFactory.animals.get(id);
+        return animal.toDataStorage();
+    }
+
 
     @Override
     public void run() {
         while (true) {
-            //call move on every animal
+
             //TODO set deathDay
             for (ArrayList<WorldElement> animals : animalMap.occupiedPosition.values()) {
                 for (WorldElement animal : animals) {
