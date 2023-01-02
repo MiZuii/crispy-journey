@@ -177,4 +177,8 @@ public class SimulationScene implements SceneCreator {
             updateScene();
         }
     }
+
+    public int getAnimalID() {
+        return mapDisplay.getAnimalID();
+    }
 }

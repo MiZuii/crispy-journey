@@ -14,7 +14,7 @@ public class SimulationStage implements StageCreator {
     public Stage simulationStageFX;
     private final App app;
     private final SimulationManager simulationManager;
-    private final SimulationScene simulationScene;
+    public SimulationScene simulationScene;
 
     public SimulationStage(App app, SimulationManager simulationManager) {
         this.app = app;

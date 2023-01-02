@@ -51,6 +51,6 @@ public class SimulationManager implements WindowManager {
     }
 
     public synchronized int getSelectedAnimalID() {
-        return 0;
+        return simulationStage.simulationScene.getAnimalID();
     }
 }
