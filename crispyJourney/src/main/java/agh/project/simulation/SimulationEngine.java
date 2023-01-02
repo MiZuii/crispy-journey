@@ -140,7 +140,7 @@ public class SimulationEngine extends Thread implements IEngine {
         this.grassMap = new GrassMap(worldMapBoundary);
 
         //setting statistics
-        this.statistics = new Statistics(this.animalFactory, this.grassFactory);
+        this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width);
     }
 
     public int getDayOfSimulation() {
@@ -184,6 +184,7 @@ public class SimulationEngine extends Thread implements IEngine {
                 //TODO deathDay
                 spawnGrass(grassPerDay);
                 dayOfSimulation += 1;
+                statistics.update();
             }
 
             // a day has passed so new data should be generated
