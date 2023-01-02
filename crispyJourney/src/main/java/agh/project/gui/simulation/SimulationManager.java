@@ -46,6 +46,10 @@ public class SimulationManager implements WindowManager {
         simulationStageFX.show();
     }
 
+    public Population getPopulation() {
+        return population;
+    }
+
     public SimulationEngine getSimulationEngine() {
         return simulationEngine;
     }
