@@ -8,7 +8,7 @@ import agh.project.simulation.creations.attributes.Vector2d;
 public class GrassFactory {
 
     //    -----ATTRIBUTES------
-    private int liveGrass;
+    public int liveGrass;
     private int grassId;
 
 
@@ -21,7 +21,7 @@ public class GrassFactory {
     public Grass createGrass(Vector2d position, Energy energy, GrassMap grassMapObserver){
         this.liveGrass += 1;
         this.grassId += 1;
-        return new Grass(this.grassId,position,energy, grassMapObserver);
+        return new Grass(this.grassId,position,energy, grassMapObserver, this);
     }
 
     public void deleteGrass(){

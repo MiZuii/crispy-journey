@@ -129,8 +129,14 @@ public int compareTo(Object o) {
         this.position = newPosition;
     }
 
-    public void eat(int e){
-        this.energy.addEnergy(e);
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
+
+    public void eat(Grass grass){
+        this.energy.addEnergy(grass.getEnergy());
+
         this.grassEaten++;
     }
 }

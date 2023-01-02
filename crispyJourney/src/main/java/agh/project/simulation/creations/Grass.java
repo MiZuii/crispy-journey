@@ -1,6 +1,7 @@
 package agh.project.simulation.creations;
 
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.factories.GrassFactory;
 import agh.project.simulation.maps.GrassMap;
 import agh.project.simulation.creations.attributes.Vector2d;
 import agh.project.simulation.creations.attributes.Energy;
@@ -15,6 +16,7 @@ public class  Grass implements WorldElement {
     private Energy energy;
 
     private GrassMap grassMapObserver;
+    public GrassFactory grassFactory;
 
 
     //    -----METHODS-----
@@ -23,11 +25,12 @@ public class  Grass implements WorldElement {
         // We do not sort grass but there has to be this method
         return 0;
     }
-    public Grass(int id, Vector2d position, Energy energy, GrassMap grassMapObserver) {
+    public Grass(int id, Vector2d position, Energy energy, GrassMap grassMapObserver, GrassFactory grassFactory) {
         this.id = id;
         this.position = position;
         this.energy = energy;
         this.grassMapObserver = grassMapObserver;
+        this.grassFactory = grassFactory;
     }
 
     public Vector2d getPosition() {
@@ -49,5 +52,10 @@ public class  Grass implements WorldElement {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void eatGrass(){
+        this.grassMapObserver.remove(this);
+        this.grassFactory.deleteGrass();
     }
 }

@@ -7,6 +7,7 @@ import agh.project.gui.simulation.CSVCreator;
 import agh.project.gui.simulation.SimulationManager;
 import agh.project.interfaces.IEngine;
 import agh.project.interfaces.WorldElement;
+import agh.project.interfaces.WorldMapBoundary;
 import agh.project.simulation.creations.Animal;
 import agh.project.simulation.creations.Grass;
 import agh.project.simulation.creations.attributes.Energy;
@@ -16,6 +17,8 @@ import agh.project.simulation.factories.AnimalFactory;
 import agh.project.simulation.factories.GrassFactory;
 import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
+import agh.project.simulation.maps.attributes.Hell;
+import agh.project.simulation.maps.attributes.RoundBoundary;
 
 
 import java.util.*;
@@ -41,6 +44,9 @@ public class SimulationEngine extends Thread implements IEngine {
     private Energy animalStartEnergy;
     private Energy grassEnergyProfit;
     private AnimalFactory animalFactory;
+    private GrassFactory grassFactory;
+
+    private Statistics statistics;
 
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
@@ -64,7 +70,7 @@ public class SimulationEngine extends Thread implements IEngine {
     private void spawnGrass(int sizeGrass) {
         //loop for creating grass
         for (int i = 0; i < sizeGrass; i++) {
-            GrassFactory grassFactory = new GrassFactory();
+
 
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomY();
@@ -80,7 +86,7 @@ public class SimulationEngine extends Thread implements IEngine {
         for (int i = 0; i < sizeAnimals; i++) {
 //          Create Random Gen for starting Animals
             Gen randomGen = Gen.getRandomGen();
-            AnimalFactory animalFactory = new AnimalFactory(this);
+
 
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
@@ -90,7 +96,6 @@ public class SimulationEngine extends Thread implements IEngine {
             Direction randomDirection = Direction.values()[pick];
 
             Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen);
-            this.animalFactory = animalFactory;
 
             this.animalMap.place((WorldElement) animal);
         }
@@ -115,9 +120,27 @@ public class SimulationEngine extends Thread implements IEngine {
         Gen.setMutationNumber(population.maxMutationNumber);
         Gen.setChaoticGen(population.mutationFlag);
 
+        //setting factories
+        this.grassFactory = new GrassFactory();
+        this.animalFactory = new AnimalFactory(this);
+
         //setting initial positions
         spawnAnimals(population.animalStartSpawningNumber);
         spawnGrass(grassPerDay);
+
+        //seting maps
+        WorldMapBoundary worldMapBoundary;
+        if (population.mapFlag){ // Hell
+            worldMapBoundary = new Hell(population.mapHeight, population.mapWidth);
+        }
+        else {
+            worldMapBoundary = new RoundBoundary(population.mapHeight, population.mapWidth);
+        }
+        this.animalMap = new AnimalMap(worldMapBoundary);
+        this.grassMap = new GrassMap(worldMapBoundary);
+
+        //setting statistics
+        this.statistics = new Statistics(this.animalFactory, this.grassFactory);
     }
 
     public int getDayOfSimulation() {
@@ -125,13 +148,9 @@ public class SimulationEngine extends Thread implements IEngine {
     }
 
     public synchronized DataStorage getData() {
-        // this is only an example
-        // don't pass references to object because the
-        // objects are not synchronized
-        // only basic types can be passed otherwise it can
-        // cause memory access problems
 
-        return new DataStorage(5);
+        return new DataStorage(this.animalFactory.liveAnimal,this.grassFactory.liveGrass, this.animalMap,
+                this.grassMap, this.height, this.width);
     }
 
     @Override
@@ -151,8 +170,10 @@ public class SimulationEngine extends Thread implements IEngine {
 
                 //eating
                 Animal animalToEat = (Animal) animals.get(0);
-                if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition()))
-                    animalToEat.eat(grassEnergyProfit.energy);
+                if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition())) {
+                    Grass grassToEat = (Grass) grassMap.occupiedPosition.get(animalToEat.getPosition()).get(0);
+                    animalToEat.eat(grassToEat);
+                }
 
                 //copulating
                 for (int i = 0; i < animals.size() / 2; i+=2) {
