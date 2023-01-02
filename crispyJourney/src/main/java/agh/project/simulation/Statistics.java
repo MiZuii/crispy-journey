@@ -29,7 +29,8 @@ public class Statistics {
     public double getAverageLifeTime(){
         int cnt = 0;
         int avg = 0;
-        for(WorldElement animal : animalFactory.animals){
+        for(WorldElement worldElement : animalFactory.animals){
+            Animal animal = (Animal) worldElement;
             if(animal.deathDay != -1){
                 cnt++;
 //                avg +=

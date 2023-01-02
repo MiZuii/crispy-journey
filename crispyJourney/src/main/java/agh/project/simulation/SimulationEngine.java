@@ -80,7 +80,7 @@ public class SimulationEngine extends Thread implements IEngine {
         for (int i = 0; i < sizeAnimals; i++) {
 //          Create Random Gen for starting Animals
             Gen randomGen = Gen.getRandomGen();
-            AnimalFactory animalFactory = new AnimalFactory();
+            AnimalFactory animalFactory = new AnimalFactory(this);
 
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
@@ -120,6 +120,10 @@ public class SimulationEngine extends Thread implements IEngine {
         spawnGrass(grassPerDay);
     }
 
+    public int getDayOfSimulation() {
+        return dayOfSimulation;
+    }
+
     public synchronized DataStorage getData() {
         // this is only an example
         // don't pass references to object because the
@@ -154,7 +158,7 @@ public class SimulationEngine extends Thread implements IEngine {
                 for (int i = 0; i < animals.size() / 2; i+=2) {
                     if(i+1>=animals.size())
                         break;
-                    this.animalMap.place((WorldElement)animalFactory.createAnimal(animals.get(i), animals.get(i+1)) );
+                    this.animalMap.place((WorldElement)animalFactory.createChild(animals.get(i), animals.get(i+1)) );
                 }
                 //TODO deathDay
                 spawnGrass(grassPerDay);

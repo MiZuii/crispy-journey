@@ -2,6 +2,7 @@ package agh.project.simulation.creations;
 
 import agh.project.enumerators.Direction;
 import agh.project.enumerators.Rotation;
+import agh.project.simulation.SimulationEngine;
 import agh.project.simulation.creations.attributes.Energy;
 import agh.project.simulation.creations.attributes.Gen;
 import agh.project.simulation.creations.attributes.Vector2d;
