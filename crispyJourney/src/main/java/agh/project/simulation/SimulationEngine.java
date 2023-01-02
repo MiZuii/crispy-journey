@@ -184,8 +184,9 @@ public class SimulationEngine extends Thread implements IEngine {
                 //TODO deathDay
                 spawnGrass(grassPerDay);
                 dayOfSimulation += 1;
-                statistics.update();
+                statistics.update(false);
             }
+            statistics.update(true);
 
             // a day has passed so new data should be generated
             // gui uses this boolean to determine if it should

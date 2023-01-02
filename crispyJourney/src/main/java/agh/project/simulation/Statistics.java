@@ -1,10 +1,7 @@
 package agh.project.simulation;
 
-import agh.project.enumerators.Direction;
 import agh.project.enumerators.Rotation;
-import agh.project.interfaces.WorldElement;
 import agh.project.simulation.creations.Animal;
-import agh.project.simulation.creations.Grass;
 import agh.project.simulation.factories.AnimalFactory;
 import agh.project.simulation.factories.GrassFactory;
 
@@ -16,7 +13,8 @@ public class Statistics {
     public int currentGrassNumber;
     public int currentAnimalNumber;
     public int currentFreeSpaces;
-    public Rotation mostPopularGenotype;
+    public Rotation currentMostPopularGenotype;
+    public Rotation overallMostPopularGenotype;
     public double averageEnergy;
     public double averageLifeTime;
     private final int availableSpaces;
@@ -77,7 +75,7 @@ public class Statistics {
     public int getCurrentGrassNumber(){
         return grassFactory.liveGrass;
     }
-    public Rotation getMostPopularGenotype(){
+    public Rotation getCurrentMostPopularGenotype(){
         Integer[] genArray = new Integer[8];
         for(Animal animal : animalFactory.animals){
             for(Rotation gen : animal.getGen().getGensList()){
@@ -89,12 +87,31 @@ public class Statistics {
         return Rotation.values()[maxIndex];
     }
 
-    public void update(){
+    public Rotation getOverallMostPopularGenotype(){
+        Integer[] genArray = new Integer[8];
+        for(Animal animal : animalFactory.animals){
+            for(Rotation gen : animal.getGen().getGensList()){
+                genArray[Rotation.valueOf(gen.name()).ordinal()]++;
+            }
+        }
+        for(Animal animal : animalFactory.deathAnimals){
+            for(Rotation gen : animal.getGen().getGensList()){
+                genArray[Rotation.valueOf(gen.name()).ordinal()]++;
+            }
+        }
+        List<Integer> gList = Arrays.asList(genArray);
+        int maxIndex = gList.indexOf(Collections.max(gList));
+        return Rotation.values()[maxIndex];
+    }
+
+    public void update(boolean simulationOver){
         this.currentAnimalNumber = getCurrentAnimalNumber();
         this.currentGrassNumber = getCurrentGrassNumber();
         this.currentFreeSpaces = getCurrentFreeSpaces();
-        this.mostPopularGenotype = getMostPopularGenotype();
+        this.currentMostPopularGenotype = getCurrentMostPopularGenotype();
         this.averageEnergy = getAverageEnergy();
         this.averageLifeTime = getAverageLifeTimeDeath();
+        if(simulationOver)
+            this.overallMostPopularGenotype = getOverallMostPopularGenotype();
     }
 }
