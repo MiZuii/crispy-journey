@@ -1,0 +1,25 @@
+.root {
+    -fx-background-color: #1c1f20;
+    -fx-border-color: #282a2d;
+    -fx-border-style: hidden hidden solid hidden;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.chart-title {
+    -fx-text-fill: white;
+}
