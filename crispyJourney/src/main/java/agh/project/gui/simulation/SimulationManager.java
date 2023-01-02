@@ -49,4 +49,8 @@ public class SimulationManager implements WindowManager {
     public SimulationEngine getSimulationEngine() {
         return simulationEngine;
     }
+
+    public synchronized int getSelectedAnimalID() {
+        return 0;
+    }
 }
