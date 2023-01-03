@@ -149,10 +149,6 @@ public class SimulationEngine extends Thread implements IEngine {
             this.animalMap.place((WorldElement) animal);
         }
     }
-
-
-
-
     public int getDayOfSimulation() {
         return dayOfSimulation;
     }

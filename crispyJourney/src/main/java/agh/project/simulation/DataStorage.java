@@ -78,14 +78,14 @@ public class DataStorage {
                 ArrayList<WorldElement> animals = animalMap.occupiedPosition.get(new Vector2d(i, j));
                 ArrayList<WorldElement> grasses = grassMap.occupiedPosition.get(new Vector2d(i, j));
 
-                if (animals.size() > 0){
+                if (animals != null && animals.size() > 0){
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
                         representation += animal.toString() + " ";
                     }
                     break;
                 }
-                if (grasses.size() > 0){
+                if (grasses != null && grasses.size() > 0){
                     for (WorldElement worldElement: grasses){
                         Grass grass = (Grass) worldElement;
                         representation += "G";
