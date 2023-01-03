@@ -174,32 +174,38 @@ public class SimulationEngine extends Thread implements IEngine {
     public void run() {
         while (true) {
 
-            Collection <ArrayList<WorldElement>> copy = animalMap.occupiedPosition.values();
+            Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
 
             for (ArrayList<WorldElement> animals : copy) {
-                for (WorldElement animal : animals) {
+
+                ArrayList<WorldElement> deepcopy = new ArrayList<>(animals);
+
+                for (WorldElement animal : deepcopy) {
                     Animal castedAnimal = (Animal) animal;
                     castedAnimal.move();
                 }
             }
 
-            Collection <ArrayList<WorldElement>> copy2 = animalMap.occupiedPosition.values();
+            Collection <ArrayList<WorldElement>> copy2 = new ArrayList<>(animalMap.occupiedPosition.values());
 
             for (ArrayList<WorldElement> animals : copy2) {
-                Collections.sort(animals); //sort by energy, age, children
+
+                ArrayList<WorldElement> animalsCopy = new ArrayList<>(animals);
+
+                Collections.sort(animalsCopy); //sort by energy, age, children
 
                 //eating
-                Animal animalToEat = (Animal) animals.get(0);
+                Animal animalToEat = (Animal) animalsCopy.get(0);
                 if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition())) {
                     Grass grassToEat = (Grass) grassMap.occupiedPosition.get(animalToEat.getPosition()).get(0);
                     animalToEat.eat(grassToEat);
                 }
 
                 //copulating
-                for (int i = 0; i < animals.size() / 2; i+=2) {
-                    if(i+1>=animals.size())
+                for (int i = 0; i < animalsCopy.size() / 2; i+=2) {
+                    if(i+1>=animalsCopy.size())
                         break;
-                    this.animalMap.place((WorldElement)animalFactory.createChild(animals.get(i), animals.get(i+1)) );
+                    this.animalMap.place((WorldElement)animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i+1)) );
                 }
                 //TODO deathDay
                 spawnGrass(grassPerDay);
