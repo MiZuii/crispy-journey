@@ -67,7 +67,6 @@ public class MapDisplay extends VBox implements Updateable {
             e.printStackTrace();
         }
     }
-
     private void addProperties() {
         // root
         HBox.setHgrow(this, Priority.ALWAYS);

@@ -73,20 +73,23 @@ public class SimulationEngine extends Thread implements IEngine {
         this.grassFactory = new GrassFactory();
         this.animalFactory = new AnimalFactory(this);
 
-        //setting initial positions
-        spawnAnimals(population.animalStartSpawningNumber);
-        spawnGrass(grassPerDay);
-
         //seting maps
         WorldMapBoundary worldMapBoundary;
         if (population.mapFlag){ // Hell
             worldMapBoundary = new Hell(population.mapHeight, population.mapWidth);
         }
-        else {
+        else { // RoundMap
             worldMapBoundary = new RoundBoundary(population.mapHeight, population.mapWidth);
         }
         this.animalMap = new AnimalMap(worldMapBoundary);
         this.grassMap = new GrassMap(worldMapBoundary);
+
+
+        //setting initial positions
+        spawnAnimals(population.animalStartSpawningNumber);
+        spawnGrass(grassPerDay);
+
+
 
         //setting statistics
         this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width);
