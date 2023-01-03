@@ -15,7 +15,9 @@ import java.util.Objects;
 public class GraphDisplay extends HBox implements Updateable {
 
     private ArrayList<Integer> graphData;
+    private int days = 0;
     private LineChart<Number, Number> lineChart;
+    private XYChart.Series<Number, Number> series;
     private NumberAxis xAxis;
     private NumberAxis yAxis;
 
@@ -37,7 +39,7 @@ public class GraphDisplay extends HBox implements Updateable {
         lineChart = new LineChart<>(xAxis, yAxis);
 
         // Add data to the chart
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series = new XYChart.Series<>();
         ArrayList<XYChart.Data<Number, Number>> data = fillGraph();
         series.getData().addAll(data);
         lineChart.getData().add(series);
@@ -77,7 +79,10 @@ public class GraphDisplay extends HBox implements Updateable {
 
     @Override
     public void update(DataStorage dataStorage) {
+        days += 1;
 
+        // refresh graph
+        series.getData().add(new XYChart.Data<>(days, dataStorage.getPopulationSize()));
     }
 
     public void clean() {

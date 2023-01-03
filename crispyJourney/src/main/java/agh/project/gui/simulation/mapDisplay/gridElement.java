@@ -10,8 +10,11 @@ import java.util.Objects;
 
 public class gridElement extends HBox {
 
+    private Label content;
+
     public gridElement(GridPane parent) {
-        this.getChildren().add(new Label("X"));
+        content = new Label("X");
+        this.getChildren().add(content);
 
         addProperties();
         addStyle();
@@ -31,5 +34,9 @@ public class gridElement extends HBox {
             System.out.println("Menu scene style sheet couldn't have been loaded.");
             e.printStackTrace();
         }
+    }
+
+    public void update(String data) {
+        content.setText(data);
     }
 }
