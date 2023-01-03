@@ -79,7 +79,7 @@ public class Statistics {
         Integer[] genArray = new Integer[8];
         for(Animal animal : animalFactory.animals){
             for(Rotation gen : animal.getGen().getGensList()){
-                genArray[Rotation.valueOf(gen.name()).ordinal()]++;
+                genArray[Integer.valueOf(Rotation.valueOf(gen.name()).ordinal())] += 1;
             }
         }
         List<Integer> gList = Arrays.asList(genArray);
