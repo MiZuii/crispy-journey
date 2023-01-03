@@ -92,8 +92,9 @@ public class DataStorage {
                     representation += "G";
                 }
                 stringMap.get(i).add(representation);
+                if (representation.length() == 0) this.freeSquares += 1;
             }
-            if (representation.length() == 0) this.freeSquares += 1;
+
 
         }
         return stringMap;

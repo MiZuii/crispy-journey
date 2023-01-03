@@ -116,6 +116,5 @@ public class AnimalDisplay extends VBox implements Updateable {
         this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
         this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
         this.lifeLength.setText(Integer.toString(data.getLiveLength()));
-
     }
 }
