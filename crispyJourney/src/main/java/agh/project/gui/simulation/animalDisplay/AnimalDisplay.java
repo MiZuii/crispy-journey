@@ -110,7 +110,6 @@ public class AnimalDisplay extends VBox implements Updateable {
 
     @Override
     public void update(DataStorage data) {
-        // Nie wiem czy to działa
         this.genomeData.setText(data.getGen().toString());
         this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
         this.energyData.setText(Integer.toString(data.getEnergy()));
