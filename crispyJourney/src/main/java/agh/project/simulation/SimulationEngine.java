@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SimulationEngine extends Thread implements IEngine {
 
     public AtomicBoolean newDataToReceive = new AtomicBoolean(false);
-    public AtomicInteger simulationSpeed = new AtomicInteger(50);
+    public AtomicInteger simulationSpeed = new AtomicInteger(3000);
 
     private AnimalMap animalMap;
     private GrassMap grassMap;

@@ -12,6 +12,12 @@ public class World {
     public static void main(String[] args) {
 
         Application.launch(App.class, args);
+
+//        for (int i = 0; i <8; i++)
+//        {
+//            genArray[i] += 1;
+//        }
+//        System.out.println(genArray);
 //        HashMap<Integer, ArrayList<Integer>> test = new HashMap<>();
 //        ArrayList<Integer> test1 = new ArrayList<>(List.of(1,2,3));
 //        ArrayList<Integer> test2 = new ArrayList<>(List.of(4,5,6));

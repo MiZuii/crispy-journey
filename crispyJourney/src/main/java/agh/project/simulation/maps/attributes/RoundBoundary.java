@@ -8,7 +8,7 @@ public class RoundBoundary implements WorldMapBoundary {
     public final int width;
     public final int height;
 
-    public RoundBoundary(int width, int height){
+    public RoundBoundary(int height, int width){
         this.width = width;
         this.height = height;
     }
