@@ -71,9 +71,13 @@ public class DataStorage {
                                                             int height, int width){
 
         ArrayList<ArrayList<String>> stringMap = new ArrayList<>();
-        for (int i = 0; i< height; i++){
+
+        for (int i = 0; i < height; i++){
+
             stringMap.add(new ArrayList<String>());
+
             String representation = "";
+
             for(int j = 0; j < width; j++){
                 ArrayList<WorldElement> animals = animalMap.occupiedPosition.get(new Vector2d(i, j));
                 ArrayList<WorldElement> grasses = grassMap.occupiedPosition.get(new Vector2d(i, j));
@@ -83,17 +87,14 @@ public class DataStorage {
                         Animal animal = (Animal) worldElement;
                         representation += animal.toString() + " ";
                     }
-                    break;
                 }
-                if (grasses != null && grasses.size() > 0){
-                    for (WorldElement worldElement: grasses){
-                        Grass grass = (Grass) worldElement;
-                        representation += "G";
-                    }
+                else if (grasses != null && grasses.size() > 0){
+                    representation += "G";
                 }
+                stringMap.get(i).add(representation);
             }
             if (representation.length() == 0) this.freeSquares += 1;
-            stringMap.get(i).add(representation);
+
         }
         return stringMap;
     }

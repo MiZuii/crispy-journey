@@ -201,8 +201,12 @@ public class SimulationEngine extends Thread implements IEngine {
                 for (int i = 0; i < animalsCopy.size() / 2; i+=2) {
                     if(i+1>=animalsCopy.size())
                         break;
-                    this.animalMap.place((WorldElement)animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i+1)) );
+                    Animal newAnimal = animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1));
+                    if (newAnimal != null) {
+                        this.animalMap.place((WorldElement) animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1)));
+                    }
                 }
+
                 //TODO deathDay
                 spawnGrass(grassPerDay);
                 dayOfSimulation += 1;
