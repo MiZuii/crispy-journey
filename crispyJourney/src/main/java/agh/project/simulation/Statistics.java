@@ -76,10 +76,10 @@ public class Statistics {
         return grassFactory.liveGrass;
     }
     public Rotation getCurrentMostPopularGenotype(){
-        Integer[] genArray = new Integer[8];
+        Integer[] genArray = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0};
         for(Animal animal : animalFactory.animals){
             for(Rotation gen : animal.getGen().getGensList()){
-                genArray[Integer.valueOf(Rotation.valueOf(gen.name()).ordinal())] += 1;
+                genArray[Rotation.valueOf(gen.name()).ordinal()] += 1;
             }
         }
         List<Integer> gList = Arrays.asList(genArray);
@@ -88,10 +88,10 @@ public class Statistics {
     }
 
     public Rotation getOverallMostPopularGenotype(){
-        Integer[] genArray = new Integer[8];
+        Integer[] genArray = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0};
         for(Animal animal : animalFactory.animals){
             for(Rotation gen : animal.getGen().getGensList()){
-                genArray[Rotation.valueOf(gen.name()).ordinal()]++;
+                genArray[Rotation.valueOf(gen.name()).ordinal()] += 1;
             }
         }
         for(Animal animal : animalFactory.deathAnimals){

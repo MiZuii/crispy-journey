@@ -219,6 +219,7 @@ public class SimulationEngine extends Thread implements IEngine {
             // get new data using this.getData()
             newDataToReceive.set(true);
 
+
             // interval speed can be adjusted from gui level -> simulation speed is atomic
             try {
                 sleep(simulationSpeed.get());
