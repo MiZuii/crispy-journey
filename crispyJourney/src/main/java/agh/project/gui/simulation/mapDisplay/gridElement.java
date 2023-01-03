@@ -1,11 +1,9 @@
 package agh.project.gui.simulation.mapDisplay;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class gridElement extends HBox {
@@ -37,6 +35,18 @@ public class gridElement extends HBox {
     }
 
     public void update(String data) {
-        content.setText(data);
+        if (data.equals("G")){
+            this.setStyle("-fx-background-color: seagreen;");
+        }
+        else if (data.length() > 0){
+            this.setStyle("-fx-background-color: darkgoldenrod");
+        }
+        if (data.length() > 0)
+            content.setText(data.substring(0, 1));
+    }
+
+    public void clear(){
+        addStyle();
+        content.setText("X");
     }
 }

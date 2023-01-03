@@ -95,10 +95,12 @@ public class MapDisplay extends VBox implements Updateable {
     public void update(DataStorage data) {
 
         ArrayList<ArrayList<String>> map = data.getMap();
-        
+
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                String tmp = map.get(column).get(row);     // goot row/column order?
+                elementsMap[row][column].clear();
+
+                String tmp = map.get(row).get(column);
                 elementsMap[row][column].update(tmp);
             }
         }

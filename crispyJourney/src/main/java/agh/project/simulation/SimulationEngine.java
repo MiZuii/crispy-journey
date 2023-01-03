@@ -59,6 +59,7 @@ public class SimulationEngine extends Thread implements IEngine {
         this.grassPerDay = population.grassPerDay;
         this.animalStartEnergy = new Energy(population.animalStartEnergy);
         this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
+        this.simulationSpeed = new AtomicInteger(population.refreshment);
 
         //Set all static variables in Gen and Energy
         Energy.setReproduceBoundary(population.minEnergyCopulation);
@@ -120,23 +121,24 @@ public class SimulationEngine extends Thread implements IEngine {
         //loop for creating grass
         for (int i = 0; i < sizeGrass; i++) {
 
-
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomY();
 
+            //Gdy nie ma pozycji na mapię to nowe rośliny się nie spawnują
             Vector2d randomPosition = new Vector2d(randomX, randomY);
-            Grass grass = grassFactory.createGrass(randomPosition, grassEnergyProfit, this.grassMap);
-            this.grassMap.place((WorldElement) grass);
+            if (! this.grassMap.isOccupied(randomPosition)) {
+                Grass grass = grassFactory.createGrass(randomPosition, grassEnergyProfit, this.grassMap);
+                this.grassMap.place((WorldElement) grass);
+            }
         }
     }
 
     private void spawnAnimals(int sizeAnimals) {
         //loop for creating animals
+
         for (int i = 0; i < sizeAnimals; i++) {
 //          Create Random Gen for starting Animals
             Gen randomGen = Gen.getRandomGen();
-
-
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
             Vector2d randomPosition = new Vector2d(randomX, randomY);
@@ -154,7 +156,6 @@ public class SimulationEngine extends Thread implements IEngine {
     }
 
     public synchronized DataStorage getData() {
-
         return new DataStorage(this.animalFactory.liveAnimal,this.grassFactory.liveGrass, this.animalMap,
                 this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
                 statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy);
@@ -165,11 +166,9 @@ public class SimulationEngine extends Thread implements IEngine {
         return animal.toDataStorage();
     }
 
-
     @Override
     public void run() {
         while (true) {
-
             Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
 
             for (ArrayList<WorldElement> animals : copy) {

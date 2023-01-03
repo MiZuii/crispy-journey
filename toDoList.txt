@@ -1,0 +1,5 @@
+Przetestować Simulation Engine - pod każdym kątem
+Połączyć Gui i Simulation za pomocą Thread'u
+Dodać przyciski do pól, żeby można było rozpoznać zwierzaka (chyba że jakoś inaczej)
+Dodać Rysowanie wykresu (Graph)
+Dodać zapis do pliku csv
