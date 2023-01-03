@@ -43,7 +43,6 @@ public class SimulationManager implements WindowManager {
         simulationEngine = new SimulationEngine(population, this, csvCreator);
         simulationEngine.start();
         simulationStage.simulationScene.startRefereshing();
-        // turned off for now because of wrong constructor
         simulationStageFX.show();
     }
 
