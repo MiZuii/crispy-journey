@@ -174,15 +174,18 @@ public class SimulationEngine extends Thread implements IEngine {
     public void run() {
         while (true) {
 
-            //TODO set deathDay
-            for (ArrayList<WorldElement> animals : animalMap.occupiedPosition.values()) {
+            Collection <ArrayList<WorldElement>> copy = animalMap.occupiedPosition.values();
+
+            for (ArrayList<WorldElement> animals : copy) {
                 for (WorldElement animal : animals) {
                     Animal castedAnimal = (Animal) animal;
                     castedAnimal.move();
                 }
             }
 
-            for (ArrayList<WorldElement> animals : this.animalMap.occupiedPosition.values()) {
+            Collection <ArrayList<WorldElement>> copy2 = animalMap.occupiedPosition.values();
+
+            for (ArrayList<WorldElement> animals : copy2) {
                 Collections.sort(animals); //sort by energy, age, children
 
                 //eating

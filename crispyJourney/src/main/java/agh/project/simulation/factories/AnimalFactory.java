@@ -21,6 +21,7 @@ public class AnimalFactory {
     public ArrayList<Animal> animals;
     public ArrayList<Animal> deathAnimals;
 
+
     public SimulationEngine simulationEngine;
 
 //    -----METHODS------
@@ -71,5 +72,4 @@ public class AnimalFactory {
         this.deathAnimals.add(animal);
         if (simulationEngine != null) animal.deathDay = simulationEngine.getDayOfSimulation();
     }
-
 }
