@@ -93,7 +93,12 @@ public class MapDisplay extends VBox implements Updateable {
 
     @Override
     public void update(DataStorage data) {
-
+        for (int row=0; row < population.mapHeight; row++) {
+            for (int column=0; column < population.mapWidth; column ++) {
+                String tmp = data.getMap().get(row).get(column);     // goot row/column order?
+                elementsMap[row][column].update(tmp);
+            }
+        }
     }
 
     public int getAnimalID() {
