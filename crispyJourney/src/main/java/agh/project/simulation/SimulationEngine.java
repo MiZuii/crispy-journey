@@ -217,11 +217,11 @@ public class SimulationEngine extends Thread implements IEngine {
 
 
             // interval speed can be adjusted from gui level -> simulation speed is atomic
-            try {
-                sleep(simulationSpeed.get());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                sleep(simulationSpeed.get());
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
     }
 }
