@@ -179,7 +179,7 @@ public class SimulationScene implements SceneCreator {
 
         // update displays
         for (Updateable display : updateableDisplays) {
-            display.update();
+            display.update(this.data);
         }
     }
 

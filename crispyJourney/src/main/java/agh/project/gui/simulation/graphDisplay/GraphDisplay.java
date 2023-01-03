@@ -1,6 +1,7 @@
 package agh.project.gui.simulation.graphDisplay;
 
 import agh.project.interfaces.Updateable;
+import agh.project.simulation.DataStorage;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -75,7 +76,7 @@ public class GraphDisplay extends HBox implements Updateable {
     }
 
     @Override
-    public void update() {
+    public void update(DataStorage dataStorage) {
 
     }
 

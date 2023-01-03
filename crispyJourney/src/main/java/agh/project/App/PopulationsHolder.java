@@ -119,7 +119,6 @@ public class PopulationsHolder {
      */
     private void addPresavedPopulations() {
         File[] savedPopulations = findPopulations();
-
         for (File population : savedPopulations) {
             try {
                 Population pop = createPopulationFromFile(population);
@@ -227,7 +226,6 @@ public class PopulationsHolder {
     private File[] findPopulations(){
         // f is a directory of populations relative to different project directories
         File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\populations");
-
         return f.listFiles((dir, name) -> name.endsWith(".pop"));
     }
 }

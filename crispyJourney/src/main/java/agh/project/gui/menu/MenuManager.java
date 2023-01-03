@@ -1,5 +1,6 @@
 package agh.project.gui.menu;
 
+
 import agh.project.App.App;
 import agh.project.interfaces.WindowManager;
 import javafx.stage.Stage;

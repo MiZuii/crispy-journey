@@ -29,12 +29,14 @@ public class AnimalFactory {
         this.actualIndex = -1;
         this.animals = new ArrayList<Animal>();
         this.simulationEngine = simulationEngine;
+        this.deathAnimals = new ArrayList<Animal>();
     }
     public AnimalFactory(){
         this.liveAnimal = 0;
         this.actualIndex = -1;
         this.animals = new ArrayList<Animal>();
         this.simulationEngine = null;
+        this.deathAnimals = new ArrayList<Animal>();
     }
     public Animal createAnimal(Vector2d position, Direction direction, Energy energy, Gen gen){
         this.liveAnimal += 1;
@@ -67,7 +69,7 @@ public class AnimalFactory {
         this.liveAnimal -= 1;
 //        this.animals.remove(animal);
         this.deathAnimals.add(animal);
-        animal.deathDay = simulationEngine.getDayOfSimulation();
+        if (simulationEngine != null) animal.deathDay = simulationEngine.getDayOfSimulation();
     }
 
 }

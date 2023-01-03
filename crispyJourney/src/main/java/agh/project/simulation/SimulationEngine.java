@@ -157,7 +157,7 @@ public class SimulationEngine extends Thread implements IEngine {
 
         return new DataStorage(this.animalFactory.liveAnimal,this.grassFactory.liveGrass, this.animalMap,
                 this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
-                statistics.getCurrentMostPopularGenotype());
+                statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy);
     }
 
     public synchronized DataStorage getAnimalData(int id){

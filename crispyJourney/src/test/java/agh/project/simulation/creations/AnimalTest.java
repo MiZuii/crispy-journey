@@ -90,9 +90,9 @@ class AnimalTest {
         assertEquals(new Vector2d(1,2), animal1.getPosition());
         assertEquals(new Vector2d(3,3), animal2.getPosition());
         assertEquals(new Vector2d(3,3), animal3.getPosition());
-        assertEquals(new Energy(0), animal1.getEnergy());
-        assertEquals(new Energy(6), animal2.getEnergy());
-        assertEquals(new Energy(8), animal3.getEnergy());
+        assertEquals(0, animal1.getEnergy());
+        assertEquals(6, animal2.getEnergy());
+        assertEquals(8, animal3.getEnergy());
 
         animal1.move(); //Do not have enough energy
         animal2.move();
@@ -101,9 +101,9 @@ class AnimalTest {
         assertEquals(new Vector2d(1,2), animal1.getPosition());
         assertEquals(new Vector2d(3,4), animal2.getPosition());
         assertEquals(new Vector2d(2,4), animal3.getPosition());
-        assertEquals(new Energy(0), animal1.getEnergy());
-        assertEquals(new Energy(5), animal2.getEnergy());
-        assertEquals(new Energy(7), animal3.getEnergy());
+        assertEquals(0, animal1.getEnergy());
+        assertEquals(5, animal2.getEnergy());
+        assertEquals(7, animal3.getEnergy());
 
 
         animal2.move();
@@ -111,8 +111,8 @@ class AnimalTest {
 
         assertEquals(new Vector2d(2,4), animal2.getPosition());
         assertEquals(new Vector2d(3,5), animal3.getPosition());
-        assertEquals(new Energy(4), animal2.getEnergy());
-        assertEquals(new Energy(6), animal3.getEnergy());
+        assertEquals(4, animal2.getEnergy());
+        assertEquals(6, animal3.getEnergy());
     }
 
     @Test
@@ -136,9 +136,9 @@ class AnimalTest {
         animal2.toHell();
         animal3.toHell();
 
-        assertEquals(new Energy(5), animal1.getEnergy());
-        assertEquals(new Energy(10), animal2.getEnergy());
-        assertEquals(new Energy(15), animal3.getEnergy());
+        assertEquals(5, animal1.getEnergy());
+        assertEquals(10, animal2.getEnergy());
+        assertEquals(15, animal3.getEnergy());
 
 
     }

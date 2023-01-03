@@ -1,6 +1,7 @@
 package agh.project.gui.simulation.mapDisplay;
 
 import agh.project.interfaces.Updateable;
+import agh.project.simulation.DataStorage;
 import agh.project.simulation.Population;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -92,7 +93,7 @@ public class MapDisplay extends VBox implements Updateable {
     }
 
     @Override
-    public void update() {
+    public void update(DataStorage data) {
 
     }
 

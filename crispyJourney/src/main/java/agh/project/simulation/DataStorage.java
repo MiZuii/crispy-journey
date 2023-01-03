@@ -24,6 +24,7 @@ public class DataStorage {
     private double averageLifeLength;
     private double averageLifeLengthOnlyDead;
     private Rotation popularGenom;
+    private double averageEnergy;
 
     private ArrayList<Rotation> gen;
     private int actualGenIndex;
@@ -32,9 +33,13 @@ public class DataStorage {
     private int plantEaten;
     private int deathDate;
 
+    private int children;
 
-    public DataStorage(int populationSize,int grassPopulation, AnimalMap animalMap, GrassMap grassMap,int height, int width,
-                       double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom) {
+
+
+
+    public DataStorage(int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
+                       double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy) {
 
         this.populationSize = populationSize;
         this.freeSquares = 0;
@@ -43,16 +48,23 @@ public class DataStorage {
         this.averageLifeLength = averageLifeLength;
         this.averageLifeLengthOnlyDead = averageLifeLengthOnlyDead;
         this.popularGenom = popularGenom;
+        this.averageEnergy = averageEnergy;
     }
 
+
     public DataStorage(Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength,
-                       int deathDate){
+                       int deathDate, int children){
         this.gen = gen.getGensList();
         this.actualGenIndex = actualGenIndex;
         this.energy = energy.energy;
         this.plantEaten = plantEaten;
         this.liveLength = liveLength;
         this.deathDate = deathDate;
+        this.children = children;
+    }
+
+    public int getChildren() {
+        return children;
     }
 
     private ArrayList<ArrayList<String>> mapData(AnimalMap animalMap, GrassMap grassMap,
@@ -86,4 +98,58 @@ public class DataStorage {
         return stringMap;
     }
 
+    public double getAverageEnergy() {
+        return averageEnergy;
+    }
+    public int getPopulationSize() {
+        return populationSize;
+    }
+
+    public int getGrassPopulation() {
+        return grassPopulation;
+    }
+
+    public int getFreeSquares() {
+        return freeSquares;
+    }
+
+    public ArrayList<ArrayList<String>> getMap() {
+        return map;
+    }
+
+    public double getAverageLifeLength() {
+        return averageLifeLength;
+    }
+
+    public double getAverageLifeLengthOnlyDead() {
+        return averageLifeLengthOnlyDead;
+    }
+
+    public Rotation getPopularGenom() {
+        return popularGenom;
+    }
+
+    public ArrayList<Rotation> getGen() {
+        return gen;
+    }
+
+    public int getActualGenIndex() {
+        return actualGenIndex;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public int getLiveLength() {
+        return liveLength;
+    }
+
+    public int getPlantEaten() {
+        return plantEaten;
+    }
+
+    public int getDeathDate() {
+        return deathDate;
+    }
 }

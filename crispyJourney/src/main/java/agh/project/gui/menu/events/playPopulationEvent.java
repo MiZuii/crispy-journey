@@ -1,5 +1,6 @@
 package agh.project.gui.menu.events;
 
+
 import agh.project.App.App;
 import agh.project.gui.simulation.SimulationManager;
 import agh.project.simulation.Population;

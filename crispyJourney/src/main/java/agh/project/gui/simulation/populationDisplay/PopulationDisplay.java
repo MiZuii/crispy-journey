@@ -1,6 +1,7 @@
 package agh.project.gui.simulation.populationDisplay;
 
 import agh.project.interfaces.Updateable;
+import agh.project.simulation.DataStorage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -107,7 +108,13 @@ public class PopulationDisplay extends VBox implements Updateable {
     }
 
     @Override
-    public void update() {
-
+    public void update(DataStorage data) {
+        // Nie wiem czy tyle wystarczy
+        this.numberOfAnimalsData.setText(Integer.toString(data.getPopulationSize()));
+        this.numberOfGrassData.setText(Integer.toString(data.getGrassPopulation()));
+        this.numberOfEmptyFieldsData.setText(Integer.toString(data.getFreeSquares()));
+        this.mostFrequentGenotypeData.setText(data.getPopularGenom().toString());
+        this.averageEnergyLevelData.setText(Double.toString(data.getAverageEnergy()));
+        this.averageLifeSpanData.setText(Double.toString(data.getAverageLifeLength()));
     }
 }

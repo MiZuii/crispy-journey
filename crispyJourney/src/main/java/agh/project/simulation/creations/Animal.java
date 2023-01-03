@@ -138,11 +138,13 @@ public int compareTo(Object o) {
     public void eat(Grass grass){
         this.energy.addEnergy(grass.getEnergy());
 
+        grass.eatGrass();
+
         this.grassEaten++;
     }
 
     public DataStorage toDataStorage(){
         return new DataStorage(this.gen, this.gen.getActualGen(), this.energy, this.grassEaten, this.age,
-                this.deathDay);
+                this.deathDay, this.children);
     }
 }

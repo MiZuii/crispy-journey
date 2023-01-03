@@ -14,6 +14,7 @@ public class App extends Application{
     public void init() {}
 
     private void artificialInit() {
+
         populationsHolder = new PopulationsHolder();
         menuManager = new MenuManager(this);
         appDisassembler = new AppDisassembler();

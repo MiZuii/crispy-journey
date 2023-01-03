@@ -1,6 +1,7 @@
 package agh.project.gui.simulation.animalDisplay;
 
         import agh.project.interfaces.Updateable;
+        import agh.project.simulation.DataStorage;
         import javafx.scene.control.Label;
         import javafx.scene.layout.HBox;
         import javafx.scene.layout.Priority;
@@ -108,7 +109,14 @@ public class AnimalDisplay extends VBox implements Updateable {
     }
 
     @Override
-    public void update() {
+    public void update(DataStorage data) {
+        // Nie wiem czy to działa
+        this.genomeData.setText(data.getGen().toString());
+        this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
+        this.energyData.setText(Integer.toString(data.getEnergy()));
+        this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
+        this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
+        this.lifeLength.setText(Integer.toString(data.getLiveLength()));
 
     }
 }
