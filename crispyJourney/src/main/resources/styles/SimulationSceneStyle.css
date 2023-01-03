@@ -26,3 +26,13 @@
     -fx-background-color: #1c1f20;
     -fx-border-color: #282a2d;
 }
+
+.menu-button {
+    -fx-text-fill: white;
+    -fx-background-color: #121415;
+    -fx-border-color: #282a2d;
+}
+
+.menu-label {
+    -fx-text-fill: white;
+}

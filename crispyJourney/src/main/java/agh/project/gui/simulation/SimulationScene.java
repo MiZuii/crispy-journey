@@ -7,8 +7,11 @@ import agh.project.gui.simulation.populationDisplay.PopulationDisplay;
 import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.Updateable;
 import agh.project.simulation.DataStorage;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -20,10 +23,13 @@ import static java.lang.Thread.sleep;
 
 public class SimulationScene implements SceneCreator {
 
-    private static final double MENU_BOX_HEIGHT = 20;
+    private static final double MENU_BOX_HEIGHT = 25;
     private static final double LEFT_BOX_WIDTH = 250;
     private static final double RIGHT_BOX_WIDTH = 250;
     private static final double GRAPH_BOX_HEIGHT = 300;
+    private static final double TITLE_CENTERING_WIDTH = 38;
+    private static final double INITIAL_SCENE_WIDTH = 1000;
+    private static final double INITIAL_SCENE_HEIGHT = 600;
     private static final int FPS = 60;
 
     private Scene simulationScene;
@@ -35,6 +41,9 @@ public class SimulationScene implements SceneCreator {
     private VBox middleBox;
     private VBox mapBox;
     private VBox graphBox;
+    private HBox titleBox;
+    private Button play;
+    private Label title;
     private AnimalDisplay animalDisplay;
     private GraphDisplay graphDisplay;
     private MapDisplay mapDisplay;
@@ -62,6 +71,8 @@ public class SimulationScene implements SceneCreator {
         updateableDisplays.add(graphDisplay);
         updateableDisplays.add(mapDisplay);
         updateableDisplays.add(populationDisplay);
+        play = new Button("play");
+        title = new Label("Population: " + simulationManager.getPopulation().name);
 
 
         // -------------------- //
@@ -78,13 +89,15 @@ public class SimulationScene implements SceneCreator {
         rightBox = new VBox(animalDisplay);
 
         // menu boxes
+        titleBox = new HBox(title);
         menuBox = new HBox();
+        menuBox.getChildren().addAll(play, titleBox);
         contentBox = new HBox(leftBox, middleBox, rightBox);
 
         // root setup
         root = new VBox(menuBox, contentBox);
 
-        simulationScene = new Scene(root, 1000, 600);
+        simulationScene = new Scene(root, INITIAL_SCENE_WIDTH, INITIAL_SCENE_HEIGHT);
 
         addProperties();
         addStyles();
@@ -101,6 +114,8 @@ public class SimulationScene implements SceneCreator {
             rightBox.getStyleClass().add("right-box");
             mapBox.getStyleClass().add("map-box");
             graphBox.getStyleClass().add("graph-box");
+            play.getStyleClass().add("menu-button");
+            title.getStyleClass().add("menu-label");
         }
         catch (NullPointerException e) {
             System.out.println("Menu scene style sheet couldn't have been loaded.");
@@ -120,6 +135,12 @@ public class SimulationScene implements SceneCreator {
         menuBox.setMaxHeight(MENU_BOX_HEIGHT);
         menuBox.setPrefHeight(MENU_BOX_HEIGHT);
         HBox.setHgrow(menuBox, Priority.ALWAYS);
+        menuBox.setAlignment(Pos.CENTER_LEFT);
+
+        // menu title box
+        HBox.setHgrow(titleBox, Priority.ALWAYS);
+        titleBox.setAlignment(Pos.CENTER);
+        titleBox.setPadding(new Insets(0, TITLE_CENTERING_WIDTH, 0, 0));
 
         // content box
         HBox.setHgrow(contentBox, Priority.ALWAYS);
