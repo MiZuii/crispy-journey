@@ -69,10 +69,6 @@ public class SimulationEngine extends Thread implements IEngine {
         Gen.setMutationNumber(population.maxMutationNumber);
         Gen.setChaoticGen(population.mutationFlag);
 
-        //setting factories
-        this.grassFactory = new GrassFactory();
-        this.animalFactory = new AnimalFactory(this);
-
         //seting maps
         WorldMapBoundary worldMapBoundary;
         if (population.mapFlag){ // Hell
@@ -84,12 +80,17 @@ public class SimulationEngine extends Thread implements IEngine {
         this.animalMap = new AnimalMap(worldMapBoundary);
         this.grassMap = new GrassMap(worldMapBoundary);
 
+        Animal.setMapObserver(animalMap);
+
+        //setting factories
+        this.grassFactory = new GrassFactory();
+        this.animalFactory = new AnimalFactory(this);
+
+        Animal.setAnimalFactory(animalFactory);
 
         //setting initial positions
         spawnAnimals(population.animalStartSpawningNumber);
         spawnGrass(grassPerDay);
-
-
 
         //setting statistics
         this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width);
