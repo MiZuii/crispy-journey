@@ -110,12 +110,12 @@ public class AnimalDisplay extends VBox implements Updateable {
 
     @Override
     public void update(DataStorage data) {
-//        this.genomeData.setText(data.getGen().toString());
-//        this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
-//        this.energyData.setText(Integer.toString(data.getEnergy()));
-//        this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
-//        this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
-//        this.lifeLength.setText(Integer.toString(data.getLiveLength()));
+        this.genomeData.setText(data.getGen().toString());
+        this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
+        this.energyData.setText(Integer.toString(data.getEnergy()));
+        this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
+        this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
+        this.lifeLength.setText(Integer.toString(data.getLiveLength()));
 
     }
 }
