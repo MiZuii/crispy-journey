@@ -42,8 +42,8 @@ public class SimulationManager implements WindowManager {
         }
         simulationEngine = new SimulationEngine(population, this, csvCreator);
         simulationEngine.start();
-        simulationStage.simulationScene.startRefereshing();
         simulationStageFX.show();
+        simulationStage.simulationScene.startRefereshing();
     }
 
     public Population getPopulation() {
