@@ -184,16 +184,13 @@ public class SimulationScene implements SceneCreator {
     }
 
     public void startRefereshing() {
-        try {
-            refresh();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        SimulationRefresher refresher = new SimulationRefresher(FPS, this);
+        refresher.start();
     }
 
-    private void refresh() throws InterruptedException {
-        sleep((1000/FPS));
+    public void refresh() {
         if (simulationManager.getSimulationEngine().newDataToReceive.get()) {
+            simulationManager.getSimulationEngine().newDataToReceive.set(false);
             data = simulationManager.getSimulationEngine().getData();
             updateScene();
         }

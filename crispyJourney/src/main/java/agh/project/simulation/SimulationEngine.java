@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SimulationEngine extends Thread implements IEngine {
 
     public AtomicBoolean newDataToReceive = new AtomicBoolean(false);
-    public AtomicInteger simulationSpeed = new AtomicInteger(3000);
+    public AtomicInteger simulationSpeed = new AtomicInteger(400);
 
     private AnimalMap animalMap;
     private GrassMap grassMap;
@@ -59,7 +59,7 @@ public class SimulationEngine extends Thread implements IEngine {
         this.grassPerDay = population.grassPerDay;
         this.animalStartEnergy = new Energy(population.animalStartEnergy);
         this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
-        this.simulationSpeed = new AtomicInteger(population.refreshment);
+        this.simulationSpeed.set(population.refreshment);
 
         //Set all static variables in Gen and Energy
         Energy.setReproduceBoundary(population.minEnergyCopulation);
