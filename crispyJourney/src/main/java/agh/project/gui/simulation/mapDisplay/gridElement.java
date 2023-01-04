@@ -9,6 +9,7 @@ import java.util.Objects;
 public class gridElement extends HBox {
 
     private Label content;
+    private String ID;
 
     public gridElement(GridPane parent) {
         content = new Label("X");
@@ -34,19 +35,26 @@ public class gridElement extends HBox {
         }
     }
 
-    public void update(String data) {
-        if (data.equals("G")){
-            this.setStyle("-fx-background-color: seagreen;");
-        }
-        else if (data.length() > 0){
-            this.setStyle("-fx-background-color: darkgoldenrod");
-        }
-        if (data.length() > 0)
-            content.setText(data.substring(0, 1));
+    @Override
+    public String toString() {
+        return ID;
     }
 
-    public void clear(){
-        addStyle();
-        content.setText("X");
+    public void update(String data) {
+
+        ID = data;
+
+        if (data.equals("G")){
+            this.setStyle("-fx-background-color: seagreen;");
+            content.setText(data);
+        }
+        else if (data.isBlank()){
+            this.setStyle("-fx-background-color: lightgreen;");
+            content.setText("");
+        }
+        else {
+            this.setStyle("-fx-background-color: red;");
+            content.setText(data);
+        }
     }
 }

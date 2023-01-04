@@ -76,9 +76,10 @@ public class DataStorage {
 
             stringMap.add(new ArrayList<String>());
 
-            String representation = "";
-
             for(int j = 0; j < width; j++){
+
+                String representation = "";
+
                 ArrayList<WorldElement> animals = animalMap.occupiedPosition.get(new Vector2d(i, j));
                 ArrayList<WorldElement> grasses = grassMap.occupiedPosition.get(new Vector2d(i, j));
 
