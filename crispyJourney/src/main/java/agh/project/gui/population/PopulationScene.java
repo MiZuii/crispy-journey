@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class PopulationScene implements SceneCreator {
 
-    private static final double SCENE_WIDTH = 400;
+    private static final double SCENE_WIDTH = 500;
     private static final double SCENE_HEIGHT = 580;
 
     private Scene populationScene;
@@ -116,6 +116,9 @@ public class PopulationScene implements SceneCreator {
                 flag = true;
             }
         }
+        if (populationNameInput.getRowValue().isBlank()) {
+            flag = true;
+        }
         return flag;
     }
 
@@ -154,29 +157,29 @@ public class PopulationScene implements SceneCreator {
     }
 
     private void createNumericInputs() {
-        InputRowNumeric row1 = new InputRowNumeric("example data 1", SCENE_WIDTH);
+        InputRowNumeric row1 = new InputRowNumeric("Map Height", SCENE_WIDTH);
         numericInputs.add(row1);
-        InputRowNumeric row2 = new InputRowNumeric("example data 2", SCENE_WIDTH);
+        InputRowNumeric row2 = new InputRowNumeric("Map Width", SCENE_WIDTH);
         numericInputs.add(row2);
-        InputRowNumeric row3 = new InputRowNumeric("example data 3", SCENE_WIDTH);
+        InputRowNumeric row3 = new InputRowNumeric("Energy profit after eating grass", SCENE_WIDTH);
         numericInputs.add(row3);
-        InputRowNumeric row4 = new InputRowNumeric("example data 4", SCENE_WIDTH);
+        InputRowNumeric row4 = new InputRowNumeric("Minimal energy to copulate", SCENE_WIDTH);
         numericInputs.add(row4);
-        InputRowNumeric row5 = new InputRowNumeric("example data 5", SCENE_WIDTH);
+        InputRowNumeric row5 = new InputRowNumeric("Starting energy of animals", SCENE_WIDTH);
         numericInputs.add(row5);
-        InputRowNumeric row6 = new InputRowNumeric("example data 6", SCENE_WIDTH);
+        InputRowNumeric row6 = new InputRowNumeric("Daily energy loss", SCENE_WIDTH);
         numericInputs.add(row6);
-        InputRowNumeric row7 = new InputRowNumeric("example data 7", SCENE_WIDTH);
+        InputRowNumeric row7 = new InputRowNumeric("Number of starting animals", SCENE_WIDTH);
         numericInputs.add(row7);
-        InputRowNumeric row8 = new InputRowNumeric("example data 8", SCENE_WIDTH);
+        InputRowNumeric row8 = new InputRowNumeric("Spawning grass per day", SCENE_WIDTH);
         numericInputs.add(row8);
-        InputRowNumeric row9 = new InputRowNumeric("example data 9", SCENE_WIDTH);
+        InputRowNumeric row9 = new InputRowNumeric("Refreshment rate (ms)", SCENE_WIDTH);
         numericInputs.add(row9);
-        InputRowNumeric row10 = new InputRowNumeric("example data 10", SCENE_WIDTH);
+        InputRowNumeric row10 = new InputRowNumeric("Energy needed to copulate", SCENE_WIDTH);
         numericInputs.add(row10);
-        InputRowNumeric row11 = new InputRowNumeric("example data 11", SCENE_WIDTH);
+        InputRowNumeric row11 = new InputRowNumeric("Maximum mutation number", SCENE_WIDTH);
         numericInputs.add(row11);
-        InputRowNumeric row12 = new InputRowNumeric("example data 12", SCENE_WIDTH);
+        InputRowNumeric row12 = new InputRowNumeric("Genom Length", SCENE_WIDTH);
         numericInputs.add(row12);
         InputRowNumeric row13 = new InputRowNumeric("example data 13", SCENE_WIDTH);
         numericInputs.add(row13);

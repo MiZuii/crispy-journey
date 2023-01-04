@@ -17,6 +17,7 @@ public class simulationEndedEvent implements EventHandler<WindowEvent> {
 
     @Override
     public void handle(WindowEvent event) {
+        simulationManager.getSimulationEngine().interrupt();
         app.appDisassembler.removeSimulationFromRunning(simulationManager);
     }
 }

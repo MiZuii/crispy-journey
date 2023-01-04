@@ -26,7 +26,6 @@ public class SimulationManager implements WindowManager {
     public SimulationManager(App app, Population populationToSimulate, boolean saveToCSV){
         this.app = app;
         this.population = populationToSimulate;
-        System.out.println(population.refreshment);
         this.saveToCSV = saveToCSV;
 
         simulationStage = new SimulationStage(app, this);
@@ -45,6 +44,10 @@ public class SimulationManager implements WindowManager {
         simulationEngine.start();
         simulationStageFX.show();
         simulationStage.simulationScene.startRefereshing();
+    }
+
+    public void addSimulationRefresher(SimulationRefresher simulationRefresher) {
+        app.appDisassembler.addSimulationRefresher(simulationRefresher);
     }
 
     public Population getPopulation() {

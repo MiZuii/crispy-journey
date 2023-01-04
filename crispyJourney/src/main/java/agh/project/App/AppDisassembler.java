@@ -1,6 +1,7 @@
 package agh.project.App;
 
 import agh.project.gui.simulation.SimulationManager;
+import agh.project.gui.simulation.SimulationRefresher;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 public class AppDisassembler implements EventHandler<WindowEvent> {
 
     private ArrayList<SimulationManager> runningSimulations;
+    private ArrayList<SimulationRefresher> simulationRefreshers;
 
     public AppDisassembler() {
         runningSimulations = new ArrayList<>();
+        simulationRefreshers = new ArrayList<>();
     }
 
     public void addSimulationToRunning(SimulationManager newSimulation) {
@@ -27,6 +30,10 @@ public class AppDisassembler implements EventHandler<WindowEvent> {
 
     public void removeSimulationFromRunning(SimulationManager endedSimulation) {
         runningSimulations.remove(endedSimulation);
+    }
+
+    public void addSimulationRefresher(SimulationRefresher simulationRefresher) {
+        simulationRefreshers.add(simulationRefresher);
     }
 
     @Override
@@ -45,6 +52,10 @@ public class AppDisassembler implements EventHandler<WindowEvent> {
             catch (NullPointerException e) {
                 e.printStackTrace();
             }
+        }
+
+        for (SimulationRefresher simulationRefresher : simulationRefreshers) {
+            simulationRefresher.interrupt();
         }
     }
 }

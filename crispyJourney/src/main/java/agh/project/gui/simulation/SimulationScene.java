@@ -7,6 +7,7 @@ import agh.project.gui.simulation.populationDisplay.PopulationDisplay;
 import agh.project.interfaces.SceneCreator;
 import agh.project.interfaces.Updateable;
 import agh.project.simulation.DataStorage;
+import agh.project.gui.simulation.events.playButtonEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -72,6 +73,7 @@ public class SimulationScene implements SceneCreator {
         updateableDisplays.add(mapDisplay);
         updateableDisplays.add(populationDisplay);
         play = new Button("play");
+        play.setOnAction(new playButtonEvent());
         title = new Label("Population: " + simulationManager.getPopulation().name);
 
 
@@ -185,6 +187,7 @@ public class SimulationScene implements SceneCreator {
 
     public void startRefereshing() {
         SimulationRefresher refresher = new SimulationRefresher(FPS, this);
+        simulationManager.addSimulationRefresher(refresher);
         refresher.start();
     }
 
