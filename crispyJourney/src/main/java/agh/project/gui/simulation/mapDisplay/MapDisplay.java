@@ -33,7 +33,7 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                gridElement tmp = new gridElement(grid);
+                gridElement tmp = new gridElement(row, column);
                 grid.add(tmp, column, row);
                 GridPane.setFillHeight(tmp, true);
                 GridPane.setFillWidth(tmp, true);

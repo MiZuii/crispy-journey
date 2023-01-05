@@ -73,7 +73,7 @@ public class SimulationScene implements SceneCreator {
         updateableDisplays.add(mapDisplay);
         updateableDisplays.add(populationDisplay);
         play = new Button("play");
-        play.setOnAction(new playButtonEvent());
+        play.setOnAction(new playButtonEvent(simulationManager));
         title = new Label("Population: " + simulationManager.getPopulation().name);
 
 

@@ -32,6 +32,7 @@ public class SimulationEngine extends Thread implements IEngine {
 
     public AtomicBoolean newDataToReceive = new AtomicBoolean(false);
     public AtomicInteger simulationSpeed = new AtomicInteger(400);
+    public AtomicBoolean running = new AtomicBoolean(true);
 
     private AnimalMap animalMap;
     private GrassMap grassMap;
@@ -166,9 +167,29 @@ public class SimulationEngine extends Thread implements IEngine {
         return animal.toDataStorage();
     }
 
+    private synchronized void pause(){
+        if (!this.running.get()) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException();
+            }
+            running.set(true);
+        }
+    }
+
     @Override
     public void run() {
         while (true) {
+
+            try {
+                this.pause(); // checks if GUI button send a pause request -> if tes the thread is paused and waits for notify
+            }
+            catch (RuntimeException e){
+                this.interrupt();
+            }
+
+
             Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
 
             for (ArrayList<WorldElement> animals : copy) {

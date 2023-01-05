@@ -1,9 +1,13 @@
 package agh.project.gui.simulation.mapDisplay;
 
+import agh.project.gui.simulation.SimulationManager;
+import agh.project.gui.simulation.events.gridElementClickedEvent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class gridElement extends HBox {
@@ -11,9 +15,11 @@ public class gridElement extends HBox {
     private Label content;
     private String ID;
 
-    public gridElement(GridPane parent) {
-        content = new Label("X");
+    public gridElement(int row, int column) {
+        content = new Label("Error");
         this.getChildren().add(content);
+
+        this.setOnMouseClicked(new gridElementClickedEvent(row, column));
 
         addProperties();
         addStyle();
