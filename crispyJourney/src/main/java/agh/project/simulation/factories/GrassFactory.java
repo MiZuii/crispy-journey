@@ -11,6 +11,8 @@ public class GrassFactory {
     public int liveGrass;
     private int grassId;
 
+    private final double equator = 0.2;
+
 
     //    -----METHODS------
     public GrassFactory(){

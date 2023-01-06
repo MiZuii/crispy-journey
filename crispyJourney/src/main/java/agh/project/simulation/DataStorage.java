@@ -86,7 +86,7 @@ public class DataStorage {
                 if (animals != null && animals.size() > 0){
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
-                        representation += animal.toString() + " ";
+                        representation += animal.toString() + ":" + animal.energy.toString() + " ";
                     }
                 }
                 else if (grasses != null && grasses.size() > 0){

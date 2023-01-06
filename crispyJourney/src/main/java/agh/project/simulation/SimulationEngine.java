@@ -178,6 +178,57 @@ public class SimulationEngine extends Thread implements IEngine {
         }
     }
 
+
+    public void oneDay(){
+
+        Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
+
+        for (ArrayList<WorldElement> animals : copy) {
+
+            ArrayList<WorldElement> deepcopy = new ArrayList<>(animals);
+
+            for (WorldElement animal : deepcopy) {
+                Animal castedAnimal = (Animal) animal;
+                castedAnimal.move();
+            }
+        }
+
+        Collection <ArrayList<WorldElement>> copy2 = new ArrayList<>(animalMap.occupiedPosition.values());
+
+        for (ArrayList<WorldElement> animals : copy2) {
+
+            ArrayList<WorldElement> animalsCopy = new ArrayList<>(animals);
+
+            Collections.sort(animalsCopy); //sort by energy, age, children
+
+            //eating
+            Animal animalToEat = (Animal) animalsCopy.get(0);
+            if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition())) {
+                Grass grassToEat = (Grass) grassMap.occupiedPosition.get(animalToEat.getPosition()).get(0);
+                animalToEat.eat(grassToEat);
+            }
+
+            //copulating
+            for (int i = 0; i < animalsCopy.size() / 2; i+=2) {
+                if(i+1>=animalsCopy.size())
+                    break;
+                Animal newAnimal = animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1));
+                if (newAnimal != null) {
+                    this.animalMap.place((WorldElement) animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1)));
+                }
+            }
+
+            spawnGrass(grassPerDay);
+            dayOfSimulation += 1;
+            statistics.update(false);
+        }
+        statistics.update(true);
+
+        // a day has passed so new data should be generated
+        // gui uses this boolean to determine if it should
+        // get new data using this.getData()
+        newDataToReceive.set(true);
+    }
     @Override
     public void run() {
         while (true) {
@@ -189,56 +240,7 @@ public class SimulationEngine extends Thread implements IEngine {
                 this.interrupt();
             }
 
-
-            Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
-
-            for (ArrayList<WorldElement> animals : copy) {
-
-                ArrayList<WorldElement> deepcopy = new ArrayList<>(animals);
-
-                for (WorldElement animal : deepcopy) {
-                    Animal castedAnimal = (Animal) animal;
-                    castedAnimal.move();
-                }
-            }
-
-            Collection <ArrayList<WorldElement>> copy2 = new ArrayList<>(animalMap.occupiedPosition.values());
-
-            for (ArrayList<WorldElement> animals : copy2) {
-
-                ArrayList<WorldElement> animalsCopy = new ArrayList<>(animals);
-
-                Collections.sort(animalsCopy); //sort by energy, age, children
-
-                //eating
-                Animal animalToEat = (Animal) animalsCopy.get(0);
-                if (grassMap.occupiedPosition.containsKey(animalToEat.getPosition())) {
-                    Grass grassToEat = (Grass) grassMap.occupiedPosition.get(animalToEat.getPosition()).get(0);
-                    animalToEat.eat(grassToEat);
-                }
-
-                //copulating
-                for (int i = 0; i < animalsCopy.size() / 2; i+=2) {
-                    if(i+1>=animalsCopy.size())
-                        break;
-                    Animal newAnimal = animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1));
-                    if (newAnimal != null) {
-                        this.animalMap.place((WorldElement) animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1)));
-                    }
-                }
-
-                //TODO deathDay
-                spawnGrass(grassPerDay);
-                dayOfSimulation += 1;
-                statistics.update(false);
-            }
-            statistics.update(true);
-
-            // a day has passed so new data should be generated
-            // gui uses this boolean to determine if it should
-            // get new data using this.getData()
-            newDataToReceive.set(true);
-
+            oneDay();
 
             // interval speed can be adjusted from gui level -> simulation speed is atomic
             try {
