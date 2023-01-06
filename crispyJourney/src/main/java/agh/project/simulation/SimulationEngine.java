@@ -118,6 +118,9 @@ public class SimulationEngine extends Thread implements IEngine {
         }
     }
 
+    private void createGrassArrays(){
+
+    }
     private void spawnGrass(int sizeGrass) {
         //loop for creating grass
         for (int i = 0; i < sizeGrass; i++) {
@@ -147,7 +150,9 @@ public class SimulationEngine extends Thread implements IEngine {
             int pick = new Random().nextInt(Direction.values().length);
             Direction randomDirection = Direction.values()[pick];
 
-            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalStartEnergy, randomGen);
+            Energy animalEnergy = new Energy(this.animalStartEnergy.energy);
+
+            Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalEnergy, randomGen);
 
             this.animalMap.place((WorldElement) animal);
         }
@@ -178,11 +183,9 @@ public class SimulationEngine extends Thread implements IEngine {
         }
     }
 
-
     public void oneDay(){
 
         Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
-
         for (ArrayList<WorldElement> animals : copy) {
 
             ArrayList<WorldElement> deepcopy = new ArrayList<>(animals);
@@ -218,10 +221,10 @@ public class SimulationEngine extends Thread implements IEngine {
                 }
             }
 
-            spawnGrass(grassPerDay);
-            dayOfSimulation += 1;
             statistics.update(false);
         }
+        spawnGrass(grassPerDay);
+        dayOfSimulation += 1;
         statistics.update(true);
 
         // a day has passed so new data should be generated

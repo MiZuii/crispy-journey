@@ -87,6 +87,9 @@ public int compareTo(Object o) {
 
 
     public void move() {
+//        Losing energy
+        this.energy.oneDay();
+
 //      Moves Animal to the next position according to his genes
         if (!this.energy.enoughEnergy()) {
             animalFactory.deleteAnimal(this);
@@ -95,9 +98,8 @@ public int compareTo(Object o) {
             mapObserver.remove(this);
         } else {
 
-//            Getting older and losing energy
+//            Getting older
             this.age += 1;
-            this.energy.oneDay();
 
 //        Moving and updating Gen
             this.direction = direction.changeDirection(gen.getNextRotation());

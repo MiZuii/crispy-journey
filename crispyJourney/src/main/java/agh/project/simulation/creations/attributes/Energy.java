@@ -8,6 +8,7 @@ public class Energy {
     public static int oneDayLost;
     public static int reproduceEnergy;
     public static int reproduceBoundary;
+
     public int energy;
 
 
@@ -15,6 +16,7 @@ public class Energy {
     public Energy(int energy){
         this.energy = energy;
     }
+
     public void oneDay(){
 //      Changes current status of energy by oneDayLost variable
         this.energy = this.energy - Energy.oneDayLost;
