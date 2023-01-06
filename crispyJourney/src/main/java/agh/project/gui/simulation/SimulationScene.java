@@ -60,13 +60,16 @@ public class SimulationScene implements SceneCreator {
     @Override
     public Scene createScene() {
 
+        // pre creation -> for boxes that need to be passed into displays
+        mapBox = new VBox();
+
         // -------------------- //
         //   Content elements   //
         // -------------------- //
 
         animalDisplay = new AnimalDisplay();
         graphDisplay = new GraphDisplay();
-        mapDisplay = new MapDisplay(simulationManager.getPopulation());
+        mapDisplay = new MapDisplay(simulationManager.getPopulation(), mapBox);
         populationDisplay = new PopulationDisplay();
         updateableDisplays.add(animalDisplay);
         updateableDisplays.add(graphDisplay);
@@ -82,7 +85,7 @@ public class SimulationScene implements SceneCreator {
         // -------------------- //
 
         // sub-boxes
-        mapBox = new VBox(mapDisplay);
+        mapBox.getChildren().add(mapDisplay);
         graphBox = new VBox(graphDisplay);
 
         // main boxes setup
