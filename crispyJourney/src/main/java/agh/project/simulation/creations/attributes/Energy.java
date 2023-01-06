@@ -68,6 +68,11 @@ public class Energy {
     }
 
     @Override
+    public String toString() {
+        return Integer.toString(this.energy);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(energy);
     }

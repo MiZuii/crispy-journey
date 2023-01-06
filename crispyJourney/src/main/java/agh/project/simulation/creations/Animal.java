@@ -24,7 +24,7 @@ public class Animal implements WorldElement, Comparable<Object> {
     public int deathDay = -1;
     private Vector2d position;
     private Direction direction;
-    private Energy energy;
+    public Energy energy;
 
     private Gen gen;
     private  static AnimalMap mapObserver;

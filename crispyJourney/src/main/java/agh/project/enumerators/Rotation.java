@@ -23,14 +23,14 @@ public enum Rotation {
     @Override
     public String toString() {
         return switch (this){
-            case F -> "Forward";
-            case B -> "Backward";
-            case L -> "Left";
-            case R -> "Right";
-            case BL -> "Backward-Left";
-            case FL -> "Forward-Left";
-            case BR -> "Backward-Right";
-            case FR -> "Forward-Right";
+            case F -> "F";
+            case B -> "B";
+            case L -> "L";
+            case R -> "R";
+            case BL -> "BL";
+            case FL -> "FL";
+            case BR -> "BR";
+            case FR -> "FR";
         };
     }
 }
