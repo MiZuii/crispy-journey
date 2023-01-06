@@ -60,10 +60,9 @@ public class gridElement extends HBox {
         }
         else {
             this.setStyle("-fx-background-color: red;");
-            if (data.length() > 1)
-                content.setText(data);
-            else
-                content.setText("M");
+            String representation = data.split(" ")[0];
+            String[] reprParts = representation.split(":");
+            content.setText(reprParts[0]);
         }
     }
 }
