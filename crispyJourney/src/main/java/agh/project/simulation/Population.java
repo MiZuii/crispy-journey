@@ -18,9 +18,9 @@ public class Population {
     public int genomLength;
 
     public boolean moveFlag; // How animals move
-    public boolean mutationFlag; // How gens update
+    public boolean mutationFlag; // How gens update - hard coded
     public boolean mapFlag; // Type of map (hell or earth)
-    public boolean grassFlag; // Where the grass should spawn
+    public boolean grassFlag; // Where the grass should spawn - hard coded
 
 
     public Population(String name, boolean isDefault, int[] properties, boolean[] flags) {

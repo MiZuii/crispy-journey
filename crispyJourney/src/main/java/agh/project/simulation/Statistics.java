@@ -54,10 +54,9 @@ public class Statistics {
         int cnt = 0;
         int avg = 0;
         for(Animal animal : animalFactory.deathAnimals){
-            if(animal.deathDay != -1){
-                cnt++;
-                avg +=animal.age;
-            }
+            cnt++;
+            avg +=animal.age;
+
         }
         if(cnt != 0)
             return (double)avg/cnt;
@@ -104,14 +103,13 @@ public class Statistics {
         return Rotation.values()[maxIndex];
     }
 
-    public void update(boolean simulationOver){
+    public void update(){
         this.currentAnimalNumber = getCurrentAnimalNumber();
         this.currentGrassNumber = getCurrentGrassNumber();
         this.currentFreeSpaces = getCurrentFreeSpaces();
         this.currentMostPopularGenotype = getCurrentMostPopularGenotype();
         this.averageEnergy = getAverageEnergy();
         this.averageLifeTime = getAverageLifeTimeDeath();
-        if(simulationOver)
-            this.overallMostPopularGenotype = getOverallMostPopularGenotype();
+        this.overallMostPopularGenotype = getOverallMostPopularGenotype();
     }
 }

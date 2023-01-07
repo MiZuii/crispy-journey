@@ -39,7 +39,7 @@ public class SimulationManager implements WindowManager {
     public void start() {
         Stage simulationStageFX = simulationStage.createStage();
         if (saveToCSV) {
-            csvCreator = new CSVCreator();
+            csvCreator = new CSVCreator(population.name);
         }
         simulationEngine = new SimulationEngine(population, this, csvCreator);
         simulationEngine.setName("SimulationEngine");

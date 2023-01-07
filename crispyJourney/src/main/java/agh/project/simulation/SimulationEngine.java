@@ -60,6 +60,7 @@ public class SimulationEngine extends Thread implements IEngine {
     private int highlightedAnimalId = -2;
 
     private SimulationManager simulationManager;
+    private CSVCreator csvCreator;
 
     public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
         // this is the tight structure of constructor
@@ -72,6 +73,7 @@ public class SimulationEngine extends Thread implements IEngine {
         this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
         this.simulationSpeed.set(population.refreshment);
         this.simulationManager = simulationManager;
+        this.csvCreator = csvCreator;
 
 
         //Set equatorIndex
@@ -241,7 +243,8 @@ public class SimulationEngine extends Thread implements IEngine {
     }
 
     public void oneDay(){
-
+        statistics.update();
+        csvCreator.addData(statistics);
         Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
         for (ArrayList<WorldElement> animals : copy) {
 
@@ -278,11 +281,10 @@ public class SimulationEngine extends Thread implements IEngine {
                 }
             }
 
-            statistics.update(false);
+
         }
         spawnGrass(grassPerDay);
         dayOfSimulation += 1;
-        statistics.update(true);
 
         // a day has passed so new data should be generated
         // gui uses this boolean to determine if it should
