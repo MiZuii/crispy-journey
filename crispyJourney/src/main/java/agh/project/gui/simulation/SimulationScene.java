@@ -70,7 +70,7 @@ public class SimulationScene implements SceneCreator {
         animalDisplay = new AnimalDisplay(simulationManager);
         graphDisplay = new GraphDisplay();
         mapDisplay = new MapDisplay(simulationManager.getPopulation(), mapBox, simulationManager);
-        populationDisplay = new PopulationDisplay();
+        populationDisplay = new PopulationDisplay(simulationManager.getPopulation());
         updateableDisplays.add(animalDisplay);
         updateableDisplays.add(graphDisplay);
         updateableDisplays.add(mapDisplay);

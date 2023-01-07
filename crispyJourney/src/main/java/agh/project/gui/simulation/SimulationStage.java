@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class SimulationStage implements StageCreator {
 
     private static final double STAGE_MIN_WIDTH = 1000;
-    private static final double STAGE_MIN_HEIGHT = 600;
+    private static final double STAGE_MIN_HEIGHT = 645;
     public Stage simulationStageFX;
     private final App app;
     private final SimulationManager simulationManager;

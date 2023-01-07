@@ -4,6 +4,12 @@
     -fx-border-color: #282a2d;
 }
 
+.root2 {
+    -fx-background-color: #121415;
+    -fx-border-style: solid hidden solid hidden;
+    -fx-border-color: #282a2d;
+}
+
 .title {
     -fx-text-fill: white;
     -fx-font-size: 16;

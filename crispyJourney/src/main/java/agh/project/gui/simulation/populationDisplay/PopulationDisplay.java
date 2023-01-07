@@ -2,6 +2,7 @@ package agh.project.gui.simulation.populationDisplay;
 
 import agh.project.interfaces.Updateable;
 import agh.project.simulation.DataStorage;
+import agh.project.simulation.Population;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -13,6 +14,8 @@ public class PopulationDisplay extends VBox implements Updateable {
 
     private Label title;
     private HBox titleBox;
+    private Label title2;
+    private HBox title2Box;
     private Label numberOfAnimals;
     private Label numberOfAnimalsData;
     private HBox numberOfAnimalsBox;
@@ -34,8 +37,27 @@ public class PopulationDisplay extends VBox implements Updateable {
     private Label simulationDay;
     private Label simulationDayData;
     private HBox simulationDayBox;
+    private final Population population;
+    private VBox populationInformationBox;
+    private Label mapHeight;
+    private Label mapWidth;
+    private Label grassEnergyProfit;
+    private Label minEnergyCopulation;
+    private Label animalStartEnergy;
+    private Label dailyEnergyLost;
+    private Label animalStartingNumber;
+    private Label grassPerDay;
+    private Label refreshment;
+    private Label energyPerCopulation;
+    private Label maxMutationNumber;
+    private Label genomLength;
+    private Label moveFlag;
+    private Label mutationFlag;
+    private Label mapFlag;
+    private Label grassFlag;
 
-    public PopulationDisplay() {
+    public PopulationDisplay(Population population) {
+        this.population = population;
 
         createElements();
         addStyle();
@@ -45,8 +67,41 @@ public class PopulationDisplay extends VBox implements Updateable {
 
     private void createElements() {
 
-        title = new Label("Population information");
+        title = new Label("Population statistics");
         titleBox = new HBox(title);
+
+        title2 = new Label("Population information");
+        title2Box = new HBox(title2);
+
+        mapHeight = new Label("Map Height: " + String.valueOf(population.mapHeight));
+        mapWidth = new Label("Map Width: " + String.valueOf(population.mapWidth));
+        grassEnergyProfit = new Label("Grass energy profit: " + String.valueOf(population.grassEnergyProfit));
+        minEnergyCopulation = new Label("Min energy to copulate: " + String.valueOf(population.minEnergyCopulation));
+        animalStartEnergy = new Label("Starting energy: " + String.valueOf(population.animalStartEnergy));
+        grassPerDay = new Label("Grass per day: " + String.valueOf(population.grassPerDay));
+        refreshment = new Label("Refresh rate (ms): " + String.valueOf(population.refreshment));
+        energyPerCopulation = new Label("Energy loss on copulation: " + String.valueOf(population.energyPerCopulation));
+        maxMutationNumber = new Label("Max mutation in children: " + String.valueOf(population.maxMutationNumber));
+        genomLength = new Label("Genom length: " + String.valueOf(population.genomLength));
+        mapFlag = new Label(population.mapFlag ? "Map variant: Hell" : "Map variant: Round");
+        mutationFlag = new Label("Child inherits genes randomly");
+        moveFlag = new Label(population.moveFlag ? "Random gene activation" : "Ordered gene activation");
+        grassFlag = new Label("Grass mostly on equator");
+        populationInformationBox = new VBox();
+        populationInformationBox.getChildren().addAll(mapHeight,
+                mapWidth,
+                grassEnergyProfit,
+                minEnergyCopulation,
+                animalStartEnergy,
+                grassPerDay,
+                refreshment,
+                energyPerCopulation,
+                maxMutationNumber,
+                genomLength,
+                moveFlag,
+                mutationFlag,
+                mapFlag,
+                grassFlag);
 
         numberOfAnimals = new Label("Number of animals: ");
         numberOfAnimalsData = new Label("");
@@ -83,7 +138,16 @@ public class PopulationDisplay extends VBox implements Updateable {
         simulationDayBox = new HBox();
         simulationDayBox.getChildren().addAll(simulationDay, simulationDayData);
 
-        this.getChildren().addAll(titleBox, simulationDayBox, numberOfAnimalsBox, numberOfGrassBox, numberOfEmptyFieldsBox, mostFrequentGenotypeBox, averageEnergyLevelBox, averageLifeSpanBox);
+        this.getChildren().addAll(titleBox,
+                simulationDayBox,
+                numberOfAnimalsBox,
+                numberOfGrassBox,
+                numberOfEmptyFieldsBox,
+                mostFrequentGenotypeBox,
+                averageEnergyLevelBox,
+                averageLifeSpanBox,
+                title2Box,
+                populationInformationBox);
     }
 
     private void addStyle() {
@@ -92,6 +156,22 @@ public class PopulationDisplay extends VBox implements Updateable {
             this.getStyleClass().add("root");
             title.getStyleClass().add("title");
             titleBox.getStyleClass().add("root");
+            title2.getStyleClass().add("title");
+            title2Box.getStyleClass().add("root2");
+            mapHeight.getStyleClass().add("info");
+            mapWidth.getStyleClass().add("info");
+            grassEnergyProfit.getStyleClass().add("info");
+            minEnergyCopulation.getStyleClass().add("info");
+            animalStartEnergy.getStyleClass().add("info");
+            grassPerDay.getStyleClass().add("info");
+            refreshment.getStyleClass().add("info");
+            energyPerCopulation.getStyleClass().add("info");
+            maxMutationNumber.getStyleClass().add("info");
+            genomLength.getStyleClass().add("info");
+            moveFlag.getStyleClass().add("info");
+            mutationFlag.getStyleClass().add("info");
+            mapFlag.getStyleClass().add("info");
+            grassFlag.getStyleClass().add("info");
             numberOfAnimals.getStyleClass().add("info");
             numberOfAnimalsData.getStyleClass().add("data");
             numberOfGrass.getStyleClass().add("info");
