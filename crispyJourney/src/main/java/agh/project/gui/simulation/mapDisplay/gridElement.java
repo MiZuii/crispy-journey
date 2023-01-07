@@ -1,9 +1,7 @@
 package agh.project.gui.simulation.mapDisplay;
 
-import agh.project.gui.simulation.SimulationManager;
 import agh.project.gui.simulation.events.gridElementClickedEvent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -12,12 +10,11 @@ import java.util.Objects;
 
 public class gridElement extends HBox {
 
-    private Label content;
     private String ID;
+    private final int maxEnergyLevel;
 
-    public gridElement(int row, int column) {
-        content = new Label("Error");
-        this.getChildren().add(content);
+    public gridElement(int row, int column, int animalMaxEnergyLevel) {
+        this.maxEnergyLevel = animalMaxEnergyLevel;
 
         this.setOnMouseClicked(new gridElementClickedEvent(row, column));
 
@@ -41,6 +38,12 @@ public class gridElement extends HBox {
         }
     }
 
+    private void setDynamicStyle(int currentEnergy) {
+        double delta = 255/(double)maxEnergyLevel;
+        int blueCoef = (int) Math.min(255.0, delta*currentEnergy);
+        this.setStyle("-fx-background-color: rgb(" + String.valueOf(255 - blueCoef) + ", 30, " + String.valueOf(blueCoef) + ", 1)");
+    }
+
     @Override
     public String toString() {
         return ID;
@@ -52,17 +55,14 @@ public class gridElement extends HBox {
 
         if (data.equals("G")){
             this.setStyle("-fx-background-color: seagreen;");
-            content.setText(data);
         }
         else if (data.isBlank()){
             this.setStyle("-fx-background-color: lightgreen;");
-            content.setText("");
         }
         else {
-            this.setStyle("-fx-background-color: red;");
             String representation = data.split(" ")[0];
             String[] reprParts = representation.split(":");
-            content.setText(reprParts[0]);
+            setDynamicStyle(Integer.parseInt(reprParts[1]));
         }
     }
 }

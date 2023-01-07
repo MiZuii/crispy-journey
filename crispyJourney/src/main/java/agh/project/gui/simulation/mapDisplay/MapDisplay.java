@@ -3,6 +3,7 @@ package agh.project.gui.simulation.mapDisplay;
 import agh.project.interfaces.Updateable;
 import agh.project.simulation.DataStorage;
 import agh.project.simulation.Population;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
@@ -13,13 +14,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MapDisplay extends VBox implements Updateable {
 
     private AtomicInteger selectedAnimalID = new AtomicInteger(-1);
+    private final VBox parentBox;
     private final Population population;
     private GridPane grid;
     private gridElement[][] elementsMap;
     private ArrayList<RowConstraints> rowConstraints = new ArrayList<>();
     private ArrayList<ColumnConstraints> columnConstraints = new ArrayList<>();
 
-    public MapDisplay(Population population) {
+    public MapDisplay(Population population, VBox parentBox) {
+        this.parentBox = parentBox;
         this.population = population;
         elementsMap = new gridElement[population.mapHeight][population.mapWidth];
 
@@ -33,7 +36,7 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                gridElement tmp = new gridElement(row, column);
+                gridElement tmp = new gridElement(row, column, population.animalStartEnergy);
                 grid.add(tmp, column, row);
                 GridPane.setFillHeight(tmp, true);
                 GridPane.setFillWidth(tmp, true);
@@ -43,12 +46,14 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             RowConstraints tmp = new RowConstraints();
+            tmp.setVgrow(Priority.ALWAYS);
             grid.getRowConstraints().add(tmp);
             rowConstraints.add(tmp);
         }
 
         for (int column=0; column < population.mapWidth; column ++) {
             ColumnConstraints tmp = new ColumnConstraints();
+            tmp.setHgrow(Priority.ALWAYS);
             grid.getColumnConstraints().add(tmp);
             columnConstraints.add(tmp);
         }
@@ -85,10 +90,11 @@ public class MapDisplay extends VBox implements Updateable {
         }
 
         // grid
-
         grid.setAlignment(Pos.CENTER);
-        grid.prefHeightProperty().bind(grid.widthProperty());
-        grid.prefWidthProperty().bind(grid.heightProperty());
+        grid.setMaxHeight(Double.MAX_VALUE);
+        grid.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(grid, Priority.ALWAYS);
+        VBox.setVgrow(grid, Priority.ALWAYS);
     }
 
     @Override
