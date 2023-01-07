@@ -244,7 +244,8 @@ public class SimulationEngine extends Thread implements IEngine {
 
     public void oneDay(){
         statistics.update();
-        csvCreator.addData(statistics);
+        if(csvCreator != null)
+            csvCreator.addData(statistics);
         Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
         for (ArrayList<WorldElement> animals : copy) {
 

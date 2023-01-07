@@ -3,15 +3,22 @@ package agh.project.gui.simulation;
 import agh.project.simulation.Statistics;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class CSVCreator {
     private String filePath;
     public CSVCreator(String simulationName) {
-        this.filePath = simulationName+"Data.csv";
+        this.filePath = simulationName+"-data.csv";
+        deletePrevios(this.filePath);
+
     }
 
+    private void deletePrevios(String toBeDeleted){
+        File file = new File(toBeDeleted);
+        file.delete();
+    }
     public synchronized void addData(Statistics statistics) {
         String currentGrassNumber = String.valueOf(statistics.currentGrassNumber);
         String currentAnimalNumber = String.valueOf(statistics.currentAnimalNumber);
