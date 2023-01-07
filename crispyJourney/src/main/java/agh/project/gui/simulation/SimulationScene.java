@@ -1,6 +1,7 @@
 package agh.project.gui.simulation;
 
 import agh.project.gui.simulation.animalDisplay.AnimalDisplay;
+import agh.project.gui.simulation.events.debugEvent;
 import agh.project.gui.simulation.graphDisplay.GraphDisplay;
 import agh.project.gui.simulation.mapDisplay.MapDisplay;
 import agh.project.gui.simulation.populationDisplay.PopulationDisplay;
@@ -51,6 +52,7 @@ public class SimulationScene implements SceneCreator {
     private PopulationDisplay populationDisplay;
     private ArrayList<Updateable> updateableDisplays = new ArrayList<>();
     private DataStorage data;
+    private Button debug;
     private final SimulationManager simulationManager;
 
     public SimulationScene(SimulationManager simulationManager) {
@@ -77,6 +79,8 @@ public class SimulationScene implements SceneCreator {
         updateableDisplays.add(populationDisplay);
         play = new Button("play");
         play.setOnAction(new playButtonEvent(simulationManager));
+        debug = new Button("printData");
+        debug.setOnAction(new debugEvent(simulationManager));
         title = new Label("Population: " + simulationManager.getPopulation().name);
 
 
@@ -96,7 +100,7 @@ public class SimulationScene implements SceneCreator {
         // menu boxes
         titleBox = new HBox(title);
         menuBox = new HBox();
-        menuBox.getChildren().addAll(play, titleBox);
+        menuBox.getChildren().addAll(play, debug, titleBox);
         contentBox = new HBox(leftBox, middleBox, rightBox);
 
         // root setup
@@ -120,6 +124,7 @@ public class SimulationScene implements SceneCreator {
             mapBox.getStyleClass().add("map-box");
             graphBox.getStyleClass().add("graph-box");
             play.getStyleClass().add("menu-button");
+            debug.getStyleClass().add("menu-button");
             title.getStyleClass().add("menu-label");
         }
         catch (NullPointerException e) {
@@ -190,6 +195,7 @@ public class SimulationScene implements SceneCreator {
 
     public void startRefereshing() {
         SimulationRefresher refresher = new SimulationRefresher(FPS, this);
+        refresher.setName("refresher");
         simulationManager.addSimulationRefresher(refresher);
         refresher.start();
     }

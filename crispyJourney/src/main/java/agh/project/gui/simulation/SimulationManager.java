@@ -22,6 +22,7 @@ public class SimulationManager implements WindowManager {
     private final Population population;
     private final boolean saveToCSV;
     private CSVCreator csvCreator;
+    private SimulationRefresher simulationRefresher;
 
     public SimulationManager(App app, Population populationToSimulate, boolean saveToCSV){
         this.app = app;
@@ -41,12 +42,14 @@ public class SimulationManager implements WindowManager {
             csvCreator = new CSVCreator();
         }
         simulationEngine = new SimulationEngine(population, this, csvCreator);
+        simulationEngine.setName("SimulationEngine");
         simulationEngine.start();
         simulationStageFX.show();
         simulationStage.simulationScene.startRefereshing();
     }
 
     public void addSimulationRefresher(SimulationRefresher simulationRefresher) {
+        this.simulationRefresher = simulationRefresher;
         app.appDisassembler.addSimulationRefresher(simulationRefresher);
     }
 
@@ -60,5 +63,9 @@ public class SimulationManager implements WindowManager {
 
     public synchronized int getSelectedAnimalID() {
         return simulationStage.simulationScene.getAnimalID();
+    }
+
+    public SimulationRefresher getSimulationRefresher() {
+        return this.simulationRefresher;
     }
 }
