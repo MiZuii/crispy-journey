@@ -27,17 +27,15 @@ public class AnimalFactory {
 
     public SimulationEngine simulationEngine;
 
-//    -----METHODS------
-    public AnimalFactory(SimulationEngine simulationEngine, Constants constants){
+
+
+    //    -----METHODS------
+    public AnimalFactory(SimulationEngine simulationEngine){
         this.liveAnimal = 0;
         this.actualIndex = -1;
         this.animals = new ArrayList<Animal>();
         this.simulationEngine = simulationEngine;
         this.deathAnimals = new ArrayList<Animal>();
-        this.constants = constants;
-
-        this.constants.setAnimalFactory(this);
-
     }
     public AnimalFactory(){
         this.liveAnimal = 0;
@@ -45,6 +43,10 @@ public class AnimalFactory {
         this.animals = new ArrayList<Animal>();
         this.simulationEngine = null;
         this.deathAnimals = new ArrayList<Animal>();
+    }
+
+    public void setConstants(Constants constants) {
+        this.constants = constants;
     }
     public Animal createAnimal(Vector2d position, Direction direction, Energy energy, Gen gen){
         this.liveAnimal += 1;
@@ -57,7 +59,9 @@ public class AnimalFactory {
     public Animal createChild(WorldElement par1, WorldElement par2){
         Animal parent1 = (Animal) par1;
         Animal parent2 = (Animal) par2;
-        if (parent1.getObjectEnergy().reproduceEvent(parent2.getObjectEnergy())) return null;
+
+//        Animals can not breed
+        if (!parent1.getObjectEnergy().reproduceEvent(parent2.getObjectEnergy())) return null;
 
         this.liveAnimal += 1;
         this.actualIndex += 1;

@@ -59,6 +59,8 @@ public class SimulationEngine extends Thread implements IEngine {
 
     private int highlightedAnimalId = -2;
 
+    private SimulationManager simulationManager;
+
     public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
         // this is the tight structure of constructor
         // if the csvCreator is not null the method addData should be called here after each day
@@ -69,18 +71,12 @@ public class SimulationEngine extends Thread implements IEngine {
         this.animalStartEnergy = new Energy(population.animalStartEnergy);
         this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
         this.simulationSpeed.set(population.refreshment);
+        this.simulationManager = simulationManager;
+
 
         //Set equatorIndex
         setEquatorIndex();
 
-        //Set all static variables in Gen and Energy
-//        Energy.setReproduceBoundary(population.minEnergyCopulation);
-//        Energy.setReproduceEnergy(population.energyPerCopulation);
-//        Energy.setOneDayLost(population.dailyEnergyLost);
-//
-//        Gen.setGensNumber(population.genomLength);
-//        Gen.setMutationNumber(population.maxMutationNumber);
-//        Gen.setChaoticGen(population.mutationFlag);
 
         //seting maps
         WorldMapBoundary worldMapBoundary;
@@ -93,19 +89,19 @@ public class SimulationEngine extends Thread implements IEngine {
         this.animalMap = new AnimalMap(worldMapBoundary);
         this.grassMap = new GrassMap(worldMapBoundary);
 
-//        Animal.setMapObserver(animalMap);
-
-        //Setting all constants
-        Constants simulationConstants = new Constants(this.animalMap,population.dailyEnergyLost,
-                population.energyPerCopulation, population.minEnergyCopulation, population.genomLength, population.maxMutationNumber,
-                population.mutationFlag);
-        this.simulationConstants = simulationConstants;
 
         //setting factories
         this.grassFactory = new GrassFactory();
-        this.animalFactory = new AnimalFactory(this, simulationConstants);
+        this.animalFactory = new AnimalFactory(this);
 
-//        Animal.setAnimalFactory(animalFactory);
+        //Setting all constants
+        Constants simulationConstants = new Constants(this.animalMap,this.animalFactory,
+                population.dailyEnergyLost, population.energyPerCopulation, population.minEnergyCopulation,
+                population.genomLength, population.maxMutationNumber, population.mutationFlag);
+        this.simulationConstants = simulationConstants;
+
+        this.animalFactory.setConstants(this.simulationConstants);
+
 
 
         //setting initial positions
@@ -123,7 +119,7 @@ public class SimulationEngine extends Thread implements IEngine {
         for (int i = 0; i < width; i+=1){
             for (int j = 0; j < height; j+=1){
                 Vector2d position = new Vector2d(i, j);
-                if (this.animalMap.isOccupied(position) || this.grassMap.isOccupied(position)) continue;
+                if (this.grassMap.isOccupied(position)) continue;
 
                 if (isEquator(i, j)) this.equatorGrass.add(position);
                 else this.nonEquatorGrass.add(position);
@@ -211,9 +207,21 @@ public class SimulationEngine extends Thread implements IEngine {
     }
 
     public synchronized DataStorage getData() {
-        return new DataStorage(this.dayOfSimulation, this.animalFactory.liveAnimal,this.grassFactory.liveGrass, this.animalMap,
+        int id = this.simulationManager.getSelectedAnimalID();
+
+        if (id != -1) {
+            Animal selectedAnimal = this.animalFactory.animals.get(id);
+
+            return new DataStorage(this.dayOfSimulation, this.animalFactory.liveAnimal, this.grassFactory.liveGrass, this.animalMap,
+                    this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
+                    statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy, selectedAnimal.getGen(),
+                    selectedAnimal.getGen().getActualGen(), selectedAnimal.energy, selectedAnimal.grassEaten,
+                    selectedAnimal.age, selectedAnimal.deathDay, selectedAnimal.children);
+        }
+        return new DataStorage(this.dayOfSimulation, this.animalFactory.liveAnimal, this.grassFactory.liveGrass, this.animalMap,
                 this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
-                statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy);
+                statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy,new Gen(new ArrayList<>(List.of(Rotation.F))), -1, new Energy(-1),
+                -1,-1,-1,-1);
     }
 
     public synchronized DataStorage getAnimalData(int id){

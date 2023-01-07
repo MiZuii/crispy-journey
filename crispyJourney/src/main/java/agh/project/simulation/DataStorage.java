@@ -26,20 +26,22 @@ public class DataStorage {
     private Rotation popularGenom;
     private double averageEnergy;
 
-    private ArrayList<Rotation> gen;
-    private int actualGenIndex;
-    private int energy;
-    private int liveLength;
-    private int plantEaten;
-    private int deathDate;
+//    Selected Animal features
+    private ArrayList<Rotation> aGen;
+    private int aActualGenIndex;
+    private int aEnergy;
+    private int aLiveLength;
+    private int aPlantEaten;
+    private int aDeathDate;
     private int simulationDay;
-    private int children;
+    private int aChildren;
 
 
 
 
     public DataStorage(int simulationDay, int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
-                       double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy) {
+                       double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy,
+                       Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children) {
 
         this.simulationDay = simulationDay;
         this.populationSize = populationSize;
@@ -50,21 +52,23 @@ public class DataStorage {
         this.averageLifeLengthOnlyDead = averageLifeLengthOnlyDead;
         this.popularGenom = popularGenom;
         this.averageEnergy = averageEnergy;
+
+        this.aGen = gen.getGensList();
+        this.aActualGenIndex = actualGenIndex;
+        this.aEnergy = energy.energy;
+        this.aPlantEaten = plantEaten;
+        this.aLiveLength = liveLength;
+        this.aDeathDate = deathDate;
+        this.aChildren = children;
     }
 
     public DataStorage(Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength,
                        int deathDate, int children){
-        this.gen = gen.getGensList();
-        this.actualGenIndex = actualGenIndex;
-        this.energy = energy.energy;
-        this.plantEaten = plantEaten;
-        this.liveLength = liveLength;
-        this.deathDate = deathDate;
-        this.children = children;
+
     }
 
     public int getChildren() {
-        return children;
+        return aChildren;
     }
 
     private ArrayList<ArrayList<String>> mapData(AnimalMap animalMap, GrassMap grassMap,
@@ -135,26 +139,26 @@ public class DataStorage {
     }
 
     public ArrayList<Rotation> getGen() {
-        return gen;
+        return aGen;
     }
 
     public int getActualGenIndex() {
-        return actualGenIndex;
+        return aActualGenIndex;
     }
 
     public int getEnergy() {
-        return energy;
+        return aEnergy;
     }
 
     public int getLiveLength() {
-        return liveLength;
+        return aLiveLength;
     }
 
     public int getPlantEaten() {
-        return plantEaten;
+        return aPlantEaten;
     }
 
     public int getDeathDate() {
-        return deathDate;
+        return aDeathDate;
     }
 }
