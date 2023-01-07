@@ -49,7 +49,7 @@ public class AnimalFactory {
     public Animal createChild(WorldElement par1, WorldElement par2){
         Animal parent1 = (Animal) par1;
         Animal parent2 = (Animal) par2;
-        if (!Energy.reproduceEvent(new Energy(parent1.getEnergy()),new Energy(parent2.getEnergy()))) return null;
+        if (!Energy.reproduceEvent(parent1.getObjectEnergy(),parent2.getObjectEnergy())) return null;
 
         this.liveAnimal += 1;
         this.actualIndex += 1;

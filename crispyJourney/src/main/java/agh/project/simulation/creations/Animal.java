@@ -60,6 +60,9 @@ public int compareTo(Object o) {
     public int getEnergy(){
         return this.energy.energy;
     }
+    public Energy getObjectEnergy(){
+        return this.energy;
+    }
 
     public Vector2d getPosition(){
         return this.position;

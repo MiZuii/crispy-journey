@@ -14,11 +14,11 @@ public class RoundBoundary implements WorldMapBoundary {
     }
     @Override
     public Vector2d moveAnimal(Vector2d newPosition, Animal animal) {
-        return new Vector2d((newPosition.x + width + 1) % (width + 1), (newPosition.y + height + 1) % (height + 1));
+        return new Vector2d((newPosition.x + width) % (width), (newPosition.y + height) % (height));
     }
 
     @Override
     public boolean outOfBoundary(Vector2d position) {
-        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width, height));
+        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width - 1, height - 1));
     }
 }

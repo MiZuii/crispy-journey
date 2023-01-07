@@ -37,7 +37,7 @@ public class SimulationEngine extends Thread implements IEngine {
     private AnimalMap animalMap;
     private GrassMap grassMap;
     private int dayOfSimulation = 0;
-    private final double equator = 0.2;    //How much of height does equator take
+
     private int grassPerDay;
 
     private int width;
@@ -48,6 +48,12 @@ public class SimulationEngine extends Thread implements IEngine {
     private GrassFactory grassFactory;
 
     private Statistics statistics;
+
+    private final double equator = 0.2;    //How much of height does equator take
+    private int equatorLowIndex;
+    private int equatorHighIndex;
+    private ArrayList<Vector2d> equatorGrass;
+    private ArrayList<Vector2d> nonEquatorGrass;
 
     private int highlightedAnimalId = -2;
 
@@ -61,6 +67,9 @@ public class SimulationEngine extends Thread implements IEngine {
         this.animalStartEnergy = new Energy(population.animalStartEnergy);
         this.grassEnergyProfit = new Energy(population.grassEnergyProfit);
         this.simulationSpeed.set(population.refreshment);
+
+        //Set equatorIndex
+        setEquatorIndex();
 
         //Set all static variables in Gen and Energy
         Energy.setReproduceBoundary(population.minEnergyCopulation);
@@ -98,41 +107,65 @@ public class SimulationEngine extends Thread implements IEngine {
         this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width);
     }
 
+    private void fillGrassArrays(){
+        this.equatorGrass = new ArrayList<Vector2d>();
+        this.nonEquatorGrass = new ArrayList<Vector2d>();
+
+        for (int i = 0; i < width; i+=1){
+            for (int j = 0; j < height; j+=1){
+                Vector2d position = new Vector2d(i, j);
+                if (this.animalMap.isOccupied(position) || this.grassMap.isOccupied(position)) continue;
+
+                if (isEquator(i, j)) this.equatorGrass.add(position);
+                else this.nonEquatorGrass.add(position);
+            }
+        }
+    }
+
+    private boolean isEquator(int x, int y){
+        return this.equatorLowIndex <= y && y <= this.equatorHighIndex;
+    }
+
+    private void setEquatorIndex(){
+        this.equatorLowIndex = height / 2 - (int) (equator * (height / 2));
+        this.equatorHighIndex = height / 2 + (int) (equator * (height / 2));
+    }
+
 
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    private int getRandomY() {
-        //equator
-        if (getRandomNumber(0, 5) != 0)
-            return getRandomNumber((height / 2 - (int) (equator * (height / 2))), (height / 2 + (int) (equator * (height / 2))) + 1);
-            //not equator
-        else {
-            //upper part
-            if (getRandomNumber(0, 2) == 1)
-                return getRandomNumber((height / 2 + (int) (equator * (height / 2))) + 1, height);
-                //lower part
-            else
-                return getRandomNumber(0, (height / 2 - (int) (equator * (height / 2))));
-        }
-    }
 
-    private void createGrassArrays(){
-
-    }
     private void spawnGrass(int sizeGrass) {
-        //loop for creating grass
-        for (int i = 0; i < sizeGrass; i++) {
+        //Setting domain
+        fillGrassArrays();
 
-            int randomX = getRandomNumber(0, width);
-            int randomY = getRandomY();
+        for (int i = 0; i < sizeGrass; i++){
+            boolean growFlag = false;
 
-            //Gdy nie ma pozycji na mapię to nowe rośliny się nie spawnują
-            Vector2d randomPosition = new Vector2d(randomX, randomY);
-            if (! this.grassMap.isOccupied(randomPosition)) {
-                Grass grass = grassFactory.createGrass(randomPosition, grassEnergyProfit, this.grassMap);
-                this.grassMap.place((WorldElement) grass);
+//            Equator
+            if (getRandomNumber(0, 5) != 0){
+                if (this.equatorGrass.size() > 0){
+                    int index = getRandomNumber(0,this.equatorGrass.size());
+                    Vector2d spawnPosition = this.equatorGrass.get(index);
+                    equatorGrass.remove(spawnPosition);
+
+                    Grass grass = this.grassFactory.createGrass(spawnPosition, new Energy(this.grassEnergyProfit.energy),this.grassMap);
+                    this.grassMap.place((WorldElement) grass);
+                    growFlag = true;
+                }
+            }
+//            Grass has not planted yet
+            if (!growFlag){
+                if(this.nonEquatorGrass.size() > 0){
+                    int index = getRandomNumber(0, this.nonEquatorGrass.size());
+                    Vector2d spawnPosition = this.nonEquatorGrass.get(index);
+                    nonEquatorGrass.remove(spawnPosition);
+
+                    Grass grass = this.grassFactory.createGrass(spawnPosition, new Energy(this.grassEnergyProfit.energy),this.grassMap);
+                    this.grassMap.place((WorldElement) grass);
+                }
             }
         }
     }
@@ -195,7 +228,6 @@ public class SimulationEngine extends Thread implements IEngine {
                 castedAnimal.move();
             }
         }
-
         Collection <ArrayList<WorldElement>> copy2 = new ArrayList<>(animalMap.occupiedPosition.values());
 
         for (ArrayList<WorldElement> animals : copy2) {
@@ -215,9 +247,10 @@ public class SimulationEngine extends Thread implements IEngine {
             for (int i = 0; i < animalsCopy.size() / 2; i+=2) {
                 if(i+1>=animalsCopy.size())
                     break;
+
                 Animal newAnimal = animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1));
                 if (newAnimal != null) {
-                    this.animalMap.place((WorldElement) animalFactory.createChild(animalsCopy.get(i), animalsCopy.get(i + 1)));
+                    this.animalMap.place((WorldElement) newAnimal);
                 }
             }
 

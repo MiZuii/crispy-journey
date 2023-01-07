@@ -19,7 +19,7 @@ public class Hell implements WorldMapBoundary {
      * Check if animal is going to be out of the Map
      */
     public boolean outOfBoundary(Vector2d position){
-        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width, height));
+        return !position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width - 1, height - 1));
     }
 
     /**

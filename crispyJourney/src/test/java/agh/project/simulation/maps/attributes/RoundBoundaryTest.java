@@ -42,7 +42,5 @@ class RoundBoundaryTest {
         assertEquals(new Vector2d(10,1), roundBoundary.moveAnimal(new Vector2d(-1,1), animal2));
         assertEquals(new Vector2d(0,0), roundBoundary.moveAnimal(new Vector2d(11,0), animal3));
         assertEquals(new Vector2d(0,0), roundBoundary.moveAnimal(new Vector2d(0,11), animal4));
-
-
     }
 }
