@@ -111,7 +111,7 @@ public class SimulationEngine extends Thread implements IEngine {
         spawnGrass(grassPerDay);
 
         //setting statistics
-        this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width);
+        this.statistics = new Statistics(this.animalFactory, this.grassFactory, this.height*this.width, this.animalMap);
     }
 
     private void fillGrassArrays(){

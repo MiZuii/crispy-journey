@@ -4,6 +4,7 @@ import agh.project.enumerators.Rotation;
 import agh.project.simulation.creations.Animal;
 import agh.project.simulation.factories.AnimalFactory;
 import agh.project.simulation.factories.GrassFactory;
+import agh.project.simulation.maps.AnimalMap;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,10 +22,12 @@ public class Statistics {
 
     private AnimalFactory animalFactory;
     private GrassFactory grassFactory;
-    public Statistics(AnimalFactory animalFactory, GrassFactory grassFactory, int availableSpaces){
+    private AnimalMap animalMap;
+    public Statistics(AnimalFactory animalFactory, GrassFactory grassFactory, int availableSpaces, AnimalMap animalMap){
         this.animalFactory = animalFactory;
         this.grassFactory = grassFactory;
         this.availableSpaces = availableSpaces;
+        this.animalMap = animalMap;
     }
 
     public double getAverageEnergy() {
@@ -64,7 +67,7 @@ public class Statistics {
     }
 
     public int getCurrentFreeSpaces(){
-        return availableSpaces-animalFactory.animals.size();
+        return availableSpaces-animalMap.occupiedPosition.size();
     }
 
     public int getCurrentAnimalNumber(){
