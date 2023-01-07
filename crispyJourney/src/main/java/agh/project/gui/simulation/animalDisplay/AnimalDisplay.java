@@ -1,5 +1,6 @@
 package agh.project.gui.simulation.animalDisplay;
 
+        import agh.project.gui.simulation.SimulationManager;
         import agh.project.interfaces.Updateable;
         import agh.project.simulation.DataStorage;
         import javafx.scene.control.Label;
@@ -32,13 +33,17 @@ public class AnimalDisplay extends VBox implements Updateable {
     private Label lifeLength;
     private Label lifeLengthData;
     private HBox lifeLengthBox;
+    private Label animalID;
+    private Label animalIDData;
+    private HBox animalIDBox;
+    private final SimulationManager simulationManager;
 
-    public AnimalDisplay() {
+    public AnimalDisplay(SimulationManager simulationManager) {
+        this.simulationManager = simulationManager;
 
         createElements();
         addStyle();
         addProperties();
-
     }
 
     private void createElements() {
@@ -76,7 +81,12 @@ public class AnimalDisplay extends VBox implements Updateable {
         lifeLengthBox = new HBox();
         lifeLengthBox.getChildren().addAll(lifeLength, lifeLengthData);
 
-        this.getChildren().addAll(titleBox, genomeBox, genomeActivedBox, energyBox, grassEatenBox, numberOfChildrenBox, lifeLengthBox);
+        animalID = new Label("Animal ID: ");
+        animalIDData = new Label("Not Selected");
+        animalIDBox = new HBox();
+        animalIDBox.getChildren().addAll(animalID, animalIDData);
+
+        this.getChildren().addAll(titleBox, animalIDBox, genomeBox, genomeActivedBox, energyBox, grassEatenBox, numberOfChildrenBox, lifeLengthBox);
     }
 
     private void addStyle() {
@@ -97,6 +107,8 @@ public class AnimalDisplay extends VBox implements Updateable {
             numberOfChildrenData.getStyleClass().add("data");
             lifeLength.getStyleClass().add("info");
             lifeLengthData.getStyleClass().add("data");
+            animalID.getStyleClass().add("info");
+            animalIDData.getStyleClass().add("data");
         }
         catch (NullPointerException e) {
             System.out.println("Menu scene style sheet couldn't have been loaded.");
@@ -110,12 +122,12 @@ public class AnimalDisplay extends VBox implements Updateable {
 
     @Override
     public void update(DataStorage data) {
+        this.animalIDData.setText(String.valueOf(simulationManager.getSelectedAnimalID()));
 //        this.genomeData.setText(data.getGen().toString());
 //        this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
 //        this.energyData.setText(Integer.toString(data.getEnergy()));
 //        this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
 //        this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
 //        this.lifeLength.setText(Integer.toString(data.getLiveLength()));
-
     }
 }

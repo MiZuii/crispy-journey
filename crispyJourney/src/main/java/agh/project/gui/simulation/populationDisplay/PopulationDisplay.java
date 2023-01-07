@@ -124,7 +124,7 @@ public class PopulationDisplay extends VBox implements Updateable {
         this.numberOfGrassData.setText(Integer.toString(data.getGrassPopulation()));
         this.numberOfEmptyFieldsData.setText(Integer.toString(data.getFreeSquares()));
         this.mostFrequentGenotypeData.setText(data.getPopularGenom().toString());
-        this.averageEnergyLevelData.setText(Double.toString(data.getAverageEnergy()));
-        this.averageLifeSpanData.setText(Double.toString(data.getAverageLifeLength()));
+        this.averageEnergyLevelData.setText(Integer.toString((int) data.getAverageEnergy()));
+        this.averageLifeSpanData.setText(Integer.toString((int) data.getAverageLifeLength()));
     }
 }
