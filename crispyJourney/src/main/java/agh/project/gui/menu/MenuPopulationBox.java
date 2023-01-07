@@ -98,7 +98,7 @@ public class MenuPopulationBox extends VBox {
         // start button
         startPopulationSimulationButton = saveCreateButton("Play", "play", ">");
         startPopulationSimulationButton.setOnAction(new playPopulationEvent(population, app));
-        startWithSavePopulationSimulationButton = saveCreateButton("Play and save", "play", ">");
+        startWithSavePopulationSimulationButton = saveCreateButton("Play&save", "play", ">");
         startWithSavePopulationSimulationButton.setOnAction(new playWithSavePopulationEvent(population, app));
 
         addStyles();

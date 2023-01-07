@@ -21,7 +21,7 @@ import java.util.Objects;
 public class PopulationScene implements SceneCreator {
 
     private static final double SCENE_WIDTH = 500;
-    private static final double SCENE_HEIGHT = 580;
+    private static final double SCENE_HEIGHT = 540;
 
     private Scene populationScene;
     private VBox root;
@@ -146,13 +146,13 @@ public class PopulationScene implements SceneCreator {
     }
 
     private void createBooleanInputs() {
-        InputRowBoolean row1 = new InputRowBoolean("example data 1", SCENE_WIDTH);
+        InputRowBoolean row1 = new InputRowBoolean("Partially random moves", SCENE_WIDTH);
         booleanInputs.add(row1);
-        InputRowBoolean row2 = new InputRowBoolean("example data 2", SCENE_WIDTH);
+        InputRowBoolean row2 = new InputRowBoolean("Random mutation (unchangeable)", SCENE_WIDTH);
         booleanInputs.add(row2);
-        InputRowBoolean row3 = new InputRowBoolean("example data 3", SCENE_WIDTH);
+        InputRowBoolean row3 = new InputRowBoolean("Round/Hell (uncheck/check)", SCENE_WIDTH);
         booleanInputs.add(row3);
-        InputRowBoolean row4 = new InputRowBoolean("example data 4", SCENE_WIDTH);
+        InputRowBoolean row4 = new InputRowBoolean("Grass on equator (unchangeable)", SCENE_WIDTH);
         booleanInputs.add(row4);
     }
 
@@ -181,8 +181,6 @@ public class PopulationScene implements SceneCreator {
         numericInputs.add(row11);
         InputRowNumeric row12 = new InputRowNumeric("Genom Length", SCENE_WIDTH);
         numericInputs.add(row12);
-        InputRowNumeric row13 = new InputRowNumeric("example data 13", SCENE_WIDTH);
-        numericInputs.add(row13);
     }
 
     public void closePopulationWindow() {
