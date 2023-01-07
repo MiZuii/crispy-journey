@@ -29,9 +29,9 @@ class RoundBoundaryTest {
          */
         RoundBoundary roundBoundary = new RoundBoundary(10,10);
         Gen gen = new Gen(new ArrayList<>(List.of(Rotation.F)));
-        Gen.setGensNumber(1);
-        Gen.setChaoticGen(false);
-        Energy.setOneDayLost(1);
+//        Gen.setGensNumber(1);
+//        Gen.setChaoticGen(false);
+//        Energy.setOneDayLost(1);
 
         Animal animal1 = new Animal(0, new Vector2d(1,0), Direction.SOUTH, new Energy(10), gen);
         Animal animal2 = new Animal(0, new Vector2d(0,1), Direction.WEST, new Energy(10), gen);

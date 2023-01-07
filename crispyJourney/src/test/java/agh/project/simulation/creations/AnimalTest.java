@@ -71,16 +71,16 @@ class AnimalTest {
             Animals position is changing after they move. If animal does not have enough energy it is deleted from
             Animal Factory ( of course it will be deleted from the map - this is tested in other Test File )
          */
-        Animal.setAnimalFactory(animalFactory);
-        AnimalMap animalMap = new AnimalMap(new Hell(1000, 1000));
-        Animal.setMapObserver(animalMap);
-        animalMap.place(animal1);
-        animalMap.place(animal2);
-        animalMap.place(animal3);
-
-        Gen.setChaoticGen(false);
-        Gen.setGensNumber(3);
-        Energy.setOneDayLost(1);
+//        Animal.setAnimalFactory(animalFactory);
+//        AnimalMap animalMap = new AnimalMap(new Hell(1000, 1000));
+//        Animal.setMapObserver(animalMap);
+//        animalMap.place(animal1);
+//        animalMap.place(animal2);
+//        animalMap.place(animal3);
+//
+//        Gen.setChaoticGen(false);
+//        Gen.setGensNumber(3);
+//        Energy.setOneDayLost(1);
 
 
         animal1.move();
@@ -131,7 +131,7 @@ class AnimalTest {
         Animal animal2 = new Animal(1,new Vector2d(1,1), Direction.NORTH, new Energy(15), gen1);
         Animal animal3 = new Animal(1,new Vector2d(1,1), Direction.NORTH, new Energy(20), gen1);
 
-        Energy.setReproduceEnergy(5);
+//        Energy.setReproduceEnergy(5);
         animal1.toHell();
         animal2.toHell();
         animal3.toHell();

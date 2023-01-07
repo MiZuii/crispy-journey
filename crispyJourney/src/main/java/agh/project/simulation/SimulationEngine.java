@@ -55,6 +55,8 @@ public class SimulationEngine extends Thread implements IEngine {
     private ArrayList<Vector2d> equatorGrass;
     private ArrayList<Vector2d> nonEquatorGrass;
 
+    private Constants simulationConstants;
+
     private int highlightedAnimalId = -2;
 
     public SimulationEngine(Population population, SimulationManager simulationManager, CSVCreator csvCreator) {
@@ -72,13 +74,13 @@ public class SimulationEngine extends Thread implements IEngine {
         setEquatorIndex();
 
         //Set all static variables in Gen and Energy
-        Energy.setReproduceBoundary(population.minEnergyCopulation);
-        Energy.setReproduceEnergy(population.energyPerCopulation);
-        Energy.setOneDayLost(population.dailyEnergyLost);
-
-        Gen.setGensNumber(population.genomLength);
-        Gen.setMutationNumber(population.maxMutationNumber);
-        Gen.setChaoticGen(population.mutationFlag);
+//        Energy.setReproduceBoundary(population.minEnergyCopulation);
+//        Energy.setReproduceEnergy(population.energyPerCopulation);
+//        Energy.setOneDayLost(population.dailyEnergyLost);
+//
+//        Gen.setGensNumber(population.genomLength);
+//        Gen.setMutationNumber(population.maxMutationNumber);
+//        Gen.setChaoticGen(population.mutationFlag);
 
         //seting maps
         WorldMapBoundary worldMapBoundary;
@@ -91,13 +93,20 @@ public class SimulationEngine extends Thread implements IEngine {
         this.animalMap = new AnimalMap(worldMapBoundary);
         this.grassMap = new GrassMap(worldMapBoundary);
 
-        Animal.setMapObserver(animalMap);
+//        Animal.setMapObserver(animalMap);
+
+        //Setting all constants
+        Constants simulationConstants = new Constants(this.animalMap,population.dailyEnergyLost,
+                population.energyPerCopulation, population.minEnergyCopulation, population.genomLength, population.maxMutationNumber,
+                population.mutationFlag);
+        this.simulationConstants = simulationConstants;
 
         //setting factories
         this.grassFactory = new GrassFactory();
-        this.animalFactory = new AnimalFactory(this);
+        this.animalFactory = new AnimalFactory(this, simulationConstants);
 
-        Animal.setAnimalFactory(animalFactory);
+//        Animal.setAnimalFactory(animalFactory);
+
 
         //setting initial positions
         spawnAnimals(population.animalStartSpawningNumber);
@@ -175,7 +184,13 @@ public class SimulationEngine extends Thread implements IEngine {
 
         for (int i = 0; i < sizeAnimals; i++) {
 //          Create Random Gen for starting Animals
-            Gen randomGen = Gen.getRandomGen();
+
+            Gen nonExistingGen = new Gen(new ArrayList<>(List.of(Rotation.F)));
+            nonExistingGen.setConstants(this.simulationConstants);
+
+            Gen randomGen = nonExistingGen.getRandomGen();
+            randomGen.setConstants(this.simulationConstants);
+
             int randomX = getRandomNumber(0, width);
             int randomY = getRandomNumber(0, height);
             Vector2d randomPosition = new Vector2d(randomX, randomY);
@@ -184,6 +199,7 @@ public class SimulationEngine extends Thread implements IEngine {
             Direction randomDirection = Direction.values()[pick];
 
             Energy animalEnergy = new Energy(this.animalStartEnergy.energy);
+            animalEnergy.setConstants(simulationConstants);
 
             Animal animal = animalFactory.createAnimal(randomPosition, randomDirection, animalEnergy, randomGen);
 

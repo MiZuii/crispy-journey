@@ -1,7 +1,9 @@
 package agh.project.simulation.factories;
 
 import agh.project.enumerators.Direction;
+import agh.project.enumerators.Rotation;
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.Constants;
 import agh.project.simulation.SimulationEngine;
 import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
@@ -11,6 +13,7 @@ import agh.project.simulation.creations.attributes.Energy;
 import agh.project.simulation.creations.attributes.Vector2d;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AnimalFactory {
@@ -20,17 +23,21 @@ public class AnimalFactory {
     public int liveAnimal;
     public ArrayList<Animal> animals;
     public ArrayList<Animal> deathAnimals;
-
+    public Constants constants;
 
     public SimulationEngine simulationEngine;
 
 //    -----METHODS------
-    public AnimalFactory(SimulationEngine simulationEngine){
+    public AnimalFactory(SimulationEngine simulationEngine, Constants constants){
         this.liveAnimal = 0;
         this.actualIndex = -1;
         this.animals = new ArrayList<Animal>();
         this.simulationEngine = simulationEngine;
         this.deathAnimals = new ArrayList<Animal>();
+        this.constants = constants;
+
+        this.constants.setAnimalFactory(this);
+
     }
     public AnimalFactory(){
         this.liveAnimal = 0;
@@ -43,13 +50,14 @@ public class AnimalFactory {
         this.liveAnimal += 1;
         this.actualIndex += 1;
         this.animals.add(new Animal(actualIndex,position,direction,energy,gen));
+        this.animals.get(animals.size() - 1).setConstants(this.constants);
         return animals.get(animals.size() - 1);
     }
 
     public Animal createChild(WorldElement par1, WorldElement par2){
         Animal parent1 = (Animal) par1;
         Animal parent2 = (Animal) par2;
-        if (!Energy.reproduceEvent(parent1.getObjectEnergy(),parent2.getObjectEnergy())) return null;
+        if (parent1.getObjectEnergy().reproduceEvent(parent2.getObjectEnergy())) return null;
 
         this.liveAnimal += 1;
         this.actualIndex += 1;
@@ -59,10 +67,19 @@ public class AnimalFactory {
         Direction direction = Direction.values()[pick];
 
 //        The child Gen starts from random
-        Gen gen = Gen.newGens(parent1, parent2);
-        gen.randomUpdateGen();
+        Gen nonExistGen = new Gen(new ArrayList<>(List.of(Rotation.F)));
+        nonExistGen.setConstants(constants);
 
-        this.animals.add(new Animal(actualIndex,parent1.getPosition(),direction,new Energy(Energy.reproduceEnergy * 2),gen));
+        Gen gen = nonExistGen.newGens(parent1, parent2);
+        gen.randomUpdateGen();
+        gen.setConstants(constants);
+
+
+        Energy energy = new Energy(this.constants.reproduceEnergy * 2);
+        energy.setConstants(constants);
+
+        this.animals.add(new Animal(actualIndex,parent1.getPosition(),direction,energy,gen));
+        this.animals.get(animals.size() - 1).setConstants(this.constants);
         return animals.get(animals.size() - 1);
     }
 

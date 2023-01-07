@@ -2,6 +2,7 @@ package agh.project.simulation.creations;
 
 import agh.project.enumerators.Direction;
 import agh.project.interfaces.WorldElement;
+import agh.project.simulation.Constants;
 import agh.project.simulation.DataStorage;
 import agh.project.simulation.creations.attributes.Energy;
 import agh.project.simulation.creations.attributes.Gen;
@@ -27,10 +28,7 @@ public class Animal implements WorldElement, Comparable<Object> {
     public Energy energy;
 
     private Gen gen;
-    private  static AnimalMap mapObserver;
-    private static GrassMap grassMapObserver;
-
-    private static AnimalFactory animalFactory;
+    private Constants constants;
 
 
 //    ------Methods------
@@ -49,7 +47,6 @@ public int compareTo(Object o) {
         this.direction = direction;
         this.energy = energy;
         this.gen = gen;
-
     }
 
 
@@ -89,16 +86,20 @@ public int compareTo(Object o) {
     }
 
 
+    public void setConstants(Constants constants) {
+        this.constants = constants;
+    }
+
     public void move() {
 //        Losing energy
         this.energy.oneDay();
 
 //      Moves Animal to the next position according to his genes
         if (!this.energy.enoughEnergy()) {
-            animalFactory.deleteAnimal(this);
+            this.constants.animalFactory.deleteAnimal(this);
 
             //Remove from the map
-            mapObserver.remove(this);
+            this.constants.animalMap.remove(this);
         } else {
 
 //            Getting older
@@ -110,7 +111,7 @@ public int compareTo(Object o) {
             Vector2d unitVector = direction.toVector2d();
             Vector2d newPosition = position.add(unitVector);
 
-            mapObserver.changePosition(this.position, newPosition, this);
+            this.constants.animalMap.changePosition(this.position, newPosition, this);
         }
     }
 
@@ -119,17 +120,7 @@ public int compareTo(Object o) {
         this.energy.hellLoss();
     }
 
-    public static void setMapObserver(AnimalMap mapObserver) {
-        Animal.mapObserver = mapObserver;
-    }
 
-    public static void setGrassMapObserver(GrassMap grassMapObserver) {
-        Animal.grassMapObserver = grassMapObserver;
-    }
-
-    public static void setAnimalFactory(AnimalFactory animalFactory) {
-        Animal.animalFactory = animalFactory;
-    }
 
     public void changePosition(Vector2d newPosition){
         this.position = newPosition;

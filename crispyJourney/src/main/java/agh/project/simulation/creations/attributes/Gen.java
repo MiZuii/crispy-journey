@@ -1,6 +1,7 @@
 package agh.project.simulation.creations.attributes;
 
 import agh.project.enumerators.Rotation;
+import agh.project.simulation.Constants;
 import agh.project.simulation.creations.Animal;
 
 import java.util.ArrayList;
@@ -11,10 +12,7 @@ public class Gen {
     //    -----Attributes-----
     private ArrayList<Rotation> gens;
     private int actualGen;
-    public static int gensNumber;
-    public static int mutationNumber;
-
-    public static boolean chaoticGen;
+    private Constants constants;
 
 //    -----Methods-----
 
@@ -32,6 +30,10 @@ public class Gen {
         return gens;
     }
 
+    public void setConstants(Constants constants) {
+        this.constants = constants;
+    }
+
     private static void fillGen(Gen unfilled, Gen parent, int start, int end) {
 //        Filled the gen Array at positions [start, end)
 
@@ -42,8 +44,8 @@ public class Gen {
         }
     }
 
-    private static void mutation(Gen gen) {
-        int mutationNumber = ThreadLocalRandom.current().nextInt(0, Gen.mutationNumber + 1);
+    private void mutation(Gen gen) {
+        int mutationNumber = ThreadLocalRandom.current().nextInt(0, constants.mutationNumber + 1);
 
         ArrayList<Rotation> genList = gen.getGensList();
 
@@ -51,33 +53,33 @@ public class Gen {
             int pick = new Random().nextInt(Rotation.values().length);
             Rotation newGen = Rotation.values()[pick];
 
-            int index = ThreadLocalRandom.current().nextInt(0, gensNumber);
+            int index = ThreadLocalRandom.current().nextInt(0, this.constants.genNumber);
             genList.set(index, newGen);
         }
     }
 
 
-    public static Gen newGens(Animal parent1, Animal parent2) {
+    public Gen newGens(Animal parent1, Animal parent2) {
 //        Returns Gen of new Animal
         Energy energy1 = new Energy(parent1.getEnergy());
         Energy energy2 = new Energy(parent2.getEnergy());
 
-        ArrayList<Rotation> genList = new ArrayList<>(gensNumber);
+        ArrayList<Rotation> genList = new ArrayList<>(this.constants.genNumber);
         Gen childGen = new Gen(genList);
 
 //        Counts how many genes a child inherits from parent 1 and how many from parent 2
         int n1 = Math.round((float) energy1.getEnergy() / ((float) energy1.getEnergy() + (float) energy2.getEnergy())
-                * Gen.gensNumber);
+                * this.constants.genNumber);
 
 //        Determines from which side the genes are entered
         Random rd = new Random();
         if (rd.nextBoolean()) {
 //            Start from left side
             fillGen(childGen, parent1.getGen(), 0, n1);
-            fillGen(childGen, parent2.getGen(), n1, Gen.gensNumber);
+            fillGen(childGen, parent2.getGen(), n1, constants.genNumber);
         } else {
-            fillGen(childGen, parent2.getGen(), 0, Gen.gensNumber - n1);
-            fillGen(childGen, parent1.getGen(), Gen.gensNumber - n1, Gen.gensNumber);
+            fillGen(childGen, parent2.getGen(), 0, constants.genNumber - n1);
+            fillGen(childGen, parent1.getGen(), constants.genNumber - n1, constants.genNumber);
         }
 
 //        Random mutation
@@ -95,7 +97,7 @@ public class Gen {
 //        Change actual Gen to the next in the queue
 
 //        The animal does not have to rearrange its genes in a given order
-        if (Gen.chaoticGen) {
+        if (constants.chaoticGen) {
             int random = ThreadLocalRandom.current().nextInt(0, 11);
             if (random < 2) randomUpdateGen();
             else this.actualGen = (actualGen + 1) % (this.gens.size());
@@ -109,21 +111,10 @@ public class Gen {
         this.actualGen = ThreadLocalRandom.current().nextInt(0, this.gens.size());
     }
 
-    public static void setGensNumber(int gensNumber) {
-        Gen.gensNumber = gensNumber;
-    }
 
-    public static void setMutationNumber(int mutationNumber) {
-        Gen.mutationNumber = mutationNumber;
-    }
-
-    public static void setChaoticGen(boolean chaoticGen) {
-        Gen.chaoticGen = chaoticGen;
-    }
-
-    public static Gen getRandomGen() {
+    public Gen getRandomGen() {
         ArrayList<Rotation> randomGens = new ArrayList<>();
-        for (int i = 0; i <= gensNumber; i++) {
+        for (int i = 0; i <= constants.genNumber; i++) {
             int pick = new Random().nextInt(Rotation.values().length);
             Rotation newGen = Rotation.values()[pick];
             randomGens.add(newGen);

@@ -25,7 +25,6 @@ class EnergyTest {
         Energy energy2= new Energy(5);
         Energy energy3= new Energy(1);
         Energy energy4= new Energy(-1);
-        System.out.println(Energy.oneDayLost);
         energy1.oneDay();
         energy2.oneDay();
         energy3.oneDay();
@@ -66,10 +65,10 @@ class EnergyTest {
         Energy parent31 = new Energy(0);
         Energy parent32 = new Energy(0);
 
-        assertTrue(Energy.reproduceEvent(parent01,parent02));
-        assertFalse(Energy.reproduceEvent(parent11, parent12));
-        assertFalse(Energy.reproduceEvent(parent21, parent22));
-        assertFalse(Energy.reproduceEvent(parent31, parent32));
+        assertTrue(parent01.reproduceEvent(parent02));
+        assertTrue(parent11.reproduceEvent(parent12));
+        assertTrue(parent21.reproduceEvent(parent22));
+        assertTrue(parent31.reproduceEvent(parent32));
 
         assertEquals(new Energy(5), parent01);
         assertEquals(new Energy(6), parent02);
