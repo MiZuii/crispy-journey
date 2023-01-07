@@ -99,7 +99,7 @@ public class SimulationEngine extends Thread implements IEngine {
         //Setting all constants
         Constants simulationConstants = new Constants(this.animalMap,this.animalFactory,
                 population.dailyEnergyLost, population.energyPerCopulation, population.minEnergyCopulation,
-                population.genomLength, population.maxMutationNumber, population.mutationFlag);
+                population.genomLength, population.maxMutationNumber, population.moveFlag);
         this.simulationConstants = simulationConstants;
 
         this.animalFactory.setConstants(this.simulationConstants);
