@@ -79,10 +79,7 @@ public class GraphDisplay extends HBox implements Updateable {
 
     @Override
     public void update(DataStorage dataStorage) {
-        days += 1;
-
-        // refresh graph
-        series.getData().add(new XYChart.Data<>(days, dataStorage.getPopulationSize()));
+        series.getData().add(new XYChart.Data<>(dataStorage.getSimulationDay(), dataStorage.getPopulationSize()));
     }
 
     public void clean() {

@@ -1,5 +1,7 @@
 package agh.project.gui.simulation.mapDisplay;
 
+import agh.project.gui.simulation.SimulationManager;
+import agh.project.gui.simulation.SimulationScene;
 import agh.project.interfaces.Updateable;
 import agh.project.simulation.DataStorage;
 import agh.project.simulation.Population;
@@ -20,8 +22,10 @@ public class MapDisplay extends VBox implements Updateable {
     private gridElement[][] elementsMap;
     private ArrayList<RowConstraints> rowConstraints = new ArrayList<>();
     private ArrayList<ColumnConstraints> columnConstraints = new ArrayList<>();
+    private final SimulationManager simulationManager;
 
-    public MapDisplay(Population population, VBox parentBox) {
+    public MapDisplay(Population population, VBox parentBox, SimulationManager simulationManager) {
+        this.simulationManager = simulationManager;
         this.parentBox = parentBox;
         this.population = population;
         elementsMap = new gridElement[population.mapHeight][population.mapWidth];
@@ -36,7 +40,7 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                gridElement tmp = new gridElement(row, column, population.animalStartEnergy, this);
+                gridElement tmp = new gridElement(row, column, population.animalStartEnergy, this, simulationManager);
                 grid.add(tmp, column, row);
                 GridPane.setFillHeight(tmp, true);
                 GridPane.setFillWidth(tmp, true);

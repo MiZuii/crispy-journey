@@ -1,5 +1,7 @@
 package agh.project.gui.simulation.mapDisplay;
 
+import agh.project.gui.simulation.SimulationManager;
+import agh.project.gui.simulation.SimulationScene;
 import agh.project.gui.simulation.events.gridElementClickedEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -14,11 +16,11 @@ public class gridElement extends HBox {
     private final int maxEnergyLevel;
     private final MapDisplay mapDisplay;
 
-    public gridElement(int row, int column, int animalMaxEnergyLevel, MapDisplay mapDisplay) {
+    public gridElement(int row, int column, int animalMaxEnergyLevel, MapDisplay mapDisplay, SimulationManager simulationManager) {
         this.maxEnergyLevel = animalMaxEnergyLevel;
         this.mapDisplay = mapDisplay;
 
-        this.setOnMouseClicked(new gridElementClickedEvent(row, column, mapDisplay));
+        this.setOnMouseClicked(new gridElementClickedEvent(row, column, mapDisplay, simulationManager));
 
         addProperties();
         addStyle();

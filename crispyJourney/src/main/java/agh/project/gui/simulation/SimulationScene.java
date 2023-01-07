@@ -69,7 +69,7 @@ public class SimulationScene implements SceneCreator {
 
         animalDisplay = new AnimalDisplay(simulationManager);
         graphDisplay = new GraphDisplay();
-        mapDisplay = new MapDisplay(simulationManager.getPopulation(), mapBox);
+        mapDisplay = new MapDisplay(simulationManager.getPopulation(), mapBox, simulationManager);
         populationDisplay = new PopulationDisplay();
         updateableDisplays.add(animalDisplay);
         updateableDisplays.add(graphDisplay);
@@ -179,9 +179,6 @@ public class SimulationScene implements SceneCreator {
     }
 
     private void updateScene() {
-
-        // update stuff
-
         // update displays
         for (Updateable display : updateableDisplays) {
             display.update(this.data);

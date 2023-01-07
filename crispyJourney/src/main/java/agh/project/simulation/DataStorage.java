@@ -12,6 +12,7 @@ import agh.project.simulation.maps.AnimalMap;
 import agh.project.simulation.maps.GrassMap;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class DataStorage {
 
@@ -84,16 +85,26 @@ public class DataStorage {
 
                 String representation = "";
 
-                ArrayList<WorldElement> animals = animalMap.occupiedPosition.get(new Vector2d(i, j));
-                ArrayList<WorldElement> grasses = grassMap.occupiedPosition.get(new Vector2d(i, j));
+                ArrayList<WorldElement> animals = new ArrayList<>();
+                ArrayList<WorldElement> grasses = new ArrayList<>();
 
-                if (animals != null && animals.size() > 0){
+                try{
+                    animals = new ArrayList<>(animalMap.occupiedPosition.get(new Vector2d(i, j)));
+                }
+                catch(NullPointerException | ConcurrentModificationException ignored) {}
+
+                try {
+                    grasses = new ArrayList<>(grassMap.occupiedPosition.get(new Vector2d(i, j)));
+                }
+                catch(NullPointerException | ConcurrentModificationException ignored) {}
+
+                if (animals.size() > 0){
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
                         representation += animal.toString() + ":" + animal.energy.toString() + " ";
                     }
                 }
-                else if (grasses != null && grasses.size() > 0){
+                else if (grasses.size() > 0){
                     representation += "G";
                 }
                 stringMap.get(i).add(representation);

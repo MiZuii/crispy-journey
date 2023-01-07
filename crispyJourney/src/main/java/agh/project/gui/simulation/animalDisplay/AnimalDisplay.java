@@ -123,11 +123,21 @@ public class AnimalDisplay extends VBox implements Updateable {
     @Override
     public void update(DataStorage data) {
         this.animalIDData.setText(String.valueOf(simulationManager.getSelectedAnimalID()));
-//        this.genomeData.setText(data.getGen().toString());
-//        this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
-//        this.energyData.setText(Integer.toString(data.getEnergy()));
-//        this.grassEaten.setText(Integer.toString(data.getPlantEaten()));
-//        this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
-//        this.lifeLength.setText(Integer.toString(data.getLiveLength()));
+        if (simulationManager.getSelectedAnimalID() >= 0) {
+            this.genomeData.setText(data.getGen().toString());
+            this.genomeActivedData.setText(Integer.toString(data.getActualGenIndex()));
+            this.energyData.setText(Integer.toString(data.getEnergy()));
+            this.grassEatenData.setText(Integer.toString(data.getPlantEaten()));
+            this.numberOfChildrenData.setText(Integer.toString(data.getChildren()));
+            this.lifeLengthData.setText(Integer.toString(data.getLiveLength()));
+        }
+        else {
+            this.genomeData.setText("");
+            this.genomeActivedData.setText("");
+            this.energyData.setText("");
+            this.grassEatenData.setText("");
+            this.numberOfChildrenData.setText("");
+            this.lifeLengthData.setText("");
+        }
     }
 }

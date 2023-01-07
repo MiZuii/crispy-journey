@@ -6,9 +6,7 @@ import agh.project.simulation.factories.AnimalFactory;
 import agh.project.simulation.factories.GrassFactory;
 import agh.project.simulation.maps.AnimalMap;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Statistics {
     public int currentGrassNumber;
@@ -43,7 +41,8 @@ public class Statistics {
     public double getAverageLifeTime(){
         int cnt = 0;
         int avg = 0;
-        for(Animal animal : animalFactory.animals){
+        Collection<Animal> cpy = new ArrayList<>(animalFactory.animals);
+        for(Animal animal :cpy){
             if(animal.deathDay != -1){
                 cnt++;
                 avg +=animal.age;
@@ -56,7 +55,8 @@ public class Statistics {
     public double getAverageLifeTimeDeath(){
         int cnt = 0;
         int avg = 0;
-        for(Animal animal : animalFactory.deathAnimals){
+        Collection<Animal> cpy = new ArrayList<>(animalFactory.deathAnimals);
+        for(Animal animal : cpy){
             cnt++;
             avg +=animal.age;
 
@@ -79,7 +79,8 @@ public class Statistics {
     }
     public Rotation getCurrentMostPopularGenotype(){
         Integer[] genArray = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0};
-        for(Animal animal : animalFactory.animals){
+        Collection<Animal> cpy = new ArrayList<>(animalFactory.animals);
+        for(Animal animal : cpy){
             for(Rotation gen : animal.getGen().getGensList()){
                 genArray[Rotation.valueOf(gen.name()).ordinal()] += 1;
             }
