@@ -32,15 +32,16 @@ public class DataStorage {
     private int liveLength;
     private int plantEaten;
     private int deathDate;
-
+    private int simulationDay;
     private int children;
 
 
 
 
-    public DataStorage(int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
+    public DataStorage(int simulationDay, int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
                        double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy) {
 
+        this.simulationDay = simulationDay;
         this.populationSize = populationSize;
         this.freeSquares = 0;
         this.map = mapData(animalMap,grassMap,height,width);
@@ -50,7 +51,6 @@ public class DataStorage {
         this.popularGenom = popularGenom;
         this.averageEnergy = averageEnergy;
     }
-
 
     public DataStorage(Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength,
                        int deathDate, int children){
@@ -100,6 +100,8 @@ public class DataStorage {
         }
         return stringMap;
     }
+
+    public int getSimulationDay() { return simulationDay; }
 
     public double getAverageEnergy() {
         return averageEnergy;

@@ -36,6 +36,11 @@ public class AppDisassembler implements EventHandler<WindowEvent> {
         simulationRefreshers.add(simulationRefresher);
     }
 
+    public void removeSimulationRefresher(SimulationRefresher simulationRefresher) {
+        simulationRefresher.interrupt();
+        simulationRefreshers.remove(simulationRefresher);
+    }
+
     @Override
     public void handle(WindowEvent event) {
         for (SimulationManager simulationManager : runningSimulations) {

@@ -31,6 +31,9 @@ public class PopulationDisplay extends VBox implements Updateable {
     private Label averageLifeSpan;
     private Label averageLifeSpanData;
     private HBox averageLifeSpanBox;
+    private Label simulationDay;
+    private Label simulationDayData;
+    private HBox simulationDayBox;
 
     public PopulationDisplay() {
 
@@ -75,7 +78,12 @@ public class PopulationDisplay extends VBox implements Updateable {
         averageLifeSpanBox = new HBox();
         averageLifeSpanBox.getChildren().addAll(averageLifeSpan, averageLifeSpanData);
 
-        this.getChildren().addAll(titleBox, numberOfAnimalsBox, numberOfGrassBox, numberOfEmptyFieldsBox, mostFrequentGenotypeBox, averageEnergyLevelBox, averageLifeSpanBox);
+        simulationDay = new Label("Day of simulation: ");
+        simulationDayData = new Label("");
+        simulationDayBox = new HBox();
+        simulationDayBox.getChildren().addAll(simulationDay, simulationDayData);
+
+        this.getChildren().addAll(titleBox, simulationDayBox, numberOfAnimalsBox, numberOfGrassBox, numberOfEmptyFieldsBox, mostFrequentGenotypeBox, averageEnergyLevelBox, averageLifeSpanBox);
     }
 
     private void addStyle() {
@@ -96,6 +104,8 @@ public class PopulationDisplay extends VBox implements Updateable {
             averageEnergyLevelData.getStyleClass().add("data");
             averageLifeSpan.getStyleClass().add("info");
             averageLifeSpanData.getStyleClass().add("data");
+            simulationDay.getStyleClass().add("info");
+            simulationDayData.getStyleClass().add("data");
         }
         catch (NullPointerException e) {
             System.out.println("Menu scene style sheet couldn't have been loaded.");
@@ -109,12 +119,12 @@ public class PopulationDisplay extends VBox implements Updateable {
 
     @Override
     public void update(DataStorage data) {
-        // Nie wiem czy tyle wystarczy
+        this.simulationDayData.setText(Integer.toString(data.getSimulationDay()));
         this.numberOfAnimalsData.setText(Integer.toString(data.getPopulationSize()));
         this.numberOfGrassData.setText(Integer.toString(data.getGrassPopulation()));
         this.numberOfEmptyFieldsData.setText(Integer.toString(data.getFreeSquares()));
         this.mostFrequentGenotypeData.setText(data.getPopularGenom().toString());
-        this.averageEnergyLevelData.setText(Double.toString(data.getAverageEnergy()));
-        this.averageLifeSpanData.setText(Double.toString(data.getAverageLifeLength()));
+        this.averageEnergyLevelData.setText(Integer.toString((int) data.getAverageEnergy()));
+        this.averageLifeSpanData.setText(Integer.toString((int) data.getAverageLifeLength()));
     }
 }

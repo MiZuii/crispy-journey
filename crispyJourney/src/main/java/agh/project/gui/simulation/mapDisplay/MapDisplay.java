@@ -36,7 +36,7 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                gridElement tmp = new gridElement(row, column, population.animalStartEnergy);
+                gridElement tmp = new gridElement(row, column, population.animalStartEnergy, this);
                 grid.add(tmp, column, row);
                 GridPane.setFillHeight(tmp, true);
                 GridPane.setFillWidth(tmp, true);
@@ -111,6 +111,10 @@ public class MapDisplay extends VBox implements Updateable {
                 }
             }
         }
+    }
+
+    public void setSelectedAnimalID(int row, int column) {
+        selectedAnimalID.set(elementsMap[row][column].getFirstAnimalID());
     }
 
     public int getAnimalID() {

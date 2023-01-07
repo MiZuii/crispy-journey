@@ -37,9 +37,11 @@ public class RectangularMap {
      */
     public  void remove(WorldElement worldElement){
         ArrayList<WorldElement> worldElementArrayList = occupiedPosition.get(worldElement.getPosition());
-        worldElementArrayList.remove(worldElement);
+        if (worldElementArrayList != null) {
+            worldElementArrayList.remove(worldElement);
 
-        if (worldElementArrayList.size() == 0) occupiedPosition.remove(worldElement.getPosition());
+            if (worldElementArrayList.size() == 0) occupiedPosition.remove(worldElement.getPosition());
+        }
     }
 
     /**

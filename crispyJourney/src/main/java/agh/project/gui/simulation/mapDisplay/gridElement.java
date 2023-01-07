@@ -12,11 +12,13 @@ public class gridElement extends HBox {
 
     private String ID;
     private final int maxEnergyLevel;
+    private final MapDisplay mapDisplay;
 
-    public gridElement(int row, int column, int animalMaxEnergyLevel) {
+    public gridElement(int row, int column, int animalMaxEnergyLevel, MapDisplay mapDisplay) {
         this.maxEnergyLevel = animalMaxEnergyLevel;
+        this.mapDisplay = mapDisplay;
 
-        this.setOnMouseClicked(new gridElementClickedEvent(row, column));
+        this.setOnMouseClicked(new gridElementClickedEvent(row, column, mapDisplay));
 
         addProperties();
         addStyle();
@@ -42,6 +44,14 @@ public class gridElement extends HBox {
         double delta = 255/(double)maxEnergyLevel;
         int blueCoef = (int) Math.min(255.0, delta*currentEnergy);
         this.setStyle("-fx-background-color: rgb(" + String.valueOf(255 - blueCoef) + ", 30, " + String.valueOf(blueCoef) + ", 1)");
+    }
+
+    public int getFirstAnimalID() {
+        String animalID = ID.split(" ")[0].split(":")[0];
+        if (animalID.isBlank() || animalID.equals("G")) {
+            return -1;
+        }
+        return Integer.parseInt(animalID);
     }
 
     @Override

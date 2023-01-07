@@ -67,7 +67,7 @@ public class SimulationScene implements SceneCreator {
         //   Content elements   //
         // -------------------- //
 
-        animalDisplay = new AnimalDisplay();
+        animalDisplay = new AnimalDisplay(simulationManager);
         graphDisplay = new GraphDisplay();
         mapDisplay = new MapDisplay(simulationManager.getPopulation(), mapBox);
         populationDisplay = new PopulationDisplay();
@@ -190,6 +190,7 @@ public class SimulationScene implements SceneCreator {
 
     public void startRefereshing() {
         SimulationRefresher refresher = new SimulationRefresher(FPS, this);
+        refresher.setName("refresher");
         simulationManager.addSimulationRefresher(refresher);
         refresher.start();
     }
