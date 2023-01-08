@@ -29,7 +29,6 @@ public class RectangularMap {
 
         worldElementsArrayList.add(worldElement);
         occupiedPosition.put(worldElement.getPosition(), worldElementsArrayList);
-
     }
 
     /**
@@ -39,6 +38,7 @@ public class RectangularMap {
         ArrayList<WorldElement> worldElementArrayList = occupiedPosition.get(worldElement.getPosition());
         if (worldElementArrayList != null) {
             worldElementArrayList.remove(worldElement);
+            this.occupiedPosition.put(worldElement.getPosition(), worldElementArrayList);
 
             if (worldElementArrayList.size() == 0) occupiedPosition.remove(worldElement.getPosition());
         }

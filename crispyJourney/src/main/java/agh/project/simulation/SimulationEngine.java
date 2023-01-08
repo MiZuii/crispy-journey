@@ -246,17 +246,23 @@ public class SimulationEngine extends Thread implements IEngine {
     }
 
     public void oneDay(){
-        statistics.update();
+        dayOfSimulation += 1;
         if(csvCreator != null)
             csvCreator.addData(statistics);
+
+        HashMap<Animal, Integer> test = new HashMap<>();
+
         Collection <ArrayList<WorldElement>> copy = new ArrayList<>(animalMap.occupiedPosition.values());
+
         for (ArrayList<WorldElement> animals : copy) {
 
             ArrayList<WorldElement> deepcopy = new ArrayList<>(animals);
-
             for (WorldElement animal : deepcopy) {
                 Animal castedAnimal = (Animal) animal;
-                castedAnimal.move();
+                if (test.get(castedAnimal) == null) {
+                    castedAnimal.move();
+                }
+                test.put(castedAnimal, 1);
             }
         }
         Collection <ArrayList<WorldElement>> copy2 = new ArrayList<>(animalMap.occupiedPosition.values());
@@ -288,7 +294,7 @@ public class SimulationEngine extends Thread implements IEngine {
 
         }
         spawnGrass(grassPerDay);
-        dayOfSimulation += 1;
+        statistics.update();
 
         // a day has passed so new data should be generated
         // gui uses this boolean to determine if it should

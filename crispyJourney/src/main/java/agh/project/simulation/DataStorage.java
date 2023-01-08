@@ -66,7 +66,7 @@ public class DataStorage {
         this.grassPopulation = grassPopulation;
         this.averageLifeLength = averageLifeLength;
         this.averageLifeLengthOnlyDead = averageLifeLengthOnlyDead;
-        this.averageEnergy = averageEnergy;
+//        this.averageEnergy = averageEnergy;
 
         this.aGen = gen.getGensList();
         this.aActualGenIndex = actualGenIndex;
@@ -90,7 +90,8 @@ public class DataStorage {
                                                             int height, int width){
 
         ArrayList<ArrayList<String>> stringMap = new ArrayList<>();
-
+        int animalCnt = 0;
+        int energyCnt = 0;
         for (int i = 0; i < height; i++){
 
             stringMap.add(new ArrayList<String>());
@@ -115,6 +116,10 @@ public class DataStorage {
                 if (animals.size() > 0){
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
+
+                        animalCnt+=1;
+                        energyCnt += animal.getEnergy();
+
                         representation += animal.toString() + ":" + animal.energy.toString();
                         if (animal.getActualGenom() == this.popularGenom) {
                             representation += ":" + "1" + " ";
@@ -134,6 +139,8 @@ public class DataStorage {
 
 
         }
+        if (animalCnt != 0) this.averageEnergy = (double)energyCnt/animalCnt;
+        else this.averageEnergy = 0;
         return stringMap;
     }
 
