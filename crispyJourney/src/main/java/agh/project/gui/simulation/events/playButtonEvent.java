@@ -17,11 +17,13 @@ public class playButtonEvent implements EventHandler<ActionEvent> {
         // this block is run when engine thread is running (or waiting between moves)
         // it pauses the engine thread
         if (simulationManager.getSimulationEngine().getState() == Thread.State.RUNNABLE || simulationManager.getSimulationEngine().getState() == Thread.State.TIMED_WAITING) {
+            simulationManager.paused = true;
             simulationManager.getSimulationEngine().running.set(false);
 
         // this block is run when engine thread was stopped while running
         // it unpauses the engine thread
         } else if (simulationManager.getSimulationEngine().getState() == Thread.State.WAITING) {
+            simulationManager.paused = false;
             synchronized (simulationManager.getSimulationEngine()) {
                 simulationManager.getSimulationEngine().notify();
             }

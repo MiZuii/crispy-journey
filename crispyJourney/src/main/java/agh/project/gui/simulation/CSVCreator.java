@@ -8,17 +8,19 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class CSVCreator {
-    private String filePath;
+
+    private final String filePath;
+
     public CSVCreator(String simulationName) {
         this.filePath = simulationName+"-data.csv";
-        deletePrevios(this.filePath);
-
+        deletePrevious(this.filePath);
     }
 
-    private void deletePrevios(String toBeDeleted){
+    private void deletePrevious(String toBeDeleted){
         File file = new File(toBeDeleted);
         file.delete();
     }
+
     public synchronized void addData(Statistics statistics) {
         String currentGrassNumber = String.valueOf(statistics.currentGrassNumber);
         String currentAnimalNumber = String.valueOf(statistics.currentAnimalNumber);
@@ -42,11 +44,5 @@ public class CSVCreator {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
-
-    public void saveFinal() {
-
-    }
-
 }

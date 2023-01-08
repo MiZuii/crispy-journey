@@ -23,6 +23,7 @@ public class SimulationManager implements WindowManager {
     private final boolean saveToCSV;
     private CSVCreator csvCreator;
     private SimulationRefresher simulationRefresher;
+    public boolean paused = false;
 
     public SimulationManager(App app, Population populationToSimulate, boolean saveToCSV){
         this.app = app;

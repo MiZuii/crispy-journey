@@ -17,10 +17,16 @@ public class Statistics {
     public double averageEnergy;
     public double averageLifeTime;
     private final int availableSpaces;
+    public int maxChildren = 0;
+    public int longestLife = 0;
+    public int mostEnergy = 0;
+    public int maxChildrenAnimal = -1;
+    public int mostEnergyAnimal = -1;
+    public int longestLifeAnimal = -1;
 
-    private AnimalFactory animalFactory;
-    private GrassFactory grassFactory;
-    private AnimalMap animalMap;
+    private final AnimalFactory animalFactory;
+    private final GrassFactory grassFactory;
+    private final AnimalMap animalMap;
     public Statistics(AnimalFactory animalFactory, GrassFactory grassFactory, int availableSpaces, AnimalMap animalMap){
         this.animalFactory = animalFactory;
         this.grassFactory = grassFactory;
@@ -31,7 +37,22 @@ public class Statistics {
     public double getAverageEnergy() {
         int avg = 0;
         int cnt = 0;
-        for(Animal animal : animalFactory.animals){
+        Collection<Animal> cpy = new ArrayList<>(animalFactory.animals);
+        for(Animal animal : cpy){
+
+            if (animal.getEnergy() > mostEnergy) {
+                mostEnergy = animal.getEnergy();
+                mostEnergyAnimal = animal.id;
+            }
+            if (animal.age > longestLife) {
+                longestLife = animal.age;
+                longestLifeAnimal = animal.id;
+            }
+            if (animal.children > maxChildren) {
+                maxChildren = animal.children;
+                maxChildrenAnimal = animal.id;
+            }
+
             avg+=animal.getEnergy();
             cnt++;
         }

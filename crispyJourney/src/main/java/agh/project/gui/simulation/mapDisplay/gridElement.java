@@ -1,9 +1,8 @@
 package agh.project.gui.simulation.mapDisplay;
 
 import agh.project.gui.simulation.SimulationManager;
-import agh.project.gui.simulation.SimulationScene;
 import agh.project.gui.simulation.events.gridElementClickedEvent;
-import javafx.scene.control.Label;
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -15,8 +14,10 @@ public class gridElement extends HBox {
     private String ID;
     private final int maxEnergyLevel;
     private final MapDisplay mapDisplay;
+    private final SimulationManager simulationManager;
 
     public gridElement(int row, int column, int animalMaxEnergyLevel, MapDisplay mapDisplay, SimulationManager simulationManager) {
+        this.simulationManager = simulationManager;
         this.maxEnergyLevel = animalMaxEnergyLevel;
         this.mapDisplay = mapDisplay;
 
@@ -42,10 +43,19 @@ public class gridElement extends HBox {
         }
     }
 
-    private void setDynamicStyle(int currentEnergy) {
+    private void setDynamicStyle(int currentEnergy, int lightUp) {
         double delta = 255/(double)maxEnergyLevel;
         int blueCoef = (int) Math.min(255.0, delta*currentEnergy);
-        this.setStyle("-fx-background-color: rgb(" + String.valueOf(255 - blueCoef) + ", 30, " + String.valueOf(blueCoef) + ", 1)");
+        if (lightUp==1){
+//            this.setStyle("-fx-background-color: linear-gradient(from 50% 70% to 50% 100%, rgb(" + String.valueOf(255 - blueCoef) + ", 50 ," + String.valueOf(blueCoef) + ", 1), rgb(255, 255, 255, 0.6));" +
+//                    "-fx-border-color: white;");
+            this.setStyle("-fx-background-color: radial-gradient(center 50% 50%, radius 130% , rgb(" + String.valueOf(255 - blueCoef) + ", 50 ," + String.valueOf(blueCoef) + ", 1), rgb(255, 255, 255, 0.4));" +
+                    "-fx-border-color: white;");
+        }
+        else {
+            this.setStyle("-fx-background-color: rgb(" + String.valueOf(255 - blueCoef) + ", 30 ," + String.valueOf(blueCoef) + ", 1);" +
+                    "-fx-border-color: black;");
+        }
     }
 
     public int getFirstAnimalID() {
@@ -66,15 +76,17 @@ public class gridElement extends HBox {
         ID = data;
 
         if (data.equals("G")){
-            this.setStyle("-fx-background-color: seagreen;");
+            this.setStyle("-fx-background-color: seagreen;" +
+                    "-fx-border-color: black;");
         }
         else if (data.isBlank()){
-            this.setStyle("-fx-background-color: lightgreen;");
+            this.setStyle("-fx-background-color: lightgreen;" +
+                    "-fx-border-color: black;");
         }
         else {
             String representation = data.split(" ")[0];
             String[] reprParts = representation.split(":");
-            setDynamicStyle(Integer.parseInt(reprParts[1]));
+            setDynamicStyle(Integer.parseInt(reprParts[1]), (simulationManager.paused ? Integer.parseInt(reprParts[2]) : 0));
         }
     }
 }
