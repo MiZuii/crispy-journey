@@ -12,7 +12,8 @@ public class CSVCreator {
     private final String filePath;
 
     public CSVCreator(String simulationName) {
-        this.filePath = simulationName+"-data.csv";
+        this.filePath = System.getProperty("user.dir") +
+                "\\src\\main\\resources\\csv_results\\" + simulationName+"-data.csv";
         deletePrevious(this.filePath);
     }
 
