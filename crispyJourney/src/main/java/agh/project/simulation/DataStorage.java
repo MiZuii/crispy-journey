@@ -44,6 +44,7 @@ public class DataStorage {
                        double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy,
                        Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children) {
 
+        this.popularGenom = popularGenom;
         this.simulationDay = simulationDay;
         this.populationSize = populationSize;
         this.freeSquares = 0;
@@ -51,7 +52,6 @@ public class DataStorage {
         this.grassPopulation = grassPopulation;
         this.averageLifeLength = averageLifeLength;
         this.averageLifeLengthOnlyDead = averageLifeLengthOnlyDead;
-        this.popularGenom = popularGenom;
         this.averageEnergy = averageEnergy;
 
         this.aGen = gen.getGensList();
@@ -104,7 +104,6 @@ public class DataStorage {
                         representation += animal.toString() + ":" + animal.energy.toString();
                         if (animal.getActualGenom() == this.popularGenom) representation += ":" + "1" + " ";
                         else representation += ":" + "0" + " ";
-
                     }
                 }
                 else if (grasses.size() > 0){
