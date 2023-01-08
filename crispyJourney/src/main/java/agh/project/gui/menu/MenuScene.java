@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -115,6 +116,15 @@ public class MenuScene implements SceneCreator {
         // population container
         populationsContainer.setMaxWidth(600);
         VBox.setVgrow(populationsContainer, Priority.ALWAYS);
+
+        // population boxes
+        for (Node box : new ArrayList<Node>(populationsContainer.getChildren())) {
+            if (!(box instanceof MenuPopulationBox)) {continue;}
+            MenuPopulationBox menuBox = (MenuPopulationBox) box;
+            if (menuBox.getPopulation().isDefault) {
+                menuBox.toBack();
+            }
+        }
 
         // add population button
         addPopulationButton.setPadding(new Insets(10, 10, 10, 10));

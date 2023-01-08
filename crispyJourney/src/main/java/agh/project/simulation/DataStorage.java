@@ -36,18 +36,31 @@ public class DataStorage {
     private int aDeathDate;
     private int simulationDay;
     private int aChildren;
+    private int maxEnergy;
+    private int maxEnergyAnimal;
+    private int longestLife;
+    private int longestLifeAnimal;
+    private int mostChildren;
+    private int mostChildrenAnimal;
 
 
 
 
     public DataStorage(int simulationDay, int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
                        double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy,
-                       Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children) {
+                       Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children, int maxEnergy,
+                       int maxEnergyAnimal,  int longestLife, int longestLifeAnimal, int mostChildren, int mostChildrenAnimal) {
 
-        this.popularGenom = popularGenom;
+        this.maxEnergyAnimal = maxEnergyAnimal;
+        this.maxEnergy = maxEnergy;
+        this.longestLife = longestLife;
+        this.longestLifeAnimal = longestLifeAnimal;
+        this.mostChildren = mostChildren;
+        this.mostChildrenAnimal = mostChildrenAnimal;
         this.simulationDay = simulationDay;
         this.populationSize = populationSize;
         this.freeSquares = 0;
+        this.popularGenom = popularGenom;
         this.map = mapData(animalMap,grassMap,height,width);
         this.grassPopulation = grassPopulation;
         this.averageLifeLength = averageLifeLength;
@@ -102,15 +115,20 @@ public class DataStorage {
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
                         representation += animal.toString() + ":" + animal.energy.toString();
-                        if (animal.getActualGenom() == this.popularGenom) representation += ":" + "1" + " ";
-                        else representation += ":" + "0" + " ";
+                        if (animal.getActualGenom() == this.popularGenom) {
+                            representation += ":" + "1" + " ";
+                        }
+                        else {
+                            representation += ":" + "0" + " ";
+                        }
+
                     }
                 }
                 else if (grasses.size() > 0){
                     representation += "G";
                 }
                 stringMap.get(i).add(representation);
-                if (representation.length() == 0) this.freeSquares += 1;
+                if (representation.isBlank()) this.freeSquares += 1;
             }
 
 
@@ -173,5 +191,17 @@ public class DataStorage {
 
     public int getDeathDate() {
         return aDeathDate;
+    }
+
+    public String getMaxEnergy() {
+        return String.valueOf(maxEnergy) + " (" + String.valueOf(maxEnergyAnimal) + ")";
+    }
+
+    public String getMostChildren() {
+        return String.valueOf(mostChildren) + " (" + String.valueOf(mostChildrenAnimal) + ")";
+    }
+
+    public String getLongestLife() {
+        return String.valueOf(longestLife) + " (" + String.valueOf(longestLifeAnimal) + ")";
     }
 }

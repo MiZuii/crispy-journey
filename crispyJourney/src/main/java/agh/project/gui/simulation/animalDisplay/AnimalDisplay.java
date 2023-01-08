@@ -15,6 +15,17 @@ public class AnimalDisplay extends VBox implements Updateable {
 
     private Label title;
     private HBox titleBox;
+    private Label title2;
+    private HBox title2Box;
+    private Label maxEnergy;
+    private Label maxEnergyData;
+    private HBox maxEnergyBox;
+    private Label mostChildren;
+    private Label mostChildrenData;
+    private HBox mostChildrenBox;
+    private Label longestLife;
+    private Label longestLifeData;
+    private HBox longestLifeBox;
     private Label genome;
     private Label genomeData;
     private HBox genomeBox;
@@ -51,6 +62,24 @@ public class AnimalDisplay extends VBox implements Updateable {
         title = new Label("Animal information");
         titleBox = new HBox(title);
 
+        title2 = new Label("Animal statistics");
+        title2Box = new HBox(title2);
+
+        maxEnergy = new Label("Maximum energy: ");
+        maxEnergyData = new Label("");
+        maxEnergyBox = new HBox();
+        maxEnergyBox.getChildren().addAll(maxEnergy, maxEnergyData);
+
+        mostChildren = new Label("Most children: ");
+        mostChildrenData = new Label("");
+        mostChildrenBox = new HBox();
+        mostChildrenBox.getChildren().addAll(mostChildren, mostChildrenData);
+
+        longestLife = new Label("Longest life: ");
+        longestLifeData = new Label("");
+        longestLifeBox = new HBox();
+        longestLifeBox.getChildren().addAll(longestLife, longestLifeData);
+
         genome = new Label("Genes: ");
         genomeData = new Label("");
         genomeBox = new HBox();
@@ -86,7 +115,7 @@ public class AnimalDisplay extends VBox implements Updateable {
         animalIDBox = new HBox();
         animalIDBox.getChildren().addAll(animalID, animalIDData);
 
-        this.getChildren().addAll(titleBox, animalIDBox, genomeBox, genomeActivedBox, energyBox, grassEatenBox, numberOfChildrenBox, lifeLengthBox);
+        this.getChildren().addAll(titleBox, animalIDBox, genomeBox, genomeActivedBox, energyBox, grassEatenBox, numberOfChildrenBox, lifeLengthBox, title2Box, maxEnergyBox, mostChildrenBox, longestLifeBox);
     }
 
     private void addStyle() {
@@ -95,6 +124,14 @@ public class AnimalDisplay extends VBox implements Updateable {
             this.getStyleClass().add("root");
             title.getStyleClass().add("title");
             titleBox.getStyleClass().add("root");
+            title2.getStyleClass().add("title");
+            title2Box.getStyleClass().add("root2");
+            maxEnergy.getStyleClass().add("info");
+            maxEnergyData.getStyleClass().add("data");
+            mostChildren.getStyleClass().add("info");
+            mostChildrenData.getStyleClass().add("data");
+            longestLife.getStyleClass().add("info");
+            longestLifeData.getStyleClass().add("data");
             genome.getStyleClass().add("info");
             genomeData.getStyleClass().add("data");
             genomeActived.getStyleClass().add("info");
@@ -139,5 +176,8 @@ public class AnimalDisplay extends VBox implements Updateable {
             this.numberOfChildrenData.setText("");
             this.lifeLengthData.setText("");
         }
+        this.maxEnergyData.setText(String.valueOf(data.getMaxEnergy()));
+        this.mostChildrenData.setText(String.valueOf(data.getMostChildren()));
+        this.longestLifeData.setText(String.valueOf(data.getLongestLife()));
     }
 }

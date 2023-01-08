@@ -218,12 +218,14 @@ public class SimulationEngine extends Thread implements IEngine {
                     this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
                     statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy, selectedAnimal.getGen(),
                     selectedAnimal.getGen().getActualGen(), selectedAnimal.energy, selectedAnimal.grassEaten,
-                    selectedAnimal.age, selectedAnimal.deathDay, selectedAnimal.children);
+                    selectedAnimal.age, selectedAnimal.deathDay, selectedAnimal.children, statistics.mostEnergy, statistics.mostEnergyAnimal, statistics.longestLife, statistics.longestLifeAnimal,
+                    statistics.maxChildren, statistics.maxChildrenAnimal);
         }
         return new DataStorage(this.dayOfSimulation, this.animalFactory.liveAnimal, this.grassFactory.liveGrass, this.animalMap,
                 this.grassMap, this.height, this.width, statistics.getAverageLifeTime(), statistics.getAverageLifeTimeDeath(),
                 statistics.getCurrentMostPopularGenotype(), statistics.averageEnergy,new Gen(new ArrayList<>(List.of(Rotation.F))), -1, new Energy(-1),
-                -1,-1,-1,-1);
+                -1,-1,-1,-1, statistics.mostEnergy, statistics.mostEnergyAnimal, statistics.longestLife, statistics.longestLifeAnimal,
+                statistics.maxChildren, statistics.maxChildrenAnimal);
     }
 
     public synchronized DataStorage getAnimalData(int id){
@@ -234,6 +236,7 @@ public class SimulationEngine extends Thread implements IEngine {
     private synchronized void pause(){
         if (!this.running.get()) {
             try {
+                newDataToReceive.set(true);
                 this.wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException();
