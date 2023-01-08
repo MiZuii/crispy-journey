@@ -101,7 +101,10 @@ public class DataStorage {
                 if (animals.size() > 0){
                     for (WorldElement worldElement: animals){
                         Animal animal = (Animal) worldElement;
-                        representation += animal.toString() + ":" + animal.energy.toString() + " ";
+                        representation += animal.toString() + ":" + animal.energy.toString();
+                        if (animal.getActualGenom() == this.popularGenom) representation += ":" + "1" + " ";
+                        else representation += ":" + "0" + " ";
+
                     }
                 }
                 else if (grasses.size() > 0){

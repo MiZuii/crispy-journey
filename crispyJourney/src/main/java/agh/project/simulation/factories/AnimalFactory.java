@@ -66,6 +66,10 @@ public class AnimalFactory {
         this.liveAnimal += 1;
         this.actualIndex += 1;
 
+//        Increment child counter
+        parent1.children += 1;
+        parent2.children += 1;
+
 //        The child is turned to a random side
         int pick = new Random().nextInt(Direction.values().length);
         Direction direction = Direction.values()[pick];

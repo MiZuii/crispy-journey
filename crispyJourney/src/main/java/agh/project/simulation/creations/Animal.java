@@ -1,6 +1,7 @@
 package agh.project.simulation.creations;
 
 import agh.project.enumerators.Direction;
+import agh.project.enumerators.Rotation;
 import agh.project.interfaces.WorldElement;
 import agh.project.simulation.Constants;
 import agh.project.simulation.DataStorage;
@@ -142,5 +143,9 @@ public int compareTo(Object o) {
     public DataStorage toDataStorage(){
         return new DataStorage(this.gen, this.gen.getActualGen(), this.energy, this.grassEaten, this.age,
                 this.deathDay, this.children);
+    }
+
+    public Rotation getActualGenom(){
+        return this.gen.getNextRotation();
     }
 }
