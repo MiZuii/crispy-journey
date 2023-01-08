@@ -45,16 +45,39 @@ public class Gen {
     }
 
     private void mutation(Gen gen) {
-        int mutationNumber = ThreadLocalRandom.current().nextInt(0, constants.mutationNumber + 1);
+        if (constants.mutationVariant){ //Change gen only for one up or one down
+            int mutationNumber = ThreadLocalRandom.current().nextInt(0, constants.mutationNumber + 1);
 
-        ArrayList<Rotation> genList = gen.getGensList();
+            ArrayList<Rotation> genList = gen.getGensList();
 
-        for (int i = 0; i < mutationNumber; i++) {
-            int pick = new Random().nextInt(Rotation.values().length);
-            Rotation newGen = Rotation.values()[pick];
+            for(int i = 0; i < mutationNumber; i++){
+                int index = ThreadLocalRandom.current().nextInt(0, this.constants.genNumber);
 
-            int index = ThreadLocalRandom.current().nextInt(0, this.constants.genNumber);
-            genList.set(index, newGen);
+                if (new Random().nextBoolean()){ //+1
+                    int actualGenIndex = genList.get(index).ordinal();
+                    Rotation newGen = Rotation.values()[(actualGenIndex + 1) % 8];
+                    genList.set(index,newGen);
+                }
+                else{
+                    int actualGenIndex = genList.get(index).ordinal();
+                    Rotation newGen = Rotation.values()[(actualGenIndex - 1 + 8) % 8];
+                    genList.set(index, newGen);
+                }
+
+            }
+        }
+        else {
+            int mutationNumber = ThreadLocalRandom.current().nextInt(0, constants.mutationNumber + 1);
+
+            ArrayList<Rotation> genList = gen.getGensList();
+
+            for (int i = 0; i < mutationNumber; i++) {
+                int pick = new Random().nextInt(Rotation.values().length);
+                Rotation newGen = Rotation.values()[pick];
+
+                int index = ThreadLocalRandom.current().nextInt(0, this.constants.genNumber);
+                genList.set(index, newGen);
+            }
         }
     }
 

@@ -48,8 +48,9 @@ public class DataStorage {
 
     public DataStorage(int simulationDay, int populationSize, int grassPopulation, AnimalMap animalMap, GrassMap grassMap, int height, int width,
                        double averageLifeLength, double averageLifeLengthOnlyDead, Rotation popularGenom, double averageEnergy,
-                       Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children, int maxEnergy,
-                       int maxEnergyAnimal,  int longestLife, int longestLifeAnimal, int mostChildren, int mostChildrenAnimal) {
+                       Gen gen, int actualGenIndex, Energy energy, int plantEaten, int liveLength, int deathDate, int children,
+                       int maxEnergy, int maxEnergyAnimal,  int longestLife, int longestLifeAnimal, int mostChildren,
+                       int mostChildrenAnimal) {
 
         this.maxEnergyAnimal = maxEnergyAnimal;
         this.maxEnergy = maxEnergy;

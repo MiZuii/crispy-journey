@@ -18,8 +18,10 @@ public class Constants {
     public int mutationNumber;
     public boolean chaoticGen;
 
+    public boolean mutationVariant;
 
-    public Constants(AnimalMap animalMap, AnimalFactory animalFactory, int oneDayLost, int reproduceEnergy, int reproduceBoundary, int genNumber, int mutationNumber, boolean chaoticGen) {
+    public Constants(AnimalMap animalMap, AnimalFactory animalFactory, int oneDayLost, int reproduceEnergy, int reproduceBoundary, int genNumber, int mutationNumber, boolean chaoticGen,
+                     boolean mutationVariant) {
         this.animalMap = animalMap;
         this.animalFactory = animalFactory;
         this.oneDayLost = oneDayLost;
@@ -28,5 +30,6 @@ public class Constants {
         this.genNumber = genNumber;
         this.mutationNumber = mutationNumber;
         this.chaoticGen = chaoticGen;
+        this.mutationVariant = mutationVariant;
     }
 }

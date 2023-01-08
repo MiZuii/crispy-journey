@@ -53,6 +53,8 @@ public class Statistics {
                 maxChildrenAnimal = animal.id;
             }
 
+            //Animal is dead
+            if (animal.deathDay == -1) continue;
             avg+=animal.getEnergy();
             cnt++;
         }
@@ -102,6 +104,8 @@ public class Statistics {
         Integer[] genArray = new Integer[]{0, 0, 0, 0, 0, 0, 0, 0};
         Collection<Animal> cpy = new ArrayList<>(animalFactory.animals);
         for(Animal animal : cpy){
+            //Animal is dead
+            if(animal.deathDay == -1) continue;
             for(Rotation gen : animal.getGen().getGensList()){
                 genArray[Rotation.valueOf(gen.name()).ordinal()] += 1;
             }
