@@ -148,7 +148,7 @@ public class PopulationScene implements SceneCreator {
     private void createBooleanInputs() {
         InputRowBoolean row1 = new InputRowBoolean("Partially random moves", SCENE_WIDTH);
         booleanInputs.add(row1);
-        InputRowBoolean row2 = new InputRowBoolean("Random mutation (unchangeable)", SCENE_WIDTH);
+        InputRowBoolean row2 = new InputRowBoolean("Random mutation", SCENE_WIDTH);
         booleanInputs.add(row2);
         InputRowBoolean row3 = new InputRowBoolean("Round/Hell (uncheck/check)", SCENE_WIDTH);
         booleanInputs.add(row3);
