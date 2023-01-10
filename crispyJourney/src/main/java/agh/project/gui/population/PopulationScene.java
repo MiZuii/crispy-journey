@@ -21,7 +21,7 @@ import java.util.Objects;
 public class PopulationScene implements SceneCreator {
 
     private static final double SCENE_WIDTH = 500;
-    private static final double SCENE_HEIGHT = 540;
+    private static final double SCENE_HEIGHT = 550;
 
     private Scene populationScene;
     private VBox root;
