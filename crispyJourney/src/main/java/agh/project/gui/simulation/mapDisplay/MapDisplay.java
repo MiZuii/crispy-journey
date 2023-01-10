@@ -108,7 +108,7 @@ public class MapDisplay extends VBox implements Updateable {
 
         for (int row=0; row < population.mapHeight; row++) {
             for (int column=0; column < population.mapWidth; column ++) {
-                String tmp = map.get(column).get(row);
+                String tmp = map.get(row).get(column);
 
                 if (!tmp.equals(elementsMap[row][column].toString()) || simulationManager.paused) {
                     elementsMap[row][column].update(tmp);

@@ -104,12 +104,12 @@ public class DataStorage {
                 ArrayList<WorldElement> grasses = new ArrayList<>();
 
                 try{
-                    animals = new ArrayList<>(animalMap.occupiedPosition.get(new Vector2d(i, j)));
+                    animals = new ArrayList<>(animalMap.occupiedPosition.get(new Vector2d(j, i)));
                 }
                 catch(NullPointerException | ConcurrentModificationException ignored) {}
 
                 try {
-                    grasses = new ArrayList<>(grassMap.occupiedPosition.get(new Vector2d(i, j)));
+                    grasses = new ArrayList<>(grassMap.occupiedPosition.get(new Vector2d(j, i)));
                 }
                 catch(NullPointerException | ConcurrentModificationException ignored) {}
 
